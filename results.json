@@ -1,5 +1,78 @@
 {
-  "updated": null,
-  "count": 0,
-  "matches": []
+  "updated": "2026-06-14T10:21:46.944Z",
+  "count": 8,
+  "matches": [
+    {
+      "stage": "GROUP_STAGE",
+      "group": "GROUP_A",
+      "status": "FINISHED",
+      "home": "Mexico",
+      "away": "South Africa",
+      "homeScore": 2,
+      "awayScore": 0
+    },
+    {
+      "stage": "GROUP_STAGE",
+      "group": "GROUP_A",
+      "status": "FINISHED",
+      "home": "Korea Republic",
+      "away": "Czechia",
+      "homeScore": 2,
+      "awayScore": 1
+    },
+    {
+      "stage": "GROUP_STAGE",
+      "group": "GROUP_B",
+      "status": "FINISHED",
+      "home": "Canada",
+      "away": "Bosnia-Herzegovina",
+      "homeScore": 1,
+      "awayScore": 1
+    },
+    {
+      "stage": "GROUP_STAGE",
+      "group": "GROUP_D",
+      "status": "FINISHED",
+      "home": "United States",
+      "away": "Paraguay",
+      "homeScore": 4,
+      "awayScore": 1
+    },
+    {
+      "stage": "GROUP_STAGE",
+      "group": "GROUP_B",
+      "status": "FINISHED",
+      "home": "Qatar",
+      "away": "Switzerland",
+      "homeScore": 1,
+      "awayScore": 1
+    },
+    {
+      "stage": "GROUP_STAGE",
+      "group": "GROUP_C",
+      "status": "FINISHED",
+      "home": "Brazil",
+      "away": "Morocco",
+      "homeScore": 1,
+      "awayScore": 1
+    },
+    {
+      "stage": "GROUP_STAGE",
+      "group": "GROUP_C",
+      "status": "FINISHED",
+      "home": "Haiti",
+      "away": "Scotland",
+      "homeScore": 0,
+      "awayScore": 1
+    },
+    {
+      "stage": "GROUP_STAGE",
+      "group": "GROUP_D",
+      "status": "FINISHED",
+      "home": "Australia",
+      "away": "Türkiye",
+      "homeScore": 2,
+      "awayScore": 0
+    }
+  ]
 }
