@@ -1,6 +1,6 @@
 {
-  "updated": "2026-06-14T19:11:37.379Z",
-  "count": 9,
+  "updated": "2026-06-14T20:45:04.968Z",
+  "count": 10,
   "matches": [
     {
       "stage": "GROUP_STAGE",
@@ -82,6 +82,15 @@
       "away": "Curaçao",
       "homeScore": 7,
       "awayScore": 1
+    },
+    {
+      "stage": "GROUP_STAGE",
+      "group": "GROUP_F",
+      "status": "IN_PLAY",
+      "home": "Netherlands",
+      "away": "Japan",
+      "homeScore": 0,
+      "awayScore": 0
     }
   ]
 }
