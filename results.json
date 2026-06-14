@@ -1,6 +1,6 @@
 {
-  "updated": "2026-06-14T16:16:57.654Z",
-  "count": 8,
+  "updated": "2026-06-14T17:55:02.637Z",
+  "count": 9,
   "matches": [
     {
       "stage": "GROUP_STAGE",
@@ -73,6 +73,15 @@
       "away": "Türkiye",
       "homeScore": 2,
       "awayScore": 0
+    },
+    {
+      "stage": "GROUP_STAGE",
+      "group": "GROUP_E",
+      "status": "IN_PLAY",
+      "home": "Germany",
+      "away": "Curaçao",
+      "homeScore": 2,
+      "awayScore": 1
     }
   ]
 }
