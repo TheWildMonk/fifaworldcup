@@ -239,6 +239,34 @@
 
   .group-host { font-size: 10px; color: var(--accent2); font-weight: 600; letter-spacing: 0.5px; background: rgba(200,168,75,0.15); padding: 2px 8px; border-radius: 4px; }
 
+  /* Live-match glow: highlights the group card/header while a match in it is live */
+  .group-card.group-live {
+    border-color: var(--red);
+    animation: groupLivePulse 1.6s ease-in-out infinite;
+  }
+
+  @keyframes groupLivePulse {
+    0%, 100% { box-shadow: 0 0 0 1px rgba(239,68,68,0.55), 0 0 12px rgba(239,68,68,0.30); }
+    50%      { box-shadow: 0 0 0 1px rgba(239,68,68,0.90), 0 0 26px rgba(239,68,68,0.60); }
+  }
+
+  .group-live-badge {
+    display: none;
+    margin-left: 8px;
+    font-family: 'Inter', sans-serif;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    color: #fff;
+    background: var(--red);
+    padding: 2px 7px;
+    border-radius: 10px;
+    vertical-align: middle;
+    animation: pulse 1.4s infinite;
+  }
+
+  .group-card.group-live .group-live-badge { display: inline-block; }
+
   /* STANDINGS TABLE */
   .standings {
     width: 100%;
@@ -1338,7 +1366,7 @@ function renderGroups() {
 
     card.innerHTML = `
       <div class="group-header accordion-toggle" onclick="toggleAccordion('group-body-${g.id}')">
-        <span class="group-name">Group ${g.id}</span>
+        <span class="group-name">Group ${g.id}<span class="group-live-badge" id="group-live-${g.id}">🔴 LIVE</span></span>
         <span class="accordion-arrow" id="group-body-${g.id}_arrow">▼</span>
       </div>
       <div class="accordion-body" id="group-body-${g.id}">
@@ -1866,12 +1894,15 @@ function formatBD(isoUTC) {
 
 function updateAllCountdowns() {
   const now = Date.now();
+  const liveGroups = new Set();
   for (const [key, isoUTC] of Object.entries(MATCH_TIMES)) {
     const el = document.getElementById('cd_' + key);
     if (!el) continue;
     const target = new Date(isoUTC).getTime();
     const diff = target - now;
     const MATCH_DURATION = 2 * 3600 * 1000; // ~2hr window treated as live
+
+    if (diff <= 0 && diff > -MATCH_DURATION) liveGroups.add(key.split('_')[0]);
 
     if (diff > 0) {
       const days = Math.floor(diff / 86400000);
@@ -1894,6 +1925,12 @@ function updateAllCountdowns() {
       el.className = 'countdown done';
     }
   }
+
+  // Glow the group cards that currently have a live match.
+  GROUPS.forEach(g => {
+    const card = document.getElementById('group-card-' + g.id);
+    if (card) card.classList.toggle('group-live', liveGroups.has(g.id));
+  });
 }
 
 setInterval(updateAllCountdowns, 1000);
