@@ -1,5 +1,5 @@
 {
-  "updated": "2026-06-14T17:55:02.637Z",
+  "updated": "2026-06-14T19:11:37.379Z",
   "count": 9,
   "matches": [
     {
@@ -77,10 +77,10 @@
     {
       "stage": "GROUP_STAGE",
       "group": "GROUP_E",
-      "status": "IN_PLAY",
+      "status": "FINISHED",
       "home": "Germany",
       "away": "Curaçao",
-      "homeScore": 2,
+      "homeScore": 7,
       "awayScore": 1
     }
   ]
