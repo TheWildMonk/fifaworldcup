@@ -656,6 +656,28 @@
     color: var(--muted);
   }
 
+  .sync-status {
+    font-size: 11px;
+    color: var(--muted);
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 8px 12px;
+    margin-bottom: 16px;
+    letter-spacing: 0.3px;
+  }
+
+  /* Score cells filled automatically from the live feed (not yet user-overridden) */
+  .score-input.auto-filled {
+    border-color: var(--green);
+    background: rgba(34,197,94,0.10);
+    color: var(--green);
+  }
+  .score-input.auto-filled:focus {
+    border-color: var(--accent);
+    color: var(--text);
+  }
+
   .legend-item { display: flex; align-items: center; gap: 6px; }
   .legend-dot { width: 10px; height: 10px; border-radius: 2px; }
   .legend-dot.q { background: rgba(34,197,94,0.5); }
@@ -781,6 +803,7 @@
     <div class="legend-item"><div class="legend-dot t"></div> Possible 3rd</div>
     <div class="legend-item"><div class="legend-dot e"></div> Eliminated</div>
   </div>
+  <div class="sync-status" id="sync-status">🔄 Live sync on — checking for results…</div>
   <div class="groups-grid" id="groups-container"></div>
 </div>
 
@@ -1056,6 +1079,8 @@ function getMatchPairs(teams) {
 // State
 let scores = {}; // key: "A_Mexico_SouthAfrica" -> {h:null,a:null}
 let koScores = {}; // key: "round_matchIndex" -> {a:null,b:null}
+let manualKeys = {}; // scoreKey -> true: user edited this match, so live sync won't overwrite it
+let autoKeys = {};   // scoreKey -> true: this match was auto-filled from the live feed (in-memory only)
 let knockoutTeams = {
   r32: Array(32).fill(null),  // 16 matches -> winner slots
   r16: Array(16).fill(null),
@@ -1075,7 +1100,7 @@ const STORAGE_KEY = 'fifa2026_tracker_state';
 
 function saveState() {
   try {
-    const state = { scores, koScores, knockoutTeams };
+    const state = { scores, koScores, knockoutTeams, manualKeys };
     localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
   } catch (e) {
     console.warn('Could not save state:', e);
@@ -1105,6 +1130,7 @@ function loadState() {
     const state = JSON.parse(raw);
     if (state.scores) scores = state.scores;
     if (state.koScores) koScores = state.koScores;
+    if (state.manualKeys) manualKeys = state.manualKeys;
     knockoutTeams = mergeKnockoutTeams(state.knockoutTeams);
     return true;
   } catch (e) {
@@ -1114,7 +1140,7 @@ function loadState() {
 }
 
 function exportState() {
-  const state = { scores, koScores, knockoutTeams };
+  const state = { scores, koScores, knockoutTeams, manualKeys };
   const blob = new Blob([JSON.stringify(state, null, 2)], {type:'application/json'});
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
@@ -1137,6 +1163,7 @@ function importState(event) {
       const state = JSON.parse(e.target.result);
       if (state.scores) scores = state.scores;
       if (state.koScores) koScores = state.koScores;
+      if (state.manualKeys) manualKeys = state.manualKeys;
       if (state.knockoutTeams) knockoutTeams = mergeKnockoutTeams(state.knockoutTeams);
       saveState();
       renderGroups();
@@ -1160,6 +1187,68 @@ function getScore(gid, t1, t2) {
   const k = scoreKey(gid,t1,t2);
   if (!scores[k]) scores[k] = {h:null,a:null};
   return scores[k];
+}
+
+// ─── LIVE RESULTS SYNC ───────────────────────────────────────────────────────
+// Pulls results.json (refreshed by a scheduled GitHub Action) and auto-fills group
+// scores. User-edited matches (manualKeys) are never overwritten.
+
+const RESULTS_URL = 'results.json';
+let lastSyncInfo = { updated: null, applied: 0 };
+
+// Index: team name -> { group id, index within group } for canonical pair ordering.
+const TEAM_TO_GROUP = {};
+GROUPS.forEach(g => g.teams.forEach((t, idx) => { TEAM_TO_GROUP[t] = { id: g.id, idx }; }));
+
+async function fetchLiveResults(notify) {
+  let data;
+  try {
+    const res = await fetch(RESULTS_URL, { cache: 'no-store' });
+    if (!res.ok) return;
+    data = await res.json();
+  } catch (e) {
+    console.warn('Live sync failed:', e);
+    return;
+  }
+  if (!data || !Array.isArray(data.matches)) return;
+
+  let applied = 0;
+  data.matches.forEach(m => {
+    if (m.stage && m.stage !== 'GROUP_STAGE') return; // group stage only for now
+    const ga = TEAM_TO_GROUP[m.home];
+    const gb = TEAM_TO_GROUP[m.away];
+    if (!ga || !gb || ga.id !== gb.id) return; // unknown team(s) or cross-group: skip
+
+    // Canonical order = order within the group's team list (matches getMatchPairs).
+    let t1, t2, s1, s2;
+    if (ga.idx < gb.idx) { t1 = m.home; t2 = m.away; s1 = m.homeScore; s2 = m.awayScore; }
+    else                 { t1 = m.away; t2 = m.home; s1 = m.awayScore; s2 = m.homeScore; }
+
+    const k = scoreKey(ga.id, t1, t2);
+    if (manualKeys[k]) return;           // user override wins
+    autoKeys[k] = true;
+    const cur = scores[k] || {h:null,a:null};
+    if (cur.h === s1 && cur.a === s2) return; // already up to date
+    scores[k] = { h: s1, a: s2 };
+    applied++;
+  });
+
+  lastSyncInfo = { updated: data.updated, applied };
+  if (applied > 0) { saveState(); renderGroups(); }
+  updateSyncStatus();
+  if (notify && applied > 0) showToast(`Synced ${applied} live result${applied > 1 ? 's' : ''}.`);
+}
+
+function updateSyncStatus() {
+  const el = document.getElementById('sync-status');
+  if (!el) return;
+  if (!lastSyncInfo.updated) {
+    el.innerHTML = '🔄 Live sync on — waiting for the first published result.';
+    return;
+  }
+  const d = new Date(lastSyncInfo.updated);
+  el.innerHTML = '🔄 Auto-synced from live results · last update ' +
+    (isNaN(d.getTime()) ? '—' : d.toLocaleString());
 }
 
 // ─── STANDINGS CALCULATION ───────────────────────────────────────────────────
@@ -1226,6 +1315,8 @@ function renderGroups() {
       const bdStr = formatBD(matchTime);
       const cdId = MATCH_TIMES[mtKey] ? mtKey : mtKeyRev;
       const venue = VENUES[cdId] || '';
+      const autoCls = (autoKeys[k] && !manualKeys[k]) ? ' auto-filled' : '';
+      const autoTip = autoCls ? ' title="Auto-filled from live results — edit to override"' : '';
       return `
         <div class="match-meta">
           <span class="bd-time">🇧🇩 ${bdStr}</span>
@@ -1234,11 +1325,11 @@ function renderGroups() {
         <div class="match-venue">📍 ${venue}</div>
         <div class="match-row">
           <span class="match-team" title="${t1}">${FLAGS[t1]||''} ${t1}</span>
-          <input class="score-input" type="number" min="0" max="99" value="${hv}"
+          <input class="score-input${autoCls}" type="number" min="0" max="99" value="${hv}"${autoTip}
             placeholder="–" onchange="updateScore('${g.id}','${t1}','${t2}','h',this.value)"
             oninput="updateScore('${g.id}','${t1}','${t2}','h',this.value)">
           <span class="score-sep">:</span>
-          <input class="score-input" type="number" min="0" max="99" value="${av}"
+          <input class="score-input${autoCls}" type="number" min="0" max="99" value="${av}"${autoTip}
             placeholder="–" onchange="updateScore('${g.id}','${t1}','${t2}','a',this.value)"
             oninput="updateScore('${g.id}','${t1}','${t2}','a',this.value)">
           <span class="match-team right" title="${t2}">${t2} ${FLAGS[t2]||''}</span>
@@ -1279,6 +1370,11 @@ function updateScore(gid, t1, t2, side, val) {
   const k = scoreKey(gid,t1,t2);
   if (!scores[k]) scores[k] = {h:null,a:null};
   scores[k][side] = val === '' ? null : parseInt(val);
+  // A user edit takes ownership of this match so the live feed won't overwrite it.
+  // If both sides are cleared, release it back to live sync.
+  delete autoKeys[k];
+  if (scores[k].h == null && scores[k].a == null) delete manualKeys[k];
+  else manualKeys[k] = true;
   saveState();
   // Re-render only this group card standings
   const card = document.getElementById(`group-card-${gid}`);
@@ -1812,6 +1908,10 @@ renderSF();
 renderFinal();
 renderBronze();
 updateAllCountdowns();
+
+// Live results: sync now, then refresh every 5 minutes while the app is open.
+fetchLiveResults(false);
+setInterval(() => fetchLiveResults(true), 5 * 60 * 1000);
 
 // Register service worker for offline support + PWA installability.
 if ('serviceWorker' in navigator) {

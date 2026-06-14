@@ -2,3 +2,10 @@ node_modules/
 package.json
 package-lock.json
 make-icons.js
+
+# Never commit signing secrets or the generated Android package
+WC2026 Tracker - Google Play package/
+*.keystore
+signing-key-info.txt
+*.aab
+*.apk
