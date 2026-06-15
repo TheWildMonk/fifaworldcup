@@ -1,6 +1,6 @@
 {
-  "updated": "2026-06-15T14:59:04.006Z",
-  "count": 12,
+  "updated": "2026-06-15T19:04:45.472Z",
+  "count": 13,
   "matches": [
     {
       "stage": "GROUP_STAGE",
@@ -109,6 +109,15 @@
       "away": "Tunisia",
       "homeScore": 5,
       "awayScore": 1
+    },
+    {
+      "stage": "GROUP_STAGE",
+      "group": "GROUP_H",
+      "status": "FINISHED",
+      "home": "Spain",
+      "away": "Cape Verde Islands",
+      "homeScore": 0,
+      "awayScore": 0
     }
   ]
 }
