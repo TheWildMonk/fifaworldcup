@@ -1,5 +1,5 @@
 {
-  "updated": "2026-06-15T02:52:13.305Z",
+  "updated": "2026-06-15T08:52:27.313Z",
   "count": 12,
   "matches": [
     {
@@ -104,10 +104,10 @@
     {
       "stage": "GROUP_STAGE",
       "group": "GROUP_F",
-      "status": "IN_PLAY",
+      "status": "FINISHED",
       "home": "Sweden",
       "away": "Tunisia",
-      "homeScore": 2,
+      "homeScore": 5,
       "awayScore": 1
     }
   ]
