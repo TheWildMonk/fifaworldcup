@@ -1,6 +1,6 @@
 {
-  "updated": "2026-06-15T21:59:36.874Z",
-  "count": 13,
+  "updated": "2026-06-15T23:48:54.358Z",
+  "count": 15,
   "matches": [
     {
       "stage": "GROUP_STAGE",
@@ -18,6 +18,15 @@
       "home": "Korea Republic",
       "away": "Czechia",
       "homeScore": 2,
+      "awayScore": 1
+    },
+    {
+      "stage": "GROUP_STAGE",
+      "group": "GROUP_B",
+      "status": "FINISHED",
+      "home": "Canada",
+      "away": "Bosnia-Herzegovina",
+      "homeScore": 1,
       "awayScore": 1
     },
     {
@@ -118,6 +127,15 @@
       "away": "Egypt",
       "homeScore": 1,
       "awayScore": 1
+    },
+    {
+      "stage": "GROUP_STAGE",
+      "group": "GROUP_H",
+      "status": "IN_PLAY",
+      "home": "Saudi Arabia",
+      "away": "Uruguay",
+      "homeScore": 1,
+      "awayScore": 0
     }
   ]
 }
