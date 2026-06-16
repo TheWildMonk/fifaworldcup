@@ -1,6 +1,6 @@
 {
-  "updated": "2026-06-15T23:48:54.358Z",
-  "count": 15,
+  "updated": "2026-06-16T02:54:03.412Z",
+  "count": 16,
   "matches": [
     {
       "stage": "GROUP_STAGE",
@@ -131,11 +131,20 @@
     {
       "stage": "GROUP_STAGE",
       "group": "GROUP_H",
-      "status": "IN_PLAY",
+      "status": "FINISHED",
       "home": "Saudi Arabia",
       "away": "Uruguay",
       "homeScore": 1,
-      "awayScore": 0
+      "awayScore": 1
+    },
+    {
+      "stage": "GROUP_STAGE",
+      "group": "GROUP_G",
+      "status": "IN_PLAY",
+      "home": "Iran",
+      "away": "New Zealand",
+      "homeScore": 2,
+      "awayScore": 2
     }
   ]
 }
