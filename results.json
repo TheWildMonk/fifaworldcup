@@ -1,6 +1,6 @@
 {
-  "updated": "2026-06-16T21:24:41.639Z",
-  "count": 17,
+  "updated": "2026-06-16T23:00:33.168Z",
+  "count": 18,
   "matches": [
     {
       "stage": "GROUP_STAGE",
@@ -154,6 +154,15 @@
       "away": "Senegal",
       "homeScore": 3,
       "awayScore": 1
+    },
+    {
+      "stage": "GROUP_STAGE",
+      "group": "GROUP_I",
+      "status": "PAUSED",
+      "home": "Iraq",
+      "away": "Norway",
+      "homeScore": 1,
+      "awayScore": 2
     }
   ]
 }
