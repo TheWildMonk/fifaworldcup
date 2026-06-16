@@ -1,6 +1,6 @@
 {
-  "updated": "2026-06-16T18:13:52.508Z",
-  "count": 16,
+  "updated": "2026-06-16T21:24:41.639Z",
+  "count": 17,
   "matches": [
     {
       "stage": "GROUP_STAGE",
@@ -145,6 +145,15 @@
       "away": "New Zealand",
       "homeScore": 2,
       "awayScore": 2
+    },
+    {
+      "stage": "GROUP_STAGE",
+      "group": "GROUP_I",
+      "status": "FINISHED",
+      "home": "France",
+      "away": "Senegal",
+      "homeScore": 3,
+      "awayScore": 1
     }
   ]
 }
