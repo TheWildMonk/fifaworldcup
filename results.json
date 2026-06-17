@@ -1,5 +1,5 @@
 {
-  "updated": "2026-06-17T21:00:59.881Z",
+  "updated": "2026-06-17T22:55:35.362Z",
   "count": 22,
   "matches": [
     {
@@ -194,10 +194,10 @@
     {
       "stage": "GROUP_STAGE",
       "group": "GROUP_L",
-      "status": "PAUSED",
+      "status": "FINISHED",
       "home": "England",
       "away": "Croatia",
-      "homeScore": 2,
+      "homeScore": 4,
       "awayScore": 2
     }
   ]
