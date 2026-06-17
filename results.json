@@ -1,6 +1,6 @@
 {
-  "updated": "2026-06-16T23:00:33.168Z",
-  "count": 18,
+  "updated": "2026-06-17T01:59:42.008Z",
+  "count": 19,
   "matches": [
     {
       "stage": "GROUP_STAGE",
@@ -158,11 +158,20 @@
     {
       "stage": "GROUP_STAGE",
       "group": "GROUP_I",
-      "status": "PAUSED",
+      "status": "FINISHED",
       "home": "Iraq",
       "away": "Norway",
       "homeScore": 1,
-      "awayScore": 2
+      "awayScore": 4
+    },
+    {
+      "stage": "GROUP_STAGE",
+      "group": "GROUP_J",
+      "status": "PAUSED",
+      "home": "Argentina",
+      "away": "Algeria",
+      "homeScore": 1,
+      "awayScore": 0
     }
   ]
 }
