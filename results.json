@@ -1,6 +1,6 @@
 {
-  "updated": "2026-06-18T12:46:28.396Z",
-  "count": 24,
+  "updated": "2026-06-18T16:22:22.158Z",
+  "count": 25,
   "matches": [
     {
       "stage": "GROUP_STAGE",
@@ -217,6 +217,15 @@
       "away": "Colombia",
       "homeScore": 1,
       "awayScore": 3
+    },
+    {
+      "stage": "GROUP_STAGE",
+      "group": "GROUP_A",
+      "status": "IN_PLAY",
+      "home": "Czechia",
+      "away": "South Africa",
+      "homeScore": 1,
+      "awayScore": 0
     }
   ]
 }
