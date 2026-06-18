@@ -1,6 +1,6 @@
 {
-  "updated": "2026-06-18T16:22:22.158Z",
-  "count": 25,
+  "updated": "2026-06-18T21:17:32.059Z",
+  "count": 26,
   "matches": [
     {
       "stage": "GROUP_STAGE",
@@ -221,11 +221,20 @@
     {
       "stage": "GROUP_STAGE",
       "group": "GROUP_A",
-      "status": "IN_PLAY",
+      "status": "FINISHED",
       "home": "Czechia",
       "away": "South Africa",
       "homeScore": 1,
-      "awayScore": 0
+      "awayScore": 1
+    },
+    {
+      "stage": "GROUP_STAGE",
+      "group": "GROUP_B",
+      "status": "FINISHED",
+      "home": "Switzerland",
+      "away": "Bosnia-Herzegovina",
+      "homeScore": 4,
+      "awayScore": 1
     }
   ]
 }
