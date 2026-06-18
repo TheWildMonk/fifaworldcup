@@ -1,5 +1,5 @@
 {
-  "updated": "2026-06-18T05:12:49.644Z",
+  "updated": "2026-06-18T09:50:54.323Z",
   "count": 24,
   "matches": [
     {
@@ -203,7 +203,7 @@
     {
       "stage": "GROUP_STAGE",
       "group": "GROUP_L",
-      "status": "FINISHED",
+      "status": "IN_PLAY",
       "home": "Ghana",
       "away": "Panama",
       "homeScore": 1,
