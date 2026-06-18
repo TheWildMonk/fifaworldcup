@@ -1,6 +1,6 @@
 {
-  "updated": "2026-06-17T22:55:35.362Z",
-  "count": 22,
+  "updated": "2026-06-18T00:10:13.002Z",
+  "count": 23,
   "matches": [
     {
       "stage": "GROUP_STAGE",
@@ -199,6 +199,15 @@
       "away": "Croatia",
       "homeScore": 4,
       "awayScore": 2
+    },
+    {
+      "stage": "GROUP_STAGE",
+      "group": "GROUP_L",
+      "status": "PAUSED",
+      "home": "Ghana",
+      "away": "Panama",
+      "homeScore": 0,
+      "awayScore": 0
     }
   ]
 }
