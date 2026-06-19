@@ -1,5 +1,5 @@
 {
-  "updated": "2026-06-19T20:51:44.700Z",
+  "updated": "2026-06-19T21:58:31.054Z",
   "count": 29,
   "matches": [
     {
@@ -257,7 +257,7 @@
     {
       "stage": "GROUP_STAGE",
       "group": "GROUP_D",
-      "status": "IN_PLAY",
+      "status": "FINISHED",
       "home": "United States",
       "away": "Australia",
       "homeScore": 2,
