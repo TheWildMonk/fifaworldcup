@@ -1,6 +1,6 @@
 {
-  "updated": "2026-06-19T17:30:33.054Z",
-  "count": 28,
+  "updated": "2026-06-19T19:28:01.885Z",
+  "count": 29,
   "matches": [
     {
       "stage": "GROUP_STAGE",
@@ -251,6 +251,15 @@
       "status": "FINISHED",
       "home": "Mexico",
       "away": "Korea Republic",
+      "homeScore": 1,
+      "awayScore": 0
+    },
+    {
+      "stage": "GROUP_STAGE",
+      "group": "GROUP_D",
+      "status": "IN_PLAY",
+      "home": "United States",
+      "away": "Australia",
       "homeScore": 1,
       "awayScore": 0
     }
