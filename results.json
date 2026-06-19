@@ -1,6 +1,6 @@
 {
-  "updated": "2026-06-19T21:58:31.054Z",
-  "count": 29,
+  "updated": "2026-06-19T22:58:57.089Z",
+  "count": 30,
   "matches": [
     {
       "stage": "GROUP_STAGE",
@@ -262,6 +262,15 @@
       "away": "Australia",
       "homeScore": 2,
       "awayScore": 0
+    },
+    {
+      "stage": "GROUP_STAGE",
+      "group": "GROUP_C",
+      "status": "PAUSED",
+      "home": "Scotland",
+      "away": "Morocco",
+      "homeScore": 0,
+      "awayScore": 1
     }
   ]
 }
