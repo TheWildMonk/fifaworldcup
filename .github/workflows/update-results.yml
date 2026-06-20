@@ -2,8 +2,9 @@ name: Update WC2026 results
 
 on:
   schedule:
-    # Every 30 minutes. GitHub may delay scheduled runs under load.
-    - cron: '*/30 * * * *'
+    # Every 5 minutes for near-live scores. GitHub may still delay scheduled runs
+    # under load, and skips runs when one is already in progress (see concurrency).
+    - cron: '*/5 * * * *'
   workflow_dispatch: {}   # allow manual runs from the Actions tab
 
 permissions:

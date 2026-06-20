@@ -422,6 +422,125 @@
     opacity: 0.8;
   }
 
+  /* TODAY'S MATCHES (homepage top) */
+  .today-section { margin-bottom: 26px; }
+
+  .today-head {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    margin-bottom: 14px;
+    flex-wrap: wrap;
+  }
+
+  .today-head-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 24px;
+    letter-spacing: 3px;
+    color: var(--accent);
+  }
+
+  .today-date {
+    font-size: 12px;
+    color: var(--muted);
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+
+  .today-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 12px;
+  }
+
+  .today-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 12px 14px;
+    transition: border-color 0.2s;
+  }
+
+  .today-card.today-live {
+    border-color: var(--red);
+    animation: groupLivePulse 1.6s ease-in-out infinite;
+  }
+
+  .today-card-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
+
+  .today-group {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    color: var(--accent2);
+    background: rgba(200,168,75,0.15);
+    padding: 2px 8px;
+    border-radius: 4px;
+  }
+
+  .today-teams {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .tt-team {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    font-weight: 600;
+    min-width: 0;
+  }
+
+  .tt-team .flag { font-size: 16px; flex-shrink: 0; }
+  .tt-team > .name { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .tt-team.right { justify-content: flex-end; text-align: right; }
+
+  .tt-score {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 22px;
+    letter-spacing: 1px;
+    color: var(--accent);
+    font-variant-numeric: tabular-nums;
+    flex-shrink: 0;
+    min-width: 56px;
+    text-align: center;
+  }
+
+  .tt-score.pending {
+    font-size: 13px;
+    color: var(--muted);
+    letter-spacing: 1px;
+  }
+
+  .today-card.today-live .tt-score { color: var(--red); }
+
+  .today-time {
+    margin-top: 10px;
+    font-size: 9px;
+    color: var(--muted);
+    letter-spacing: 0.3px;
+  }
+
+  .today-empty {
+    background: var(--card);
+    border: 1px dashed var(--border);
+    border-radius: 12px;
+    padding: 18px;
+    text-align: center;
+    color: var(--muted);
+    font-size: 13px;
+  }
+
   /* KNOCKOUT VIEW */
   .bracket-container {
     overflow-x: auto;
@@ -825,6 +944,7 @@
 </header>
 
 <div id="view-groups" class="view active">
+  <div class="today-section" id="today-section"></div>
   <div class="section-title">Group Stage</div>
   <div class="legend">
     <div class="legend-item"><div class="legend-dot q"></div> Advance (Top 2)</div>
@@ -1231,7 +1351,9 @@ GROUPS.forEach(g => g.teams.forEach((t, idx) => { TEAM_TO_GROUP[t] = { id: g.id,
 async function fetchLiveResults(notify) {
   let data;
   try {
-    const res = await fetch(RESULTS_URL, { cache: 'no-store' });
+    // Append a timestamp to bust the GitHub Pages CDN edge cache (cache:'no-store'
+    // only covers the browser cache, not the CDN), so freshly-committed scores show.
+    const res = await fetch(`${RESULTS_URL}?t=${Date.now()}`, { cache: 'no-store' });
     if (!res.ok) return;
     data = await res.json();
   } catch (e) {
@@ -1263,6 +1385,7 @@ async function fetchLiveResults(notify) {
 
   lastSyncInfo = { updated: data.updated, applied };
   if (applied > 0) { saveState(); renderGroups(); }
+  renderToday(); // refresh homepage scores even when group cards are untouched
   updateSyncStatus();
   if (notify && applied > 0) showToast(`Synced ${applied} live result${applied > 1 ? 's' : ''}.`);
 }
@@ -1892,37 +2015,48 @@ function formatBD(isoUTC) {
   return `${day}, ${month} ${date} · ${h}:${mm} ${ampm} BDT`;
 }
 
+const MATCH_DURATION = 2 * 3600 * 1000; // ~2hr window after kickoff treated as live
+
+// Derives the countdown chip text + state for a match, given ms until kickoff.
+function countdownState(diff) {
+  if (diff > 0) {
+    const days = Math.floor(diff / 86400000);
+    const hours = Math.floor((diff % 86400000) / 3600000);
+    const mins = Math.floor((diff % 3600000) / 60000);
+    const secs = Math.floor((diff % 60000) / 1000);
+
+    let label;
+    if (days > 0) label = `${days}d ${hours}h ${mins}m`;
+    else if (hours > 0) label = `${hours}h ${mins}m ${secs}s`;
+    else label = `${mins}m ${secs}s`;
+
+    return { text: '⏳ ' + label, cls: diff < 3600000 ? 'soon' : 'upcoming', state: 'upcoming' };
+  } else if (diff > -MATCH_DURATION) {
+    return { text: '🔴 LIVE', cls: 'live', state: 'live' };
+  }
+  return { text: '✓ Played', cls: 'done', state: 'done' };
+}
+
 function updateAllCountdowns() {
   const now = Date.now();
   const liveGroups = new Set();
   for (const [key, isoUTC] of Object.entries(MATCH_TIMES)) {
-    const el = document.getElementById('cd_' + key);
-    if (!el) continue;
     const target = new Date(isoUTC).getTime();
     const diff = target - now;
-    const MATCH_DURATION = 2 * 3600 * 1000; // ~2hr window treated as live
+    const cs = countdownState(diff);
 
-    if (diff <= 0 && diff > -MATCH_DURATION) liveGroups.add(key.split('_')[0]);
+    if (cs.state === 'live') liveGroups.add(key.split('_')[0]);
 
-    if (diff > 0) {
-      const days = Math.floor(diff / 86400000);
-      const hours = Math.floor((diff % 86400000) / 3600000);
-      const mins = Math.floor((diff % 3600000) / 60000);
-      const secs = Math.floor((diff % 60000) / 1000);
+    const el = document.getElementById('cd_' + key);
+    if (el) { el.textContent = cs.text; el.className = 'countdown ' + cs.cls; }
 
-      let label;
-      if (days > 0) label = `${days}d ${hours}h ${mins}m`;
-      else if (hours > 0) label = `${hours}h ${mins}m ${secs}s`;
-      else label = `${mins}m ${secs}s`;
-
-      el.textContent = '⏳ ' + label;
-      el.className = 'countdown ' + (diff < 3600000 ? 'soon' : 'upcoming');
-    } else if (diff > -MATCH_DURATION) {
-      el.textContent = '🔴 LIVE';
-      el.className = 'countdown live';
-    } else {
-      el.textContent = '✓ Played';
-      el.className = 'countdown done';
+    // Mirror onto the homepage "Today's Matches" card, if this match is shown there.
+    const elT = document.getElementById('cdtoday_' + key);
+    if (elT) {
+      elT.textContent = cs.text;
+      elT.className = 'countdown ' + cs.cls;
+      const tc = document.getElementById('todaycard_' + key);
+      if (tc) tc.classList.toggle('today-live', cs.state === 'live');
     }
   }
 
@@ -1933,11 +2067,88 @@ function updateAllCountdowns() {
   });
 }
 
+// ─── TODAY'S MATCHES (homepage) ─────────────────────────────────────────────
+// Lists the fixtures kicking off today (Bangladesh date) with their live/final
+// score, so visitors immediately see what's on without searching elsewhere.
+
+function bdParts(ms) {
+  const bd = new Date(ms + 6 * 3600 * 1000); // shift to UTC+6
+  return { y: bd.getUTCFullYear(), m: bd.getUTCMonth(), d: bd.getUTCDate(), wd: bd.getUTCDay() };
+}
+
+function bdDayKey(ms) { const p = bdParts(ms); return `${p.y}-${p.m}-${p.d}`; }
+
+function bdDateLabel(ms) {
+  const p = bdParts(ms);
+  const days = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+  const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  return `${days[p.wd]}, ${months[p.m]} ${p.d}`;
+}
+
+function renderToday() {
+  const sec = document.getElementById('today-section');
+  if (!sec) return;
+
+  const todayKey = bdDayKey(Date.now());
+  const items = [];
+  for (const [key, iso] of Object.entries(MATCH_TIMES)) {
+    const target = new Date(iso).getTime();
+    if (bdDayKey(target) !== todayKey) continue;
+    const [gid, t1, t2] = key.split('_'); // team names have no underscores
+    items.push({ key, iso, gid, t1, t2, target });
+  }
+  items.sort((a, b) => a.target - b.target);
+
+  const headDate = bdDateLabel(Date.now());
+
+  if (items.length === 0) {
+    sec.innerHTML = `
+      <div class="today-head">
+        <span class="today-head-title">Today's Matches</span>
+        <span class="today-date">${headDate}</span>
+      </div>
+      <div class="today-empty">⚽ No World Cup matches scheduled today — check back tomorrow.</div>`;
+    return;
+  }
+
+  const now = Date.now();
+  const cards = items.map(it => {
+    const cs = countdownState(it.target - now);
+    const s = getScore(it.gid, it.t1, it.t2);
+    const hasScore = s.h != null && s.a != null;
+    const scoreHTML = hasScore
+      ? `${s.h} : ${s.a}`
+      : '<span style="opacity:0.7">vs</span>';
+    const venue = VENUES[it.key] || '';
+    return `
+      <div class="today-card ${cs.state === 'live' ? 'today-live' : ''}" id="todaycard_${it.key}">
+        <div class="today-card-top">
+          <span class="today-group">Group ${it.gid}</span>
+          <span class="countdown ${cs.cls}" id="cdtoday_${it.key}">${cs.text}</span>
+        </div>
+        <div class="today-teams">
+          <span class="tt-team"><span class="flag">${FLAGS[it.t1] || ''}</span><span class="name">${it.t1}</span></span>
+          <span class="tt-score ${hasScore ? '' : 'pending'}">${scoreHTML}</span>
+          <span class="tt-team right"><span class="name">${it.t2}</span><span class="flag">${FLAGS[it.t2] || ''}</span></span>
+        </div>
+        <div class="today-time">🇧🇩 ${formatBD(it.iso)}${venue ? ` · 📍 ${venue}` : ''}</div>
+      </div>`;
+  }).join('');
+
+  sec.innerHTML = `
+    <div class="today-head">
+      <span class="today-head-title">Today's Matches</span>
+      <span class="today-date">${headDate}</span>
+    </div>
+    <div class="today-grid">${cards}</div>`;
+}
+
 setInterval(updateAllCountdowns, 1000);
 
 
 loadState();
 renderGroups();
+renderToday();
 renderR32();
 renderR16();
 renderQF();
@@ -1946,9 +2157,9 @@ renderFinal();
 renderBronze();
 updateAllCountdowns();
 
-// Live results: sync now, then refresh every 5 minutes while the app is open.
+// Live results: sync now, then refresh every 60 seconds while the app is open.
 fetchLiveResults(false);
-setInterval(() => fetchLiveResults(true), 5 * 60 * 1000);
+setInterval(() => fetchLiveResults(true), 60 * 1000);
 
 // Register service worker for offline support + PWA installability.
 if ('serviceWorker' in navigator) {

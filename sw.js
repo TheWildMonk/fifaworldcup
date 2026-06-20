@@ -1,6 +1,6 @@
 // Service worker for the FIFA World Cup 2026 Bracket Tracker.
 // Precaches the app shell so it works fully offline; runtime-caches fonts.
-const CACHE = 'wc2026-tracker-v2';
+const CACHE = 'wc2026-tracker-v3';
 
 const APP_SHELL = [
   './home.html',
@@ -32,9 +32,29 @@ self.addEventListener('fetch', (event) => {
   const req = event.request;
   if (req.method !== 'GET') return;
 
+  const url = new URL(req.url);
+
   // results.json must stay fresh: network-first, fall back to cache when offline.
-  if (new URL(req.url).pathname.endsWith('/results.json') ||
-      new URL(req.url).pathname.endsWith('results.json')) {
+  // The app appends a ?t= cache-buster, so cache under a query-less key to keep
+  // the offline fallback findable.
+  if (url.pathname.endsWith('results.json')) {
+    const cacheKey = new Request(url.origin + url.pathname);
+    event.respondWith(
+      fetch(req)
+        .then((res) => {
+          if (res && res.ok) {
+            const copy = res.clone();
+            caches.open(CACHE).then((cache) => cache.put(cacheKey, copy));
+          }
+          return res;
+        })
+        .catch(() => caches.match(cacheKey))
+    );
+    return;
+  }
+
+  // App HTML: network-first so code/UI updates ship promptly, fall back to cache offline.
+  if (req.mode === 'navigate' || url.pathname.endsWith('home.html') || url.pathname.endsWith('/')) {
     event.respondWith(
       fetch(req)
         .then((res) => {
@@ -44,7 +64,7 @@ self.addEventListener('fetch', (event) => {
           }
           return res;
         })
-        .catch(() => caches.match(req))
+        .catch(() => caches.match(req).then((c) => c || caches.match('./home.html')))
     );
     return;
   }

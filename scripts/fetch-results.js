@@ -46,6 +46,7 @@ const NAME_MAP = {
   'Congo DR': 'DR Congo',
   'Democratic Republic of the Congo': 'DR Congo',
   'Bosnia & Herzegovina': 'Bosnia and Herzegovina',
+  'Bosnia-Herzegovina': 'Bosnia and Herzegovina',
 };
 
 function mapName(name) {
