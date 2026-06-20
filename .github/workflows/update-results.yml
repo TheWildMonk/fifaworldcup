@@ -2,10 +2,20 @@ name: Update WC2026 results
 
 on:
   schedule:
-    # Every 5 minutes for near-live scores. GitHub may still delay scheduled runs
-    # under load, and skips runs when one is already in progress (see concurrency).
+    # Fallback only. GitHub heavily throttles/skips scheduled runs, so in practice
+    # this fires roughly once an hour, not every 5 min. For real near-live updates,
+    # drive it externally via the repository_dispatch trigger below.
     - cron: '*/5 * * * *'
   workflow_dispatch: {}   # allow manual runs from the Actions tab
+  repository_dispatch:
+    # External driver (e.g. a 1-minute cron on Cron-job.org / Cloudflare Worker / any
+    # always-on host) can POST to the GitHub API to fire this on demand:
+    #   curl -X POST \
+    #     -H "Accept: application/vnd.github+json" \
+    #     -H "Authorization: Bearer <PAT with 'repo' scope>" \
+    #     https://api.github.com/repos/<owner>/<repo>/dispatches \
+    #     -d '{"event_type":"update-results"}'
+    types: [update-results]
 
 permissions:
   contents: write          # needed to commit results.json back to the repo
