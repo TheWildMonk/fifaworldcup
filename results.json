@@ -1,6 +1,6 @@
 {
-  "updated": "2026-06-20T08:17:47.062Z",
-  "count": 31,
+  "updated": "2026-06-20T10:44:51.688Z",
+  "count": 32,
   "matches": [
     {
       "stage": "GROUP_STAGE",
@@ -18,6 +18,15 @@
       "home": "Korea Republic",
       "away": "Czechia",
       "homeScore": 2,
+      "awayScore": 1
+    },
+    {
+      "stage": "GROUP_STAGE",
+      "group": "GROUP_B",
+      "status": "FINISHED",
+      "home": "Canada",
+      "away": "Bosnia-Herzegovina",
+      "homeScore": 1,
       "awayScore": 1
     },
     {
