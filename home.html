@@ -2114,10 +2114,18 @@ function renderToday() {
   const now = Date.now();
   const cards = items.map(it => {
     const cs = countdownState(it.target - now);
-    const s = getScore(it.gid, it.t1, it.t2);
-    const hasScore = s.h != null && s.a != null;
+    // Scores are stored under the group's canonical team-list order (getMatchPairs),
+    // but MATCH_TIMES keys use fixture/kickoff order — which is reversed for some
+    // matches. Resolve to canonical order to read the score, then orient it back to
+    // the displayed (fixture) order.
+    const ga = TEAM_TO_GROUP[it.t1], gb = TEAM_TO_GROUP[it.t2];
+    const t1First = ga && gb ? ga.idx < gb.idx : true;
+    const s = t1First ? getScore(it.gid, it.t1, it.t2) : getScore(it.gid, it.t2, it.t1);
+    const leftScore  = t1First ? s.h : s.a;
+    const rightScore = t1First ? s.a : s.h;
+    const hasScore = leftScore != null && rightScore != null;
     const scoreHTML = hasScore
-      ? `${s.h} : ${s.a}`
+      ? `${leftScore} : ${rightScore}`
       : '<span style="opacity:0.7">vs</span>';
     const venue = VENUES[it.key] || '';
     return `
