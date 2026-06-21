@@ -1,6 +1,6 @@
 {
-  "updated": "2026-06-20T14:38:27.273Z",
-  "count": 32,
+  "updated": "2026-06-21T09:00:29.944Z",
+  "count": 36,
   "matches": [
     {
       "stage": "GROUP_STAGE",
@@ -9,7 +9,8 @@
       "home": "Mexico",
       "away": "South Africa",
       "homeScore": 2,
-      "awayScore": 0
+      "awayScore": 0,
+      "winner": "HOME_TEAM"
     },
     {
       "stage": "GROUP_STAGE",
@@ -18,7 +19,8 @@
       "home": "Korea Republic",
       "away": "Czechia",
       "homeScore": 2,
-      "awayScore": 1
+      "awayScore": 1,
+      "winner": "HOME_TEAM"
     },
     {
       "stage": "GROUP_STAGE",
@@ -27,7 +29,8 @@
       "home": "Canada",
       "away": "Bosnia and Herzegovina",
       "homeScore": 1,
-      "awayScore": 1
+      "awayScore": 1,
+      "winner": "DRAW"
     },
     {
       "stage": "GROUP_STAGE",
@@ -36,7 +39,8 @@
       "home": "United States",
       "away": "Paraguay",
       "homeScore": 4,
-      "awayScore": 1
+      "awayScore": 1,
+      "winner": "HOME_TEAM"
     },
     {
       "stage": "GROUP_STAGE",
@@ -45,7 +49,8 @@
       "home": "Qatar",
       "away": "Switzerland",
       "homeScore": 1,
-      "awayScore": 1
+      "awayScore": 1,
+      "winner": "DRAW"
     },
     {
       "stage": "GROUP_STAGE",
@@ -54,7 +59,8 @@
       "home": "Brazil",
       "away": "Morocco",
       "homeScore": 1,
-      "awayScore": 1
+      "awayScore": 1,
+      "winner": "DRAW"
     },
     {
       "stage": "GROUP_STAGE",
@@ -63,7 +69,8 @@
       "home": "Haiti",
       "away": "Scotland",
       "homeScore": 0,
-      "awayScore": 1
+      "awayScore": 1,
+      "winner": "AWAY_TEAM"
     },
     {
       "stage": "GROUP_STAGE",
@@ -72,7 +79,8 @@
       "home": "Australia",
       "away": "Türkiye",
       "homeScore": 2,
-      "awayScore": 0
+      "awayScore": 0,
+      "winner": "HOME_TEAM"
     },
     {
       "stage": "GROUP_STAGE",
@@ -81,7 +89,8 @@
       "home": "Germany",
       "away": "Curaçao",
       "homeScore": 7,
-      "awayScore": 1
+      "awayScore": 1,
+      "winner": "HOME_TEAM"
     },
     {
       "stage": "GROUP_STAGE",
@@ -90,7 +99,8 @@
       "home": "Netherlands",
       "away": "Japan",
       "homeScore": 2,
-      "awayScore": 2
+      "awayScore": 2,
+      "winner": "DRAW"
     },
     {
       "stage": "GROUP_STAGE",
@@ -99,7 +109,8 @@
       "home": "Ivory Coast",
       "away": "Ecuador",
       "homeScore": 1,
-      "awayScore": 0
+      "awayScore": 0,
+      "winner": "HOME_TEAM"
     },
     {
       "stage": "GROUP_STAGE",
@@ -108,7 +119,8 @@
       "home": "Sweden",
       "away": "Tunisia",
       "homeScore": 5,
-      "awayScore": 1
+      "awayScore": 1,
+      "winner": "HOME_TEAM"
     },
     {
       "stage": "GROUP_STAGE",
@@ -117,7 +129,8 @@
       "home": "Spain",
       "away": "Cape Verde Islands",
       "homeScore": 0,
-      "awayScore": 0
+      "awayScore": 0,
+      "winner": "DRAW"
     },
     {
       "stage": "GROUP_STAGE",
@@ -126,7 +139,8 @@
       "home": "Belgium",
       "away": "Egypt",
       "homeScore": 1,
-      "awayScore": 1
+      "awayScore": 1,
+      "winner": "DRAW"
     },
     {
       "stage": "GROUP_STAGE",
@@ -135,7 +149,8 @@
       "home": "Saudi Arabia",
       "away": "Uruguay",
       "homeScore": 1,
-      "awayScore": 1
+      "awayScore": 1,
+      "winner": "DRAW"
     },
     {
       "stage": "GROUP_STAGE",
@@ -144,7 +159,8 @@
       "home": "Iran",
       "away": "New Zealand",
       "homeScore": 2,
-      "awayScore": 2
+      "awayScore": 2,
+      "winner": "DRAW"
     },
     {
       "stage": "GROUP_STAGE",
@@ -153,7 +169,8 @@
       "home": "France",
       "away": "Senegal",
       "homeScore": 3,
-      "awayScore": 1
+      "awayScore": 1,
+      "winner": "HOME_TEAM"
     },
     {
       "stage": "GROUP_STAGE",
@@ -162,7 +179,8 @@
       "home": "Iraq",
       "away": "Norway",
       "homeScore": 1,
-      "awayScore": 4
+      "awayScore": 4,
+      "winner": "AWAY_TEAM"
     },
     {
       "stage": "GROUP_STAGE",
@@ -171,7 +189,8 @@
       "home": "Argentina",
       "away": "Algeria",
       "homeScore": 3,
-      "awayScore": 0
+      "awayScore": 0,
+      "winner": "HOME_TEAM"
     },
     {
       "stage": "GROUP_STAGE",
@@ -180,7 +199,8 @@
       "home": "Austria",
       "away": "Jordan",
       "homeScore": 3,
-      "awayScore": 1
+      "awayScore": 1,
+      "winner": "HOME_TEAM"
     },
     {
       "stage": "GROUP_STAGE",
@@ -189,7 +209,8 @@
       "home": "Portugal",
       "away": "DR Congo",
       "homeScore": 1,
-      "awayScore": 1
+      "awayScore": 1,
+      "winner": "DRAW"
     },
     {
       "stage": "GROUP_STAGE",
@@ -198,7 +219,8 @@
       "home": "England",
       "away": "Croatia",
       "homeScore": 4,
-      "awayScore": 2
+      "awayScore": 2,
+      "winner": "HOME_TEAM"
     },
     {
       "stage": "GROUP_STAGE",
@@ -207,7 +229,8 @@
       "home": "Ghana",
       "away": "Panama",
       "homeScore": 1,
-      "awayScore": 0
+      "awayScore": 0,
+      "winner": "HOME_TEAM"
     },
     {
       "stage": "GROUP_STAGE",
@@ -216,7 +239,8 @@
       "home": "Uzbekistan",
       "away": "Colombia",
       "homeScore": 1,
-      "awayScore": 3
+      "awayScore": 3,
+      "winner": "AWAY_TEAM"
     },
     {
       "stage": "GROUP_STAGE",
@@ -225,16 +249,18 @@
       "home": "Czechia",
       "away": "South Africa",
       "homeScore": 1,
-      "awayScore": 1
+      "awayScore": 1,
+      "winner": "DRAW"
     },
     {
       "stage": "GROUP_STAGE",
       "group": "GROUP_B",
       "status": "FINISHED",
       "home": "Switzerland",
-      "away": "Bosnia-Herzegovina",
+      "away": "Bosnia and Herzegovina",
       "homeScore": 4,
-      "awayScore": 1
+      "awayScore": 1,
+      "winner": "HOME_TEAM"
     },
     {
       "stage": "GROUP_STAGE",
@@ -243,7 +269,8 @@
       "home": "Canada",
       "away": "Qatar",
       "homeScore": 6,
-      "awayScore": 0
+      "awayScore": 0,
+      "winner": "HOME_TEAM"
     },
     {
       "stage": "GROUP_STAGE",
@@ -252,7 +279,8 @@
       "home": "Mexico",
       "away": "Korea Republic",
       "homeScore": 1,
-      "awayScore": 0
+      "awayScore": 0,
+      "winner": "HOME_TEAM"
     },
     {
       "stage": "GROUP_STAGE",
@@ -261,7 +289,8 @@
       "home": "United States",
       "away": "Australia",
       "homeScore": 2,
-      "awayScore": 0
+      "awayScore": 0,
+      "winner": "HOME_TEAM"
     },
     {
       "stage": "GROUP_STAGE",
@@ -270,7 +299,8 @@
       "home": "Scotland",
       "away": "Morocco",
       "homeScore": 0,
-      "awayScore": 1
+      "awayScore": 1,
+      "winner": "AWAY_TEAM"
     },
     {
       "stage": "GROUP_STAGE",
@@ -279,7 +309,8 @@
       "home": "Brazil",
       "away": "Haiti",
       "homeScore": 3,
-      "awayScore": 0
+      "awayScore": 0,
+      "winner": "HOME_TEAM"
     },
     {
       "stage": "GROUP_STAGE",
@@ -288,7 +319,48 @@
       "home": "Türkiye",
       "away": "Paraguay",
       "homeScore": 0,
-      "awayScore": 1
+      "awayScore": 1,
+      "winner": "AWAY_TEAM"
+    },
+    {
+      "stage": "GROUP_STAGE",
+      "group": "GROUP_F",
+      "status": "FINISHED",
+      "home": "Netherlands",
+      "away": "Sweden",
+      "homeScore": 5,
+      "awayScore": 1,
+      "winner": "HOME_TEAM"
+    },
+    {
+      "stage": "GROUP_STAGE",
+      "group": "GROUP_E",
+      "status": "FINISHED",
+      "home": "Germany",
+      "away": "Ivory Coast",
+      "homeScore": 2,
+      "awayScore": 1,
+      "winner": "HOME_TEAM"
+    },
+    {
+      "stage": "GROUP_STAGE",
+      "group": "GROUP_E",
+      "status": "FINISHED",
+      "home": "Ecuador",
+      "away": "Curaçao",
+      "homeScore": 0,
+      "awayScore": 0,
+      "winner": "DRAW"
+    },
+    {
+      "stage": "GROUP_STAGE",
+      "group": "GROUP_F",
+      "status": "FINISHED",
+      "home": "Tunisia",
+      "away": "Japan",
+      "homeScore": 0,
+      "awayScore": 4,
+      "winner": "AWAY_TEAM"
     }
   ]
 }
