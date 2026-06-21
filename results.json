@@ -1,5 +1,5 @@
 {
-  "updated": "2026-06-21T18:05:19.726Z",
+  "updated": "2026-06-21T18:10:15.975Z",
   "count": 37,
   "matches": [
     {
@@ -365,7 +365,7 @@
     {
       "stage": "GROUP_STAGE",
       "group": "GROUP_H",
-      "status": "IN_PLAY",
+      "status": "FINISHED",
       "home": "Spain",
       "away": "Saudi Arabia",
       "homeScore": 5,
