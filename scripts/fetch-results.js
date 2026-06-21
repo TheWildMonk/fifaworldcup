@@ -91,6 +91,8 @@ async function main() {
       home, away,
       homeScore: hs,
       awayScore: as,
+      // Qualifier for knockout matches incl. penalty shootouts: HOME_TEAM/AWAY_TEAM/DRAW.
+      winner: (m.score && m.score.winner) || null,
     });
   }
 

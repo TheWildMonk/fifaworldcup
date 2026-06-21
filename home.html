@@ -610,12 +610,9 @@
     gap: 6px;
     border-bottom: 1px solid var(--border);
     transition: background 0.15s;
-    cursor: pointer;
   }
 
   .ko-team:last-child { border-bottom: none; }
-
-  .ko-team:hover { background: rgba(200,168,75,0.1); }
 
   .ko-team.winner {
     background: rgba(200,168,75,0.15);
@@ -962,25 +959,25 @@
 
 <div id="view-r32" class="view">
   <div class="section-title">Round of 32</div>
-  <div class="ko-hint">⚡ Click on a team name to select them as winner and advance to the next round.</div>
+  <div class="ko-hint">⚡ Fully automated — teams and winners fill in from live results. Enter a score yourself to override; a penalty box appears when a match is level.</div>
   <div id="r32-container"></div>
 </div>
 
 <div id="view-r16" class="view">
   <div class="section-title">Round of 16</div>
-  <div class="ko-hint">⚡ Click on a team name to select them as winner.</div>
+  <div class="ko-hint">⚡ Winners advance automatically from each match score.</div>
   <div id="r16-container"></div>
 </div>
 
 <div id="view-qf" class="view">
   <div class="section-title">Quarter-Finals</div>
-  <div class="ko-hint">⚡ Click on a team name to select them as winner.</div>
+  <div class="ko-hint">⚡ Winners advance automatically from each match score.</div>
   <div id="qf-container"></div>
 </div>
 
 <div id="view-sf" class="view">
   <div class="section-title">Semi-Finals</div>
-  <div class="ko-hint">⚡ Click on a team name to select them as winner.</div>
+  <div class="ko-hint">⚡ Winners advance automatically; losers drop into the Bronze final.</div>
   <div id="sf-container"></div>
 </div>
 
@@ -1190,10 +1187,16 @@ const MATCH_TIMES = {
   'L_Croatia_Ghana': '2026-06-27T21:00:00Z',
 };
 
+// England & Scotland have no ISO country-flag emoji, and the subdivision-flag emoji
+// (🏴󠁧󠁢󠁥󠁮󠁧󠁿 / 🏴󠁧󠁢󠁳󠁣󠁴󠁿) render as a plain black flag on Windows. Inline SVG draws the
+// St George's Cross / Saltire directly, so it looks right everywhere and works offline.
+const ENG_FLAG = '<svg viewBox="0 0 50 30" style="width:1.25em;height:.78em;vertical-align:-1px;border-radius:2px;display:inline-block;"><rect width="50" height="30" fill="#fff"/><rect x="20" width="10" height="30" fill="#ce1124"/><rect y="10" width="50" height="10" fill="#ce1124"/></svg>';
+const SCO_FLAG = '<svg viewBox="0 0 50 30" style="width:1.25em;height:.78em;vertical-align:-1px;border-radius:2px;display:inline-block;"><rect width="50" height="30" fill="#0065bf"/><path d="M0,0 50,30 M50,0 0,30" stroke="#fff" stroke-width="6"/></svg>';
+
 const FLAGS = {
   'Mexico':'🇲🇽','South Africa':'🇿🇦','Korea Republic':'🇰🇷','Czechia':'🇨🇿',
   'Canada':'🇨🇦','Bosnia and Herzegovina':'🇧🇦','Qatar':'🇶🇦','Switzerland':'🇨🇭',
-  'Brazil':'🇧🇷','Morocco':'🇲🇦','Haiti':'🇭🇹','Scotland':'🏴',
+  'Brazil':'🇧🇷','Morocco':'🇲🇦','Haiti':'🇭🇹','Scotland':SCO_FLAG,
   'United States':'🇺🇸','Paraguay':'🇵🇾','Australia':'🇦🇺','Türkiye':'🇹🇷',
   'Germany':'🇩🇪','Curaçao':'🇨🇼','Ivory Coast':'🇨🇮','Ecuador':'🇪🇨',
   'Netherlands':'🇳🇱','Japan':'🇯🇵','Sweden':'🇸🇪','Tunisia':'🇹🇳',
@@ -1202,7 +1205,7 @@ const FLAGS = {
   'France':'🇫🇷','Senegal':'🇸🇳','Iraq':'🇮🇶','Norway':'🇳🇴',
   'Argentina':'🇦🇷','Algeria':'🇩🇿','Austria':'🇦🇹','Jordan':'🇯🇴',
   'Portugal':'🇵🇹','DR Congo':'🇨🇩','Uzbekistan':'🇺🇿','Colombia':'🇨🇴',
-  'England':'🏴','Croatia':'🇭🇷','Ghana':'🇬🇭','Panama':'🇵🇦',
+  'England':ENG_FLAG,'Croatia':'🇭🇷','Ghana':'🇬🇭','Panama':'🇵🇦',
 };
 
 const GROUPS = [
@@ -1388,8 +1391,43 @@ async function fetchLiveResults(notify) {
     applied++;
   });
 
+  // Fill R32 from finished groups (+ best thirds) so live knockout results have slots
+  // to match against, then apply any knockout scores from the feed.
+  fillR32FromGroups();
+  if (GROUPS.every(g => calcStandings(g).every(t => t.mp === 3))) advanceThirds(true);
+
+  // Knockout results from the feed are applied round by round; because we resolve the
+  // earlier rounds first and re-loop, late-round teams exist by the time their match
+  // is processed within the cascade below (autoAdvanceKO runs after all are stored).
+  const KO_STAGE = { LAST_32: 'r32', LAST_16: 'r16', QUARTER_FINALS: 'qf',
+                     SEMI_FINALS: 'sf', FINAL: 'final', THIRD_PLACE: 'bronze' };
+  // Multiple passes so SF/Final/Bronze slots (filled by autoAdvanceKO) become matchable.
+  for (let pass = 0; pass < 3; pass++) {
+    autoAdvanceKO();
+    data.matches.forEach(m => {
+      const round = KO_STAGE[m.stage];
+      if (!round || m.homeScore == null || m.awayScore == null) return;
+      const loc = findKOMatch(round, m.home, m.away);
+      if (!loc) return;                            // teams not in the bracket yet
+      const k = `${round}_${loc.mi}`;
+      if (manualKeys[k]) return;                   // user-entered KO result wins
+      const homeIsA = loc.tA === m.home;
+      const s = koScores[k] || { a: null, b: null };
+      s.a = homeIsA ? m.homeScore : m.awayScore;
+      s.b = homeIsA ? m.awayScore : m.homeScore;
+      // On a regulation draw, the feed's winner field carries the shootout result.
+      if (s.a === s.b && m.winner === 'HOME_TEAM') s.pk = homeIsA ? 'a' : 'b';
+      else if (s.a === s.b && m.winner === 'AWAY_TEAM') s.pk = homeIsA ? 'b' : 'a';
+      koScores[k] = s;
+    });
+  }
+
+  autoAdvanceKO();   // final cascade through the whole bracket
+
   lastSyncInfo = { updated: data.updated, applied };
-  if (applied > 0) { saveState(); renderGroups(); }
+  saveState();
+  if (applied > 0) renderGroups();
+  renderR32(); renderR16(); renderQF(); renderSF(); renderFinal(); renderBronze();
   renderToday(); // refresh homepage scores even when group cards are untouched
   updateSyncStatus();
   if (notify && applied > 0) showToast(`Synced ${applied} live result${applied > 1 ? 's' : ''}.`);
@@ -1511,9 +1549,6 @@ function renderGroups() {
       <div class="matches-section">
         <div class="matches-title">Fixtures — enter scores to update standings</div>
         ${matchRows}
-        <button class="advance-btn" onclick="advanceGroup('${g.id}')">
-          Advance Top 2 to Round of 32 →
-        </button>
       </div>
       </div>`;
 
@@ -1552,52 +1587,240 @@ function updateScore(gid, t1, t2, side, val) {
 
 // ─── ADVANCE FROM GROUP ──────────────────────────────────────────────────────
 
-// R32 slot mapping (based on FIFA 2026 bracket structure, simplified logical pairing)
-// Groups advance: 1st(A)=slot0, 2nd(A)=slot1, etc. Bracket pairings below.
-// Round of 32 matches (16 total), each with 2 slots:
+// ─── OFFICIAL ROUND-OF-32 BRACKET (FIFA 2026, matches 73–88) ──────────────────
+// One entry per R32 match in official match-number order: index 0 = match 73 …
+// index 15 = match 88. This order lines up 1:1 with KO_VENUES_R32 above, so each
+// pairing automatically shows the correct date and venue.
+//   Format: [slotA, slotB, labelA, labelB]; slots index into knockoutTeams.r32.
+//   "1E"/"2C" = group winner / runner-up. "3:ABCDF" = a best-third slot whose
+//   allowed source groups are the letters after the colon (FIFA's "3A/B/C/D/F" rule).
 const R32_PAIRINGS = [
-  // [slotA, slotB, labelA, labelB]
-  [0, 1, '1A', '2B'],    // W:A vs RU:B
-  [2, 3, '1C', '2F'],    // W:C vs RU:F
-  [4, 5, '1E', '2D'],    // W:E vs RU:D
-  [6, 7, '1G', '2H'],    // W:G vs RU:H
-  [8, 9, '1I', '2J'],    // W:I vs RU:J
-  [10,11,'1K', '2L'],    // W:K vs RU:L
-  [12,13,'1B', '2A'],    // W:B vs RU:A
-  [14,15,'1D', '2C'],    // W:D vs RU:C
-  [16,17,'1F', '2E'],    // W:F vs RU:E
-  [18,19,'1H', '2G'],    // W:H vs RU:G
-  [20,21,'1J', '2I'],    // W:J vs RU:I
-  [22,23,'1L', '2K'],    // W:L vs RU:K
-  [24,25,'3rd Best 1','3rd Best 2'],
-  [26,27,'3rd Best 3','3rd Best 4'],
-  [28,29,'3rd Best 5','3rd Best 6'],
-  [30,31,'3rd Best 7','3rd Best 8'],
+  [ 0,  1, '2A',      '2B'],       // 73
+  [ 2,  3, '1E',      '3:ABCDF'],  // 74
+  [ 4,  5, '1F',      '2C'],       // 75
+  [ 6,  7, '1C',      '2F'],       // 76
+  [ 8,  9, '1I',      '3:CDFGH'],  // 77
+  [10, 11, '2E',      '2I'],       // 78
+  [12, 13, '1A',      '3:CEFHI'],  // 79
+  [14, 15, '1L',      '3:EHIJK'],  // 80
+  [16, 17, '1D',      '3:BEFIJ'],  // 81
+  [18, 19, '1G',      '3:AEHIJ'],  // 82
+  [20, 21, '2K',      '2L'],       // 83
+  [22, 23, '1H',      '2J'],       // 84
+  [24, 25, '1B',      '3:EFGIJ'],  // 85
+  [26, 27, '1J',      '2H'],       // 86
+  [28, 29, '1K',      '3:DEIJL'],  // 87
+  [30, 31, '2D',      '2G'],       // 88
 ];
 
-// groupSlot maps: "1A" -> slot index in r32 teams array
+// Label ("1A","2B",…) -> r32 slot index, derived straight from R32_PAIRINGS so the
+// bracket layout is the single source of truth and the two can never drift apart.
 const GROUP_SLOTS = {};
-GROUPS.forEach((g, i) => {
-  GROUP_SLOTS[`1${g.id}`] = i * 2;
-  GROUP_SLOTS[`2${g.id}`] = i * 2 + 1;
+R32_PAIRINGS.forEach(([sa, sb, labelA, labelB]) => {
+  if (!labelA.startsWith('3:')) GROUP_SLOTS[labelA] = sa;
+  if (!labelB.startsWith('3:')) GROUP_SLOTS[labelB] = sb;
 });
 
+// The eight slots reserved for best third-placed teams, in official match order,
+// each carrying the set of groups FIFA permits to feed it.
+const THIRD_SLOT_RULES = R32_PAIRINGS.flatMap(([sa, sb, labelA, labelB]) => {
+  const out = [];
+  if (labelA.startsWith('3:')) out.push({ slot: sa, groups: labelA.slice(2).split('') });
+  if (labelB.startsWith('3:')) out.push({ slot: sb, groups: labelB.slice(2).split('') });
+  return out;
+});
+
+// Pretty form of a slot label for the bracket's "TBD" placeholders.
+function r32SlotLabel(label) {
+  return label.startsWith('3:') ? '3rd ' + label.slice(2).split('').join('/') : label;
+}
+
+// Place one group's winner + runner-up into their officially-correct R32 slots.
 function advanceGroup(gid) {
   const group = GROUPS.find(g => g.id === gid);
   const standings = calcStandings(group);
   const winner = standings[0].name;
   const runnerup = standings[1].name;
-  const gIdx = GROUPS.findIndex(g => g.id === gid);
 
-  // Each group occupies 2 slots in r32 teams: slot gIdx*2 = winner, gIdx*2+1 = runner-up
   const r32 = [...knockoutTeams.r32];
-  r32[gIdx * 2] = winner;
-  r32[gIdx * 2 + 1] = runnerup;
+  r32[GROUP_SLOTS[`1${gid}`]] = winner;     // winner    -> "1<gid>" slot
+  r32[GROUP_SLOTS[`2${gid}`]] = runnerup;   // runner-up -> "2<gid>" slot
   knockoutTeams.r32 = r32;
   saveState();
 
   showToast(`${FLAGS[winner]||''} ${winner} & ${FLAGS[runnerup]||''} ${runnerup} → Round of 32`);
   renderR32();
+}
+
+// Rank the twelve third-placed teams and slot the best eight into the bracket using
+// FIFA's allowed-group rule. Best thirds can't be ranked until every group finishes.
+function advanceThirds(silent = false) {
+  const thirds = [];
+  for (const g of GROUPS) {
+    const s = calcStandings(g);
+    if (!s.every(t => t.mp === 3)) {   // group "complete" = all teams played 3 matches
+      if (!silent) showToast('⏳ All 12 groups must finish before the best thirds are decided.');
+      return false;
+    }
+    const third = s[2];
+    thirds.push({ group: g.id, name: third.name, pts: third.pts, gd: third.gd, gf: third.gf });
+  }
+
+  // Rank thirds: points, goal difference, goals for, then group letter (stable).
+  thirds.sort((a, b) => b.pts - a.pts || b.gd - a.gd || b.gf - a.gf || a.group.localeCompare(b.group));
+  const qualifiers = thirds.slice(0, 8);
+
+  const assignment = assignThirds(qualifiers.map(q => q.group));
+  if (!assignment) {
+    if (!silent) showToast('⚠ Could not fit these thirds to the bracket — check the group results.');
+    return false;
+  }
+
+  const byGroup = Object.fromEntries(qualifiers.map(q => [q.group, q.name]));
+  const r32 = [...knockoutTeams.r32];
+  for (const [slot, group] of Object.entries(assignment)) r32[Number(slot)] = byGroup[group];
+  knockoutTeams.r32 = r32;
+  saveState();
+  renderR32();
+
+  if (!silent) showToast(`🥉 Best thirds placed: ${qualifiers.map(q => `${FLAGS[q.name]||''} ${q.name}`).join(', ')}`);
+  return true;
+}
+
+// Decide which third-slot each qualifying group fills: an injective map respecting
+// every slot's allowed-group rule (a system of distinct representatives). FIFA's
+// allowed sets guarantee a solution exists for any combination that can occur.
+function assignThirds(qualGroups) {
+  const groups = [...qualGroups].sort();   // deterministic
+  const result = {};
+  const used = {};
+  function backtrack(i) {
+    if (i === THIRD_SLOT_RULES.length) return true;
+    const rule = THIRD_SLOT_RULES[i];
+    for (const g of groups) {
+      if (used[g] || !rule.groups.includes(g)) continue;
+      used[g] = true; result[rule.slot] = g;
+      if (backtrack(i + 1)) return true;
+      used[g] = false; delete result[rule.slot];
+    }
+    return false;
+  }
+  return backtrack(0) ? result : null;
+}
+
+// Place every finished group's top two into their officially-correct R32 slots.
+// Returns how many groups were placed. No render/toast — callers decide.
+function fillR32FromGroups() {
+  const r32 = [...knockoutTeams.r32];
+  let placed = 0;
+  GROUPS.forEach(g => {
+    const s = calcStandings(g);
+    if (!s.every(t => t.mp === 3)) return;
+    r32[GROUP_SLOTS[`1${g.id}`]] = s[0].name;
+    r32[GROUP_SLOTS[`2${g.id}`]] = s[1].name;
+    placed++;
+  });
+  knockoutTeams.r32 = r32;
+  return placed;
+}
+
+// One-click "perfect" fill: every finished group's top two, then the best eight thirds.
+function advanceAllToR32() {
+  const placed = fillR32FromGroups();
+  saveState();
+  renderR32();
+  if (placed < 12) {
+    showToast(`Placed top 2 from ${placed} finished group(s). Finish all 12 for the best thirds.`);
+  } else {
+    advanceThirds();   // all groups done -> fill the eight third-placed slots too
+  }
+  autoAdvanceKO();
+  renderR16(); renderQF(); renderSF();
+}
+
+// ─── AUTOMATIC KNOCKOUT PROGRESSION (R32 → R16 → QF) ──────────────────────────
+// Winners in these rounds are a pure function of the match score (plus a penalty
+// shootout when regulation is level), so the bracket fills itself with no clicking.
+// Each entry: the round whose scores we read, and the slot array its winners fill.
+const KO_AUTO = [
+  { round: 'r32', dst: 'r16', count: 16 },
+  { round: 'r16', dst: 'qf',  count: 8  },
+  { round: 'qf',  dst: 'sf',  count: 4  },
+];
+// Every knockout round is now score-driven (SF/Final/Bronze handled specially below).
+const KO_AUTO_ROUNDS = new Set(['r32', 'r16', 'qf', 'sf', 'final', 'bronze']);
+// Number of matches per round, used for team lookup from the live feed.
+const KO_MATCH_COUNT = { r32: 16, r16: 8, qf: 4, sf: 2, final: 1, bronze: 1 };
+
+// The two teams in match `mi` of an auto round (paired from consecutive winners).
+function koTeams(round, mi) {
+  const arr = knockoutTeams[round];
+  return [arr[mi * 2] || null, arr[mi * 2 + 1] || null];
+}
+
+// Locate the auto-round match whose two slots hold this pair of teams (order-agnostic).
+function findKOMatch(round, home, away) {
+  const count = KO_MATCH_COUNT[round];
+  for (let mi = 0; mi < count; mi++) {
+    const [tA, tB] = koTeams(round, mi);
+    if (!tA || !tB) continue;
+    if ((tA === home && tB === away) || (tA === away && tB === home)) return { round, mi, tA, tB };
+  }
+  return null;
+}
+
+// Who advances from an auto-round match, or null if not yet decided.
+function koScoreWinner(round, mi) {
+  const [tA, tB] = koTeams(round, mi);
+  if (!tA || !tB) return null;
+  const s = koScores[`${round}_${mi}`];
+  if (!s || s.a == null || s.b == null) return null;
+  if (s.a > s.b) return tA;
+  if (s.b > s.a) return tB;
+  // Level after regulation -> penalty shootout decides.
+  if (s.pk === 'a') return tA;
+  if (s.pk === 'b') return tB;
+  if (s.pa != null && s.pb != null && s.pa !== s.pb) return s.pa > s.pb ? tA : tB;
+  return null; // drawn and no shootout result yet
+}
+
+// Cascade decided winners through the whole bracket: R32 → R16 → QF → SF → Final,
+// plus the Bronze final (Semi-Final losers) and the champion / third-place awards.
+// Processing in order means each round sees the previous round's winners in one pass.
+// Only sets decided slots (never clears), so nothing is lost while results are partial.
+function autoAdvanceKO() {
+  let changed = false;
+  const set = (arr, i, v) => { if (v && knockoutTeams[arr][i] !== v) { knockoutTeams[arr][i] = v; changed = true; } };
+
+  for (const { round, dst, count } of KO_AUTO) {
+    for (let mi = 0; mi < count; mi++) set(dst, mi, koScoreWinner(round, mi));
+  }
+
+  // Semi-finals: winner -> Final slot, loser -> Bronze final slot.
+  for (let mi = 0; mi < 2; mi++) {
+    const [tA, tB] = koTeams('sf', mi);
+    const w = koScoreWinner('sf', mi);
+    if (w) { set('final', mi, w); set('bronze', mi, w === tA ? tB : tA); }
+  }
+
+  // Final -> champion, Bronze final -> third place.
+  const champ = koScoreWinner('final', 0);
+  if (champ && knockoutTeams.champion !== champ) { knockoutTeams.champion = champ; changed = true; }
+  const third = koScoreWinner('bronze', 0);
+  if (third && knockoutTeams.thirdPlace !== third) { knockoutTeams.thirdPlace = third; changed = true; }
+
+  return changed;
+}
+
+// Keep the whole bracket current automatically: fill R32 from finished groups, add the
+// best thirds once all groups are done, then cascade knockout winners. Safe to call
+// often (idempotent) — used on load and after every live-results sync.
+function syncBracket() {
+  fillR32FromGroups();
+  if (GROUPS.every(g => calcStandings(g).every(t => t.mp === 3))) advanceThirds(true);
+  autoAdvanceKO();
+  saveState();
+  renderR32(); renderR16(); renderQF(); renderSF(); renderFinal(); renderBronze();
 }
 
 // ─── KNOCKOUT RENDER ─────────────────────────────────────────────────────────
@@ -1660,7 +1883,8 @@ function renderR32() {
     const card = document.createElement('div');
     card.className = 'ko-match';
 
-    card.innerHTML = koCardHTML('r32', mi, tA, tB, curWinner);
+    // Show the official source label (e.g. "1E", "3rd A/B/C/D/F") while a slot is empty.
+    card.innerHTML = koCardHTML('r32', mi, tA, tB, curWinner, r32SlotLabel(labelA), r32SlotLabel(labelB));
 
     grid.appendChild(card);
   });
@@ -1737,16 +1961,12 @@ function renderFinal() {
         MetLife Stadium · East Rutherford, NJ · July 19, 2026
       </div>
       <div class="ko-match final-match" style="width:100%;max-width:280px;">
-        <div class="ko-team ${champ === tA && tA ? 'winner' : ''}"
-             ${tA ? `onclick="pickWinner('final',0,'${tA.replace(/'/g,"\\'")}')"`  : ''}
-             style="padding:12px 14px;">
+        <div class="ko-team ${champ === tA && tA ? 'winner' : ''}" style="padding:12px 14px;">
           <span class="flag" style="font-size:20px;">${tA ? (FLAGS[tA]||'⚽') : ''}</span>
           <span class="ko-team-name" style="font-size:14px;font-weight:600;">${tA || '<span class="ko-tbd">TBD</span>'}</span>
         </div>
         <div style="text-align:center;padding:6px;font-family:Bebas Neue;font-size:18px;color:var(--accent);letter-spacing:2px;border-top:1px solid var(--border);border-bottom:1px solid var(--border);">FINAL</div>
-        <div class="ko-team ${champ === tB && tB ? 'winner' : ''}"
-             ${tB ? `onclick="pickWinner('final',0,'${tB.replace(/'/g,"\\'")}')"`  : ''}
-             style="padding:12px 14px;">
+        <div class="ko-team ${champ === tB && tB ? 'winner' : ''}" style="padding:12px 14px;">
           <span class="flag" style="font-size:20px;">${tB ? (FLAGS[tB]||'⚽') : ''}</span>
           <span class="ko-team-name" style="font-size:14px;font-weight:600;">${tB || '<span class="ko-tbd">TBD</span>'}</span>
         </div>${koScoreRow('final', 0, tA, tB)}
@@ -1756,7 +1976,7 @@ function renderFinal() {
           <div class="champion-trophy">🏆</div>
           <div class="champion-label">World Champion 2026</div>
           <div class="champion-name">${FLAGS[champ]||''} ${champ}</div>
-        </div>` : `<div style="color:var(--muted);font-size:12px;font-style:italic;">Pick the finalists above to crown a champion</div>`}
+        </div>` : `<div style="color:var(--muted);font-size:12px;font-style:italic;">The champion is crowned automatically from the final score</div>`}
     </div>`;
 }
 
@@ -1773,16 +1993,12 @@ function renderBronze() {
         Hard Rock Stadium · Miami Gardens, FL · July 18, 2026
       </div>
       <div class="ko-match final-match" style="width:100%;max-width:280px;">
-        <div class="ko-team ${third === tA && tA ? 'winner' : ''}"
-             ${tA ? `onclick="pickWinner('bronze',0,'${tA.replace(/'/g,"\\'")}')"`  : ''}
-             style="padding:12px 14px;">
+        <div class="ko-team ${third === tA && tA ? 'winner' : ''}" style="padding:12px 14px;">
           <span class="flag" style="font-size:20px;">${tA ? (FLAGS[tA]||'⚽') : ''}</span>
           <span class="ko-team-name" style="font-size:14px;font-weight:600;">${tA || '<span class="ko-tbd">TBD</span>'}</span>
         </div>
         <div style="text-align:center;padding:6px;font-family:Bebas Neue;font-size:18px;color:var(--accent);letter-spacing:2px;border-top:1px solid var(--border);border-bottom:1px solid var(--border);">BRONZE FINAL</div>
-        <div class="ko-team ${third === tB && tB ? 'winner' : ''}"
-             ${tB ? `onclick="pickWinner('bronze',0,'${tB.replace(/'/g,"\\'")}')"`  : ''}
-             style="padding:12px 14px;">
+        <div class="ko-team ${third === tB && tB ? 'winner' : ''}" style="padding:12px 14px;">
           <span class="flag" style="font-size:20px;">${tB ? (FLAGS[tB]||'⚽') : ''}</span>
           <span class="ko-team-name" style="font-size:14px;font-weight:600;">${tB || '<span class="ko-tbd">TBD</span>'}</span>
         </div>${koScoreRow('bronze', 0, tA, tB)}
@@ -1792,7 +2008,7 @@ function renderBronze() {
           <div class="champion-trophy">🥉</div>
           <div class="champion-label" style="color:#cd7f32;">3rd Place 2026</div>
           <div class="champion-name">${FLAGS[third]||''} ${third}</div>
-        </div>` : `<div style="color:var(--muted);font-size:12px;font-style:italic;">${tA && tB ? 'Pick the winner above to award bronze' : 'Determined by the Semi-Final losers'}</div>`}
+        </div>` : `<div style="color:var(--muted);font-size:12px;font-style:italic;">${tA && tB ? 'Bronze is awarded automatically from the match score' : 'Determined by the Semi-Final losers'}</div>`}
     </div>`;
 }
 
@@ -1806,35 +2022,35 @@ function toggleAccordion(id) {
   if (arrow) arrow.classList.toggle('open');
 }
 
-function koCardHTML(round, mi, tA, tB, curWinner) {
+function koCardHTML(round, mi, tA, tB, curWinner, phA = 'TBD', phB = 'TBD') {
   const accId = `${round}-${mi}-body`;
   const venueMap = { r32: KO_VENUES_R32, r16: KO_VENUES_R16, qf: KO_VENUES_QF, sf: KO_VENUES_SF };
   const info = venueMap[round] ? venueMap[round][mi] : null;
   const venueLine = info ? `
     <div class="match-venue" style="padding:0 14px 8px;">📍 Match ${info.m} · ${info.date} · ${info.venue}</div>` : '';
+  const tbdA = `<span class="ko-tbd">${phA}</span>`;
+  const tbdB = `<span class="ko-tbd">${phB}</span>`;
   return `
     <div class="ko-summary accordion-toggle" onclick="toggleAccordion('${accId}')">
       <span class="ko-summary-team">
         <span class="flag">${tA ? (FLAGS[tA]||'⚽') : ''}</span>
-        ${tA || '<span class="ko-tbd">TBD</span>'}
+        ${tA || tbdA}
       </span>
       <span class="ko-summary-vs">VS</span>
       <span class="ko-summary-team right">
-        ${tB || '<span class="ko-tbd">TBD</span>'}
+        ${tB || tbdB}
         <span class="flag">${tB ? (FLAGS[tB]||'⚽') : ''}</span>
       </span>
       <span class="accordion-arrow" id="${accId}_arrow">▼</span>
     </div>${venueLine}
     <div class="accordion-body" id="${accId}">
-      <div class="ko-team ${curWinner === tA && tA ? 'winner' : ''}"
-           ${tA ? `onclick="pickWinner('${round}',${mi},'${tA.replace(/'/g,"\\'")}')"` : ''}>
+      <div class="ko-team ${curWinner === tA && tA ? 'winner' : ''}">
         <span class="flag">${tA ? (FLAGS[tA]||'⚽') : ''}</span>
-        <span class="ko-team-name">${tA || '<span class="ko-tbd">TBD</span>'}</span>
+        <span class="ko-team-name">${tA || tbdA}</span>
       </div>
-      <div class="ko-team ${curWinner === tB && tB ? 'winner' : ''}"
-           ${tB ? `onclick="pickWinner('${round}',${mi},'${tB.replace(/'/g,"\\'")}')"` : ''}>
+      <div class="ko-team ${curWinner === tB && tB ? 'winner' : ''}">
         <span class="flag">${tB ? (FLAGS[tB]||'⚽') : ''}</span>
-        <span class="ko-team-name">${tB || '<span class="ko-tbd">TBD</span>'}</span>
+        <span class="ko-team-name">${tB || tbdB}</span>
       </div>${koScoreRow(round, mi, tA, tB)}
     </div>`;
 }
@@ -1845,27 +2061,76 @@ function koScoreRow(round, mi, tA, tB) {
   if (!tA || !tB) return '';
   const k = `${round}_${mi}`;
   if (!koScores[k]) koScores[k] = {a:null,b:null};
-  const av = koScores[k].a ?? '';
-  const bv = koScores[k].b ?? '';
+  const s = koScores[k];
+  const av = s.a ?? '';
+  const bv = s.b ?? '';
+  const auto = KO_AUTO_ROUNDS.has(round);
+  const level = auto && s.a != null && s.b != null && s.a === s.b; // drawn after regulation
+  const pa = s.pa ?? '', pb = s.pb ?? '';
+
+  // Penalty shootout inputs appear only when an auto-round match is level.
+  const pensRow = level ? `
+    <div class="match-row" style="margin:0 8px 8px;">
+      <span class="match-team" title="${tA}">🥅 ${tA} pens</span>
+      <input class="score-input" type="number" min="0" max="99" value="${pa}"
+        placeholder="–" oninput="updateKOPen('${round}',${mi},'pa',this.value)"
+        onchange="commitKO('${round}',${mi})">
+      <span class="score-sep">:</span>
+      <input class="score-input" type="number" min="0" max="99" value="${pb}"
+        placeholder="–" oninput="updateKOPen('${round}',${mi},'pb',this.value)"
+        onchange="commitKO('${round}',${mi})">
+      <span class="match-team right" title="${tB}">pens ${tB} 🥅</span>
+    </div>` : '';
+
+  let note = '';
+  if (auto) {
+    const w = koScoreWinner(round, mi);
+    const msg = w ? `✅ ${FLAGS[w]||''} ${w} advances automatically`
+                  : (level ? '⚖ Level — enter the penalty result to decide'
+                           : 'Winner advances automatically from the score');
+    note = `<div style="text-align:center;font-size:11px;color:var(--muted);padding:0 8px 8px;">${msg}</div>`;
+  }
+
   return `
     <div class="match-row" style="margin:6px 8px 8px;">
       <span class="match-team" title="${tA}">${FLAGS[tA]||''} ${tA}</span>
       <input class="score-input" type="number" min="0" max="99" value="${av}"
-        placeholder="–" onchange="updateKOScore('${round}',${mi},'a',this.value)"
-        oninput="updateKOScore('${round}',${mi},'a',this.value)">
+        placeholder="–" oninput="updateKOScore('${round}',${mi},'a',this.value)"
+        onchange="commitKO('${round}',${mi})">
       <span class="score-sep">:</span>
       <input class="score-input" type="number" min="0" max="99" value="${bv}"
-        placeholder="–" onchange="updateKOScore('${round}',${mi},'b',this.value)"
-        oninput="updateKOScore('${round}',${mi},'b',this.value)">
+        placeholder="–" oninput="updateKOScore('${round}',${mi},'b',this.value)"
+        onchange="commitKO('${round}',${mi})">
       <span class="match-team right" title="${tB}">${tB} ${FLAGS[tB]||''}</span>
-    </div>`;
+    </div>${pensRow}${note}`;
 }
 
 function updateKOScore(round, mi, side, val) {
   const k = `${round}_${mi}`;
   if (!koScores[k]) koScores[k] = {a:null,b:null};
   koScores[k][side] = val === '' ? null : parseInt(val);
+  manualKeys[k] = true;   // user-entered KO score — live sync won't overwrite it
   saveState();
+}
+
+// Penalty-shootout score (side 'pa' | 'pb'). Manual pens clear any feed-set winner.
+function updateKOPen(round, mi, side, val) {
+  const k = `${round}_${mi}`;
+  if (!koScores[k]) koScores[k] = {a:null,b:null};
+  koScores[k][side] = val === '' ? null : parseInt(val);
+  delete koScores[k].pk;
+  manualKeys[k] = true;
+  saveState();
+}
+
+// Called when a knockout score field loses focus: persist, then cascade winners.
+function commitKO(round, mi) {
+  saveState();
+  if (KO_AUTO_ROUNDS.has(round)) {
+    autoAdvanceKO();
+    saveState();
+    renderR32(); renderR16(); renderQF(); renderSF(); renderFinal(); renderBronze();
+  }
 }
 
 
@@ -1969,7 +2234,7 @@ document.addEventListener('click', (e) => {
 
 function showToast(msg) {
   const t = document.getElementById('toast');
-  t.textContent = msg;
+  t.innerHTML = msg;   // messages are internal strings; allows inline SVG flags to render
   t.classList.add('show');
   setTimeout(() => t.classList.remove('show'), 2800);
 }
@@ -2162,6 +2427,7 @@ setInterval(updateAllCountdowns, 1000);
 loadState();
 renderGroups();
 renderToday();
+syncBracket();   // auto-fill R32 from finished groups + cascade any saved KO scores
 renderR32();
 renderR16();
 renderQF();
