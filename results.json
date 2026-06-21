@@ -1,5 +1,5 @@
 {
-  "updated": "2026-06-21T16:22:29.678Z",
+  "updated": "2026-06-21T16:30:21.958Z",
   "count": 37,
   "matches": [
     {
@@ -368,7 +368,7 @@
       "status": "IN_PLAY",
       "home": "Spain",
       "away": "Saudi Arabia",
-      "homeScore": 1,
+      "homeScore": 2,
       "awayScore": 0,
       "winner": "HOME_TEAM"
     }
