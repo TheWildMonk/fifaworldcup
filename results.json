@@ -1,5 +1,5 @@
 {
-  "updated": "2026-06-21T22:55:20.004Z",
+  "updated": "2026-06-21T23:00:24.085Z",
   "count": 39,
   "matches": [
     {
@@ -385,12 +385,12 @@
     {
       "stage": "GROUP_STAGE",
       "group": "GROUP_H",
-      "status": "IN_PLAY",
+      "status": "PAUSED",
       "home": "Uruguay",
       "away": "Cape Verde Islands",
-      "homeScore": 1,
+      "homeScore": 2,
       "awayScore": 1,
-      "winner": "DRAW"
+      "winner": "HOME_TEAM"
     }
   ]
 }
