@@ -1,5 +1,5 @@
 {
-  "updated": "2026-06-21T20:15:23.185Z",
+  "updated": "2026-06-21T20:20:15.460Z",
   "count": 38,
   "matches": [
     {
@@ -375,7 +375,7 @@
     {
       "stage": "GROUP_STAGE",
       "group": "GROUP_G",
-      "status": "PAUSED",
+      "status": "IN_PLAY",
       "home": "Belgium",
       "away": "Iran",
       "homeScore": 0,
