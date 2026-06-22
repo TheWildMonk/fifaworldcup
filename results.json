@@ -1,6 +1,6 @@
 {
-  "updated": "2026-06-22T21:05:18.073Z",
-  "count": 41,
+  "updated": "2026-06-22T21:10:21.911Z",
+  "count": 42,
   "matches": [
     {
       "stage": "GROUP_STAGE",
@@ -411,6 +411,16 @@
       "homeScore": 2,
       "awayScore": 0,
       "winner": "HOME_TEAM"
+    },
+    {
+      "stage": "GROUP_STAGE",
+      "group": "GROUP_I",
+      "status": "IN_PLAY",
+      "home": "France",
+      "away": "Iraq",
+      "homeScore": 0,
+      "awayScore": 0,
+      "winner": "DRAW"
     }
   ]
 }
