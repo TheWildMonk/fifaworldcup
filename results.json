@@ -1,5 +1,5 @@
 {
-  "updated": "2026-06-22T17:55:23.259Z",
+  "updated": "2026-06-22T18:00:33.402Z",
   "count": 41,
   "matches": [
     {
@@ -405,7 +405,7 @@
     {
       "stage": "GROUP_STAGE",
       "group": "GROUP_J",
-      "status": "IN_PLAY",
+      "status": "PAUSED",
       "home": "Argentina",
       "away": "Austria",
       "homeScore": 1,
