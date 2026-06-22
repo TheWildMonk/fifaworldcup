@@ -1,5 +1,5 @@
 {
-  "updated": "2026-06-22T01:20:16.897Z",
+  "updated": "2026-06-22T01:25:17.020Z",
   "count": 40,
   "matches": [
     {
@@ -398,9 +398,9 @@
       "status": "IN_PLAY",
       "home": "New Zealand",
       "away": "Egypt",
-      "homeScore": 0,
+      "homeScore": 1,
       "awayScore": 0,
-      "winner": "DRAW"
+      "winner": "HOME_TEAM"
     }
   ]
 }
