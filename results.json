@@ -1,5 +1,5 @@
 {
-  "updated": "2026-06-22T03:05:18.107Z",
+  "updated": "2026-06-22T03:10:19.209Z",
   "count": 40,
   "matches": [
     {
@@ -395,7 +395,7 @@
     {
       "stage": "GROUP_STAGE",
       "group": "GROUP_G",
-      "status": "IN_PLAY",
+      "status": "FINISHED",
       "home": "New Zealand",
       "away": "Egypt",
       "homeScore": 1,
