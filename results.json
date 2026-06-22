@@ -1,6 +1,6 @@
 {
-  "updated": "2026-06-22T17:05:23.799Z",
-  "count": 40,
+  "updated": "2026-06-22T17:10:22.473Z",
+  "count": 41,
   "matches": [
     {
       "stage": "GROUP_STAGE",
@@ -401,6 +401,16 @@
       "homeScore": 1,
       "awayScore": 3,
       "winner": "AWAY_TEAM"
+    },
+    {
+      "stage": "GROUP_STAGE",
+      "group": "GROUP_J",
+      "status": "IN_PLAY",
+      "home": "Argentina",
+      "away": "Austria",
+      "homeScore": 0,
+      "awayScore": 0,
+      "winner": "DRAW"
     }
   ]
 }
