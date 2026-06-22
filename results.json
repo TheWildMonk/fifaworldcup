@@ -1,6 +1,6 @@
 {
-  "updated": "2026-06-22T01:05:16.910Z",
-  "count": 39,
+  "updated": "2026-06-22T01:10:16.698Z",
+  "count": 40,
   "matches": [
     {
       "stage": "GROUP_STAGE",
@@ -390,6 +390,16 @@
       "away": "Cape Verde Islands",
       "homeScore": 2,
       "awayScore": 2,
+      "winner": "DRAW"
+    },
+    {
+      "stage": "GROUP_STAGE",
+      "group": "GROUP_G",
+      "status": "IN_PLAY",
+      "home": "New Zealand",
+      "away": "Egypt",
+      "homeScore": 0,
+      "awayScore": 0,
       "winner": "DRAW"
     }
   ]
