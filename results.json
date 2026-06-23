@@ -1,5 +1,5 @@
 {
-  "updated": "2026-06-23T19:00:27.809Z",
+  "updated": "2026-06-23T19:05:22.995Z",
   "count": 45,
   "matches": [
     {
@@ -445,7 +445,7 @@
     {
       "stage": "GROUP_STAGE",
       "group": "GROUP_K",
-      "status": "IN_PLAY",
+      "status": "FINISHED",
       "home": "Portugal",
       "away": "Uzbekistan",
       "homeScore": 5,
