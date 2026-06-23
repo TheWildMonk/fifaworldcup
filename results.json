@@ -1,5 +1,5 @@
 {
-  "updated": "2026-06-23T04:35:17.996Z",
+  "updated": "2026-06-23T04:40:17.066Z",
   "count": 44,
   "matches": [
     {
@@ -439,8 +439,8 @@
       "home": "Jordan",
       "away": "Algeria",
       "homeScore": 1,
-      "awayScore": 0,
-      "winner": "HOME_TEAM"
+      "awayScore": 1,
+      "winner": "DRAW"
     }
   ]
 }
