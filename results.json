@@ -1,5 +1,5 @@
 {
-  "updated": "2026-06-23T05:05:14.383Z",
+  "updated": "2026-06-23T05:10:17.637Z",
   "count": 44,
   "matches": [
     {
@@ -435,7 +435,7 @@
     {
       "stage": "GROUP_STAGE",
       "group": "GROUP_J",
-      "status": "IN_PLAY",
+      "status": "FINISHED",
       "home": "Jordan",
       "away": "Algeria",
       "homeScore": 1,
