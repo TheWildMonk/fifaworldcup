@@ -1,5 +1,5 @@
 {
-  "updated": "2026-06-23T23:50:16.443Z",
+  "updated": "2026-06-23T23:55:16.841Z",
   "count": 47,
   "matches": [
     {
@@ -465,7 +465,7 @@
     {
       "stage": "GROUP_STAGE",
       "group": "GROUP_L",
-      "status": "LIVE",
+      "status": "PAUSED",
       "home": "Panama",
       "away": "Croatia",
       "homeScore": 0,
