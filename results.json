@@ -1,5 +1,5 @@
 {
-  "updated": "2026-06-23T00:45:19.162Z",
+  "updated": "2026-06-23T00:50:19.675Z",
   "count": 43,
   "matches": [
     {
@@ -428,9 +428,9 @@
       "status": "IN_PLAY",
       "home": "Norway",
       "away": "Senegal",
-      "homeScore": 0,
+      "homeScore": 1,
       "awayScore": 0,
-      "winner": "DRAW"
+      "winner": "HOME_TEAM"
     }
   ]
 }
