@@ -1,5 +1,5 @@
 {
-  "updated": "2026-06-23T20:55:16.773Z",
+  "updated": "2026-06-23T21:00:29.553Z",
   "count": 46,
   "matches": [
     {
@@ -455,7 +455,7 @@
     {
       "stage": "GROUP_STAGE",
       "group": "GROUP_L",
-      "status": "LIVE",
+      "status": "PAUSED",
       "home": "England",
       "away": "Ghana",
       "homeScore": 0,
