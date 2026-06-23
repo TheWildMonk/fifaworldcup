@@ -1,5 +1,5 @@
 {
-  "updated": "2026-06-23T00:25:15.781Z",
+  "updated": "2026-06-23T00:30:20.881Z",
   "count": 43,
   "matches": [
     {
@@ -418,7 +418,7 @@
       "status": "IN_PLAY",
       "home": "France",
       "away": "Iraq",
-      "homeScore": 2,
+      "homeScore": 3,
       "awayScore": 0,
       "winner": "HOME_TEAM"
     },
