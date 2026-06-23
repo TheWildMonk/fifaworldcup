@@ -1,6 +1,6 @@
 {
-  "updated": "2026-06-23T13:45:18.979Z",
-  "count": 44,
+  "updated": "2026-06-23T13:50:24.909Z",
+  "count": 43,
   "matches": [
     {
       "stage": "GROUP_STAGE",
@@ -21,16 +21,6 @@
       "homeScore": 2,
       "awayScore": 1,
       "winner": "HOME_TEAM"
-    },
-    {
-      "stage": "GROUP_STAGE",
-      "group": "GROUP_B",
-      "status": "FINISHED",
-      "home": "Canada",
-      "away": "Bosnia and Herzegovina",
-      "homeScore": 1,
-      "awayScore": 1,
-      "winner": "DRAW"
     },
     {
       "stage": "GROUP_STAGE",
