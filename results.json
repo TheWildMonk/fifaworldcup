@@ -1,6 +1,6 @@
 {
-  "updated": "2026-06-23T00:05:15.859Z",
-  "count": 41,
+  "updated": "2026-06-23T00:10:19.175Z",
+  "count": 43,
   "matches": [
     {
       "stage": "GROUP_STAGE",
@@ -21,6 +21,16 @@
       "homeScore": 2,
       "awayScore": 1,
       "winner": "HOME_TEAM"
+    },
+    {
+      "stage": "GROUP_STAGE",
+      "group": "GROUP_B",
+      "status": "FINISHED",
+      "home": "Canada",
+      "away": "Bosnia and Herzegovina",
+      "homeScore": 1,
+      "awayScore": 1,
+      "winner": "DRAW"
     },
     {
       "stage": "GROUP_STAGE",
@@ -405,12 +415,22 @@
     {
       "stage": "GROUP_STAGE",
       "group": "GROUP_I",
-      "status": "PAUSED",
+      "status": "IN_PLAY",
       "home": "France",
       "away": "Iraq",
       "homeScore": 1,
       "awayScore": 0,
       "winner": "HOME_TEAM"
+    },
+    {
+      "stage": "GROUP_STAGE",
+      "group": "GROUP_I",
+      "status": "IN_PLAY",
+      "home": "Norway",
+      "away": "Senegal",
+      "homeScore": 0,
+      "awayScore": 0,
+      "winner": "DRAW"
     }
   ]
 }
