@@ -1,5 +1,5 @@
 {
-  "updated": "2026-06-23T17:20:25.235Z",
+  "updated": "2026-06-23T17:25:26.478Z",
   "count": 45,
   "matches": [
     {
@@ -448,7 +448,7 @@
       "status": "IN_PLAY",
       "home": "Portugal",
       "away": "Uzbekistan",
-      "homeScore": 1,
+      "homeScore": 2,
       "awayScore": 0,
       "winner": "HOME_TEAM"
     }
