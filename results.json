@@ -1,5 +1,5 @@
 {
-  "updated": "2026-06-23T01:40:17.182Z",
+  "updated": "2026-06-23T01:45:19.307Z",
   "count": 43,
   "matches": [
     {
@@ -425,7 +425,7 @@
     {
       "stage": "GROUP_STAGE",
       "group": "GROUP_I",
-      "status": "PAUSED",
+      "status": "IN_PLAY",
       "home": "Norway",
       "away": "Senegal",
       "homeScore": 3,
