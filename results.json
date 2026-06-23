@@ -1,6 +1,6 @@
 {
-  "updated": "2026-06-23T17:05:19.781Z",
-  "count": 44,
+  "updated": "2026-06-23T17:10:27.423Z",
+  "count": 45,
   "matches": [
     {
       "stage": "GROUP_STAGE",
@@ -441,6 +441,16 @@
       "homeScore": 1,
       "awayScore": 2,
       "winner": "AWAY_TEAM"
+    },
+    {
+      "stage": "GROUP_STAGE",
+      "group": "GROUP_K",
+      "status": "IN_PLAY",
+      "home": "Portugal",
+      "away": "Uzbekistan",
+      "homeScore": 0,
+      "awayScore": 0,
+      "winner": "DRAW"
     }
   ]
 }
