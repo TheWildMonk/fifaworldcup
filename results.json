@@ -1,5 +1,5 @@
 {
-  "updated": "2026-06-23T00:50:19.675Z",
+  "updated": "2026-06-23T00:55:19.276Z",
   "count": 43,
   "matches": [
     {
@@ -415,7 +415,7 @@
     {
       "stage": "GROUP_STAGE",
       "group": "GROUP_I",
-      "status": "IN_PLAY",
+      "status": "FINISHED",
       "home": "France",
       "away": "Iraq",
       "homeScore": 3,
