@@ -1,6 +1,6 @@
 {
-  "updated": "2026-06-24T22:05:14.963Z",
-  "count": 50,
+  "updated": "2026-06-24T22:10:19.004Z",
+  "count": 52,
   "matches": [
     {
       "stage": "GROUP_STAGE",
@@ -501,6 +501,26 @@
       "homeScore": 3,
       "awayScore": 1,
       "winner": "HOME_TEAM"
+    },
+    {
+      "stage": "GROUP_STAGE",
+      "group": "GROUP_C",
+      "status": "LIVE",
+      "home": "Morocco",
+      "away": "Haiti",
+      "homeScore": 0,
+      "awayScore": 0,
+      "winner": "DRAW"
+    },
+    {
+      "stage": "GROUP_STAGE",
+      "group": "GROUP_C",
+      "status": "LIVE",
+      "home": "Scotland",
+      "away": "Brazil",
+      "homeScore": 0,
+      "awayScore": 0,
+      "winner": "DRAW"
     }
   ]
 }
