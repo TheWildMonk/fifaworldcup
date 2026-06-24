@@ -1,5 +1,5 @@
 {
-  "updated": "2026-06-24T22:40:17.417Z",
+  "updated": "2026-06-24T22:45:19.294Z",
   "count": 52,
   "matches": [
     {
@@ -508,9 +508,9 @@
       "status": "LIVE",
       "home": "Morocco",
       "away": "Haiti",
-      "homeScore": 0,
+      "homeScore": 1,
       "awayScore": 1,
-      "winner": "AWAY_TEAM"
+      "winner": "DRAW"
     },
     {
       "stage": "GROUP_STAGE",
