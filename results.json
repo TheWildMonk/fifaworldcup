@@ -1,6 +1,6 @@
 {
-  "updated": "2026-06-24T19:05:18.400Z",
-  "count": 49,
+  "updated": "2026-06-24T19:08:19.353Z",
+  "count": 50,
   "matches": [
     {
       "stage": "GROUP_STAGE",
@@ -485,9 +485,19 @@
     {
       "stage": "GROUP_STAGE",
       "group": "GROUP_B",
-      "status": "LIVE",
+      "status": "IN_PLAY",
       "home": "Switzerland",
       "away": "Canada",
+      "homeScore": 0,
+      "awayScore": 0,
+      "winner": "DRAW"
+    },
+    {
+      "stage": "GROUP_STAGE",
+      "group": "GROUP_B",
+      "status": "IN_PLAY",
+      "home": "Bosnia and Herzegovina",
+      "away": "Qatar",
       "homeScore": 0,
       "awayScore": 0,
       "winner": "DRAW"
