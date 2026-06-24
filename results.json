@@ -1,5 +1,5 @@
 {
-  "updated": "2026-06-24T19:30:21.025Z",
+  "updated": "2026-06-24T19:35:18.448Z",
   "count": 50,
   "matches": [
     {
@@ -498,9 +498,9 @@
       "status": "IN_PLAY",
       "home": "Bosnia and Herzegovina",
       "away": "Qatar",
-      "homeScore": 0,
+      "homeScore": 1,
       "awayScore": 0,
-      "winner": "DRAW"
+      "winner": "HOME_TEAM"
     }
   ]
 }
