@@ -1,5 +1,5 @@
 {
-  "updated": "2026-06-24T23:10:17.742Z",
+  "updated": "2026-06-24T23:15:19.056Z",
   "count": 52,
   "matches": [
     {
@@ -505,7 +505,7 @@
     {
       "stage": "GROUP_STAGE",
       "group": "GROUP_C",
-      "status": "PAUSED",
+      "status": "IN_PLAY",
       "home": "Morocco",
       "away": "Haiti",
       "homeScore": 2,
