@@ -1,5 +1,5 @@
 {
-  "updated": "2026-06-24T19:55:15.462Z",
+  "updated": "2026-06-24T20:00:25.662Z",
   "count": 50,
   "matches": [
     {
@@ -495,7 +495,7 @@
     {
       "stage": "GROUP_STAGE",
       "group": "GROUP_B",
-      "status": "IN_PLAY",
+      "status": "PAUSED",
       "home": "Bosnia and Herzegovina",
       "away": "Qatar",
       "homeScore": 2,
