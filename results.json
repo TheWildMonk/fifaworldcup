@@ -1,5 +1,5 @@
 {
-  "updated": "2026-06-24T04:00:24.451Z",
+  "updated": "2026-06-24T04:05:14.598Z",
   "count": 48,
   "matches": [
     {
@@ -475,7 +475,7 @@
     {
       "stage": "GROUP_STAGE",
       "group": "GROUP_K",
-      "status": "LIVE",
+      "status": "FINISHED",
       "home": "Colombia",
       "away": "DR Congo",
       "homeScore": 1,
