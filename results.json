@@ -1,5 +1,5 @@
 {
-  "updated": "2026-06-24T19:50:18.361Z",
+  "updated": "2026-06-24T19:55:15.462Z",
   "count": 50,
   "matches": [
     {
@@ -485,7 +485,7 @@
     {
       "stage": "GROUP_STAGE",
       "group": "GROUP_B",
-      "status": "IN_PLAY",
+      "status": "PAUSED",
       "home": "Switzerland",
       "away": "Canada",
       "homeScore": 0,
