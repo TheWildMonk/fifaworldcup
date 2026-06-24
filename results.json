@@ -1,6 +1,6 @@
 {
-  "updated": "2026-06-24T02:05:15.680Z",
-  "count": 47,
+  "updated": "2026-06-24T02:10:19.881Z",
+  "count": 48,
   "matches": [
     {
       "stage": "GROUP_STAGE",
@@ -471,6 +471,16 @@
       "homeScore": 0,
       "awayScore": 1,
       "winner": "AWAY_TEAM"
+    },
+    {
+      "stage": "GROUP_STAGE",
+      "group": "GROUP_K",
+      "status": "LIVE",
+      "home": "Colombia",
+      "away": "DR Congo",
+      "homeScore": 0,
+      "awayScore": 0,
+      "winner": "DRAW"
     }
   ]
 }
