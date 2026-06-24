@@ -1,5 +1,5 @@
 {
-  "updated": "2026-06-24T00:15:21.264Z",
+  "updated": "2026-06-24T00:20:16.297Z",
   "count": 47,
   "matches": [
     {
@@ -469,8 +469,8 @@
       "home": "Panama",
       "away": "Croatia",
       "homeScore": 0,
-      "awayScore": 0,
-      "winner": "DRAW"
+      "awayScore": 1,
+      "winner": "AWAY_TEAM"
     }
   ]
 }
