@@ -1,5 +1,5 @@
 {
-  "updated": "2026-06-24T23:30:20.990Z",
+  "updated": "2026-06-24T23:35:17.025Z",
   "count": 52,
   "matches": [
     {
@@ -519,7 +519,7 @@
       "home": "Scotland",
       "away": "Brazil",
       "homeScore": 0,
-      "awayScore": 2,
+      "awayScore": 3,
       "winner": "AWAY_TEAM"
     }
   ]
