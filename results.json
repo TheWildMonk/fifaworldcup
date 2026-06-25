@@ -1,5 +1,5 @@
 {
-  "updated": "2026-06-25T02:25:14.512Z",
+  "updated": "2026-06-25T02:30:22.612Z",
   "count": 54,
   "matches": [
     {
@@ -529,7 +529,7 @@
       "home": "Czechia",
       "away": "Mexico",
       "homeScore": 0,
-      "awayScore": 1,
+      "awayScore": 2,
       "winner": "AWAY_TEAM"
     },
     {
@@ -538,9 +538,9 @@
       "status": "IN_PLAY",
       "home": "South Africa",
       "away": "Korea Republic",
-      "homeScore": 0,
+      "homeScore": 1,
       "awayScore": 0,
-      "winner": "DRAW"
+      "winner": "HOME_TEAM"
     }
   ]
 }
