@@ -1,5 +1,5 @@
 {
-  "updated": "2026-06-25T20:50:20.963Z",
+  "updated": "2026-06-25T20:55:17.879Z",
   "count": 56,
   "matches": [
     {
@@ -545,7 +545,7 @@
     {
       "stage": "GROUP_STAGE",
       "group": "GROUP_E",
-      "status": "LIVE",
+      "status": "PAUSED",
       "home": "Ecuador",
       "away": "Germany",
       "homeScore": 1,
