@@ -1,6 +1,6 @@
 {
-  "updated": "2026-06-25T23:00:27.116Z",
-  "count": 56,
+  "updated": "2026-06-25T23:05:15.837Z",
+  "count": 57,
   "matches": [
     {
       "stage": "GROUP_STAGE",
@@ -561,6 +561,16 @@
       "homeScore": 0,
       "awayScore": 2,
       "winner": "AWAY_TEAM"
+    },
+    {
+      "stage": "GROUP_STAGE",
+      "group": "GROUP_F",
+      "status": "LIVE",
+      "home": "Japan",
+      "away": "Sweden",
+      "homeScore": 0,
+      "awayScore": 0,
+      "winner": "DRAW"
     }
   ]
 }
