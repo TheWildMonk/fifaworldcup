@@ -1,6 +1,6 @@
 {
-  "updated": "2026-06-25T20:05:18.679Z",
-  "count": 54,
+  "updated": "2026-06-25T20:10:19.071Z",
+  "count": 56,
   "matches": [
     {
       "stage": "GROUP_STAGE",
@@ -541,6 +541,26 @@
       "homeScore": 1,
       "awayScore": 0,
       "winner": "HOME_TEAM"
+    },
+    {
+      "stage": "GROUP_STAGE",
+      "group": "GROUP_E",
+      "status": "LIVE",
+      "home": "Ecuador",
+      "away": "Germany",
+      "homeScore": 0,
+      "awayScore": 1,
+      "winner": "AWAY_TEAM"
+    },
+    {
+      "stage": "GROUP_STAGE",
+      "group": "GROUP_E",
+      "status": "LIVE",
+      "home": "Curaçao",
+      "away": "Ivory Coast",
+      "homeScore": 0,
+      "awayScore": 0,
+      "winner": "DRAW"
     }
   ]
 }
