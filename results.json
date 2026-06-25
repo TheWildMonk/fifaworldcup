@@ -1,5 +1,5 @@
 {
-  "updated": "2026-06-25T21:40:17.250Z",
+  "updated": "2026-06-25T21:45:21.274Z",
   "count": 56,
   "matches": [
     {
@@ -548,9 +548,9 @@
       "status": "IN_PLAY",
       "home": "Ecuador",
       "away": "Germany",
-      "homeScore": 1,
+      "homeScore": 2,
       "awayScore": 1,
-      "winner": "DRAW"
+      "winner": "HOME_TEAM"
     },
     {
       "stage": "GROUP_STAGE",
