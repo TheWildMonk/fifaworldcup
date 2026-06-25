@@ -1,5 +1,5 @@
 {
-  "updated": "2026-06-25T21:25:15.202Z",
+  "updated": "2026-06-25T21:30:23.102Z",
   "count": 56,
   "matches": [
     {
@@ -559,7 +559,7 @@
       "home": "Curaçao",
       "away": "Ivory Coast",
       "homeScore": 0,
-      "awayScore": 1,
+      "awayScore": 2,
       "winner": "AWAY_TEAM"
     }
   ]
