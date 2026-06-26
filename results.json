@@ -1,5 +1,5 @@
 {
-  "updated": "2026-06-26T19:10:21.500Z",
+  "updated": "2026-06-26T19:15:16.639Z",
   "count": 62,
   "matches": [
     {
@@ -609,8 +609,8 @@
       "home": "Norway",
       "away": "France",
       "homeScore": 0,
-      "awayScore": 0,
-      "winner": "DRAW"
+      "awayScore": 1,
+      "winner": "AWAY_TEAM"
     },
     {
       "stage": "GROUP_STAGE",
@@ -618,9 +618,9 @@
       "status": "LIVE",
       "home": "Senegal",
       "away": "Iraq",
-      "homeScore": 0,
+      "homeScore": 1,
       "awayScore": 0,
-      "winner": "DRAW"
+      "winner": "HOME_TEAM"
     }
   ]
 }
