@@ -1,5 +1,5 @@
 {
-  "updated": "2026-06-26T20:25:13.511Z",
+  "updated": "2026-06-26T20:30:21.681Z",
   "count": 62,
   "matches": [
     {
@@ -618,7 +618,7 @@
       "status": "IN_PLAY",
       "home": "Senegal",
       "away": "Iraq",
-      "homeScore": 1,
+      "homeScore": 2,
       "awayScore": 0,
       "winner": "HOME_TEAM"
     }
