@@ -1,5 +1,5 @@
 {
-  "updated": "2026-06-26T03:15:19.908Z",
+  "updated": "2026-06-26T03:20:19.669Z",
   "count": 60,
   "matches": [
     {
@@ -589,8 +589,8 @@
       "home": "Türkiye",
       "away": "United States",
       "homeScore": 2,
-      "awayScore": 1,
-      "winner": "HOME_TEAM"
+      "awayScore": 2,
+      "winner": "DRAW"
     },
     {
       "stage": "GROUP_STAGE",
