@@ -1,5 +1,5 @@
 {
-  "updated": "2026-06-26T00:10:16.965Z",
+  "updated": "2026-06-26T00:15:17.341Z",
   "count": 58,
   "matches": [
     {
@@ -565,7 +565,7 @@
     {
       "stage": "GROUP_STAGE",
       "group": "GROUP_F",
-      "status": "LIVE",
+      "status": "IN_PLAY",
       "home": "Tunisia",
       "away": "Netherlands",
       "homeScore": 0,
@@ -575,7 +575,7 @@
     {
       "stage": "GROUP_STAGE",
       "group": "GROUP_F",
-      "status": "PAUSED",
+      "status": "IN_PLAY",
       "home": "Japan",
       "away": "Sweden",
       "homeScore": 0,
