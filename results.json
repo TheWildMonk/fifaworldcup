@@ -1,5 +1,5 @@
 {
-  "updated": "2026-06-26T00:15:17.341Z",
+  "updated": "2026-06-26T00:20:17.960Z",
   "count": 58,
   "matches": [
     {
@@ -568,7 +568,7 @@
       "status": "IN_PLAY",
       "home": "Tunisia",
       "away": "Netherlands",
-      "homeScore": 0,
+      "homeScore": 1,
       "awayScore": 2,
       "winner": "AWAY_TEAM"
     },
