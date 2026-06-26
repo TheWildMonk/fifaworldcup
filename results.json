@@ -1,5 +1,5 @@
 {
-  "updated": "2026-06-26T02:55:13.443Z",
+  "updated": "2026-06-26T03:00:26.533Z",
   "count": 60,
   "matches": [
     {
@@ -585,7 +585,7 @@
     {
       "stage": "GROUP_STAGE",
       "group": "GROUP_D",
-      "status": "IN_PLAY",
+      "status": "PAUSED",
       "home": "Türkiye",
       "away": "United States",
       "homeScore": 2,
@@ -595,7 +595,7 @@
     {
       "stage": "GROUP_STAGE",
       "group": "GROUP_D",
-      "status": "IN_PLAY",
+      "status": "PAUSED",
       "home": "Paraguay",
       "away": "Australia",
       "homeScore": 0,
