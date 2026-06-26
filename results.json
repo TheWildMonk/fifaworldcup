@@ -1,5 +1,5 @@
 {
-  "updated": "2026-06-26T21:07:48.944Z",
+  "updated": "2026-06-26T21:10:18.307Z",
   "count": 62,
   "matches": [
     {
@@ -615,7 +615,7 @@
     {
       "stage": "GROUP_STAGE",
       "group": "GROUP_I",
-      "status": "IN_PLAY",
+      "status": "FINISHED",
       "home": "Senegal",
       "away": "Iraq",
       "homeScore": 5,
