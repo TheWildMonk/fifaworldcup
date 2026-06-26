@@ -1,5 +1,5 @@
 {
-  "updated": "2026-06-26T19:25:15.772Z",
+  "updated": "2026-06-26T19:28:35.341Z",
   "count": 62,
   "matches": [
     {
@@ -608,8 +608,8 @@
       "status": "LIVE",
       "home": "Norway",
       "away": "France",
-      "homeScore": 0,
-      "awayScore": 1,
+      "homeScore": 1,
+      "awayScore": 2,
       "winner": "AWAY_TEAM"
     },
     {
