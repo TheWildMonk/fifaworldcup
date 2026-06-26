@@ -1,6 +1,6 @@
 {
-  "updated": "2026-06-26T19:30:23.493Z",
-  "count": 62,
+  "updated": "2026-06-26T19:35:14.648Z",
+  "count": 56,
   "matches": [
     {
       "stage": "GROUP_STAGE",
@@ -521,66 +521,6 @@
       "homeScore": 0,
       "awayScore": 3,
       "winner": "AWAY_TEAM"
-    },
-    {
-      "stage": "GROUP_STAGE",
-      "group": "GROUP_A",
-      "status": "FINISHED",
-      "home": "Czechia",
-      "away": "Mexico",
-      "homeScore": 0,
-      "awayScore": 3,
-      "winner": "AWAY_TEAM"
-    },
-    {
-      "stage": "GROUP_STAGE",
-      "group": "GROUP_A",
-      "status": "FINISHED",
-      "home": "South Africa",
-      "away": "Korea Republic",
-      "homeScore": 1,
-      "awayScore": 0,
-      "winner": "HOME_TEAM"
-    },
-    {
-      "stage": "GROUP_STAGE",
-      "group": "GROUP_E",
-      "status": "FINISHED",
-      "home": "Ecuador",
-      "away": "Germany",
-      "homeScore": 2,
-      "awayScore": 1,
-      "winner": "HOME_TEAM"
-    },
-    {
-      "stage": "GROUP_STAGE",
-      "group": "GROUP_E",
-      "status": "FINISHED",
-      "home": "Curaçao",
-      "away": "Ivory Coast",
-      "homeScore": 0,
-      "awayScore": 2,
-      "winner": "AWAY_TEAM"
-    },
-    {
-      "stage": "GROUP_STAGE",
-      "group": "GROUP_F",
-      "status": "FINISHED",
-      "home": "Tunisia",
-      "away": "Netherlands",
-      "homeScore": 1,
-      "awayScore": 3,
-      "winner": "AWAY_TEAM"
-    },
-    {
-      "stage": "GROUP_STAGE",
-      "group": "GROUP_F",
-      "status": "FINISHED",
-      "home": "Japan",
-      "away": "Sweden",
-      "homeScore": 1,
-      "awayScore": 1,
-      "winner": "DRAW"
     },
     {
       "stage": "GROUP_STAGE",
