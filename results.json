@@ -1,5 +1,5 @@
 {
-  "updated": "2026-06-26T21:00:29.586Z",
+  "updated": "2026-06-26T21:05:16.117Z",
   "count": 62,
   "matches": [
     {
@@ -605,11 +605,11 @@
     {
       "stage": "GROUP_STAGE",
       "group": "GROUP_I",
-      "status": "IN_PLAY",
+      "status": "FINISHED",
       "home": "Norway",
       "away": "France",
       "homeScore": 1,
-      "awayScore": 3,
+      "awayScore": 4,
       "winner": "AWAY_TEAM"
     },
     {
