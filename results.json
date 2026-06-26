@@ -1,6 +1,6 @@
 {
-  "updated": "2026-06-26T19:05:16.849Z",
-  "count": 60,
+  "updated": "2026-06-26T19:10:21.500Z",
+  "count": 62,
   "matches": [
     {
       "stage": "GROUP_STAGE",
@@ -598,6 +598,26 @@
       "status": "FINISHED",
       "home": "Paraguay",
       "away": "Australia",
+      "homeScore": 0,
+      "awayScore": 0,
+      "winner": "DRAW"
+    },
+    {
+      "stage": "GROUP_STAGE",
+      "group": "GROUP_I",
+      "status": "LIVE",
+      "home": "Norway",
+      "away": "France",
+      "homeScore": 0,
+      "awayScore": 0,
+      "winner": "DRAW"
+    },
+    {
+      "stage": "GROUP_STAGE",
+      "group": "GROUP_I",
+      "status": "LIVE",
+      "home": "Senegal",
+      "away": "Iraq",
       "homeScore": 0,
       "awayScore": 0,
       "winner": "DRAW"
