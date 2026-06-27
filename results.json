@@ -1,5 +1,5 @@
 {
-  "updated": "2026-06-27T21:35:15.738Z",
+  "updated": "2026-06-27T21:40:18.809Z",
   "count": 68,
   "matches": [
     {
@@ -678,9 +678,9 @@
       "status": "LIVE",
       "home": "Croatia",
       "away": "Ghana",
-      "homeScore": 0,
+      "homeScore": 1,
       "awayScore": 0,
-      "winner": "DRAW"
+      "winner": "HOME_TEAM"
     }
   ]
 }
