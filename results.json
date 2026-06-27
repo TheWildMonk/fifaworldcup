@@ -1,5 +1,5 @@
 {
-  "updated": "2026-06-27T00:45:17.522Z",
+  "updated": "2026-06-27T00:50:20.769Z",
   "count": 64,
   "matches": [
     {
@@ -629,8 +629,8 @@
       "home": "Uruguay",
       "away": "Spain",
       "homeScore": 0,
-      "awayScore": 0,
-      "winner": "DRAW"
+      "awayScore": 1,
+      "winner": "AWAY_TEAM"
     },
     {
       "stage": "GROUP_STAGE",
