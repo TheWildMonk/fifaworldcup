@@ -996,46 +996,49 @@
 <script>
 // ─── DATA ───────────────────────────────────────────────────────────────────
 
+// Knockout fixtures. `utc` is the official kickoff in UTC; the app renders it in
+// Bangladesh time (UTC+6) via formatBD, so e.g. match 73 (19:00 UTC Jun 28) shows as
+// Jun 29 in Dhaka and the Final (19:00 UTC Jul 19) shows as Jul 20.
 const KO_VENUES_R32 = {
-  0: { m:73, date:'Jun 28', venue:'SoFi Stadium, Inglewood' },
-  1: { m:74, date:'Jun 29', venue:'Gillette Stadium, Foxborough' },
-  2: { m:75, date:'Jun 29', venue:'Estadio Akron, Zapopan' },
-  3: { m:76, date:'Jun 29', venue:'NRG Stadium, Houston' },
-  4: { m:77, date:'Jun 30', venue:'MetLife Stadium, East Rutherford' },
-  5: { m:78, date:'Jun 30', venue:'AT&T Stadium, Arlington' },
-  6: { m:79, date:'Jun 30', venue:'Estadio Azteca, Mexico City' },
-  7: { m:80, date:'Jul 1', venue:'Mercedes-Benz Stadium, Atlanta' },
-  8: { m:81, date:'Jul 1', venue:'Levi\'s Stadium, Santa Clara' },
-  9: { m:82, date:'Jul 1', venue:'Lumen Field, Seattle' },
-  10: { m:83, date:'Jul 2', venue:'BMO Field, Toronto' },
-  11: { m:84, date:'Jul 2', venue:'SoFi Stadium, Inglewood' },
-  12: { m:85, date:'Jul 2', venue:'BC Place, Vancouver' },
-  13: { m:86, date:'Jul 3', venue:'Hard Rock Stadium, Miami Gardens' },
-  14: { m:87, date:'Jul 3', venue:'Arrowhead Stadium, Kansas City' },
-  15: { m:88, date:'Jul 3', venue:'AT&T Stadium, Arlington' },
+  0:  { m:73, utc:'2026-06-28T19:00:00Z', venue:'SoFi Stadium, Inglewood' },
+  1:  { m:74, utc:'2026-06-29T20:30:00Z', venue:'Gillette Stadium, Foxborough' },
+  2:  { m:75, utc:'2026-06-30T01:00:00Z', venue:'Estadio Akron, Zapopan' },
+  3:  { m:76, utc:'2026-06-29T16:00:00Z', venue:'NRG Stadium, Houston' },
+  4:  { m:77, utc:'2026-06-30T21:00:00Z', venue:'MetLife Stadium, East Rutherford' },
+  5:  { m:78, utc:'2026-06-30T17:00:00Z', venue:'AT&T Stadium, Arlington' },
+  6:  { m:79, utc:'2026-07-01T01:00:00Z', venue:'Estadio Azteca, Mexico City' },
+  7:  { m:80, utc:'2026-07-01T16:00:00Z', venue:'Mercedes-Benz Stadium, Atlanta' },
+  8:  { m:81, utc:'2026-07-01T20:00:00Z', venue:'Levi\'s Stadium, Santa Clara' },
+  9:  { m:82, utc:'2026-07-01T20:00:00Z', venue:'Lumen Field, Seattle' },
+  10: { m:83, utc:'2026-07-02T23:00:00Z', venue:'BMO Field, Toronto' },
+  11: { m:84, utc:'2026-07-02T19:00:00Z', venue:'SoFi Stadium, Inglewood' },
+  12: { m:85, utc:'2026-07-03T03:00:00Z', venue:'BC Place, Vancouver' },
+  13: { m:86, utc:'2026-07-03T22:00:00Z', venue:'Hard Rock Stadium, Miami Gardens' },
+  14: { m:87, utc:'2026-07-04T00:30:00Z', venue:'Arrowhead Stadium, Kansas City' },
+  15: { m:88, utc:'2026-07-03T18:00:00Z', venue:'AT&T Stadium, Arlington' },
 };
 const KO_VENUES_R16 = {
-  0: { m:89, date:'Jul 4', venue:'Lincoln Financial Field, Philadelphia' },
-  1: { m:90, date:'Jul 4', venue:'NRG Stadium, Houston' },
-  2: { m:91, date:'Jul 5', venue:'MetLife Stadium, East Rutherford' },
-  3: { m:92, date:'Jul 5', venue:'Estadio Azteca, Mexico City' },
-  4: { m:93, date:'Jul 6', venue:'AT&T Stadium, Arlington' },
-  5: { m:94, date:'Jul 6', venue:'Lumen Field, Seattle' },
-  6: { m:95, date:'Jul 7', venue:'Mercedes-Benz Stadium, Atlanta' },
-  7: { m:96, date:'Jul 7', venue:'BC Place, Vancouver' },
+  0: { m:89, utc:'2026-07-04T21:00:00Z', venue:'Lincoln Financial Field, Philadelphia' },
+  1: { m:90, utc:'2026-07-04T17:00:00Z', venue:'NRG Stadium, Houston' },
+  2: { m:91, utc:'2026-07-05T20:00:00Z', venue:'MetLife Stadium, East Rutherford' },
+  3: { m:92, utc:'2026-07-06T02:00:00Z', venue:'Estadio Azteca, Mexico City' },
+  4: { m:93, utc:'2026-07-06T19:00:00Z', venue:'AT&T Stadium, Arlington' },
+  5: { m:94, utc:'2026-07-06T22:00:00Z', venue:'Lumen Field, Seattle' },
+  6: { m:95, utc:'2026-07-07T16:00:00Z', venue:'Mercedes-Benz Stadium, Atlanta' },
+  7: { m:96, utc:'2026-07-07T20:00:00Z', venue:'BC Place, Vancouver' },
 };
 const KO_VENUES_QF = {
-  0: { m:97, date:'Jul 9', venue:'Gillette Stadium, Foxborough' },
-  1: { m:98, date:'Jul 10', venue:'SoFi Stadium, Inglewood' },
-  2: { m:99, date:'Jul 11', venue:'Hard Rock Stadium, Miami Gardens' },
-  3: { m:100, date:'Jul 11', venue:'Arrowhead Stadium, Kansas City' },
+  0: { m:97,  utc:'2026-07-09T20:00:00Z', venue:'Gillette Stadium, Foxborough' },
+  1: { m:98,  utc:'2026-07-10T19:00:00Z', venue:'SoFi Stadium, Inglewood' },
+  2: { m:99,  utc:'2026-07-11T21:00:00Z', venue:'Hard Rock Stadium, Miami Gardens' },
+  3: { m:100, utc:'2026-07-12T00:00:00Z', venue:'Arrowhead Stadium, Kansas City' },
 };
 const KO_VENUES_SF = {
-  0: { m:101, date:'Jul 14', venue:'AT&T Stadium, Arlington' },
-  1: { m:102, date:'Jul 15', venue:'Mercedes-Benz Stadium, Atlanta' },
+  0: { m:101, utc:'2026-07-14T18:00:00Z', venue:'AT&T Stadium, Arlington' },
+  1: { m:102, utc:'2026-07-15T19:00:00Z', venue:'Mercedes-Benz Stadium, Atlanta' },
 };
-const FINAL_VENUE = { date:'Jul 19', venue:'MetLife Stadium, East Rutherford' };
-const BRONZE_VENUE = { date:'Jul 18', venue:'Hard Rock Stadium, Miami Gardens' };
+const FINAL_VENUE = { m:104, utc:'2026-07-19T19:00:00Z', venue:'MetLife Stadium, East Rutherford' };
+const BRONZE_VENUE = { m:103, utc:'2026-07-18T21:00:00Z', venue:'Hard Rock Stadium, Miami Gardens' };
 
 const VENUES = {
   'A_Mexico_South Africa': 'Estadio Azteca, Mexico City',
@@ -1958,7 +1961,7 @@ function renderFinal() {
   container.innerHTML = `
     <div style="display:flex;flex-direction:column;align-items:center;gap:24px;padding:20px 0;">
       <div style="font-family:'Bebas Neue',sans-serif;font-size:13px;letter-spacing:3px;color:var(--muted);">
-        MetLife Stadium · East Rutherford, NJ · July 19, 2026
+        MetLife Stadium · East Rutherford, NJ · ${formatBD(FINAL_VENUE.utc)}
       </div>
       <div class="ko-match final-match" style="width:100%;max-width:280px;">
         <div class="ko-team ${champ === tA && tA ? 'winner' : ''}" style="padding:12px 14px;">
@@ -1990,7 +1993,7 @@ function renderBronze() {
   container.innerHTML = `
     <div style="display:flex;flex-direction:column;align-items:center;gap:24px;padding:20px 0;">
       <div style="font-family:'Bebas Neue',sans-serif;font-size:13px;letter-spacing:3px;color:var(--muted);">
-        Hard Rock Stadium · Miami Gardens, FL · July 18, 2026
+        Hard Rock Stadium · Miami Gardens, FL · ${formatBD(BRONZE_VENUE.utc)}
       </div>
       <div class="ko-match final-match" style="width:100%;max-width:280px;">
         <div class="ko-team ${third === tA && tA ? 'winner' : ''}" style="padding:12px 14px;">
@@ -2027,7 +2030,7 @@ function koCardHTML(round, mi, tA, tB, curWinner, phA = 'TBD', phB = 'TBD') {
   const venueMap = { r32: KO_VENUES_R32, r16: KO_VENUES_R16, qf: KO_VENUES_QF, sf: KO_VENUES_SF };
   const info = venueMap[round] ? venueMap[round][mi] : null;
   const venueLine = info ? `
-    <div class="match-venue" style="padding:0 14px 8px;">📍 Match ${info.m} · ${info.date} · ${info.venue}</div>` : '';
+    <div class="match-venue" style="padding:0 14px 8px;">📍 Match ${info.m} · ${formatBD(info.utc)} · ${info.venue}</div>` : '';
   const tbdA = `<span class="ko-tbd">${phA}</span>`;
   const tbdB = `<span class="ko-tbd">${phB}</span>`;
   return `
