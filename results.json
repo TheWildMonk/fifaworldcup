@@ -1,5 +1,5 @@
 {
-  "updated": "2026-06-27T23:50:17.566Z",
+  "updated": "2026-06-27T23:55:15.154Z",
   "count": 70,
   "matches": [
     {
@@ -698,9 +698,9 @@
       "status": "LIVE",
       "home": "DR Congo",
       "away": "Uzbekistan",
-      "homeScore": 0,
+      "homeScore": 1,
       "awayScore": 1,
-      "winner": "AWAY_TEAM"
+      "winner": "DRAW"
     }
   ]
 }
