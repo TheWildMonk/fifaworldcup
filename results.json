@@ -1,5 +1,5 @@
 {
-  "updated": "2026-06-27T23:00:30.516Z",
+  "updated": "2026-06-27T23:05:14.668Z",
   "count": 68,
   "matches": [
     {
@@ -675,7 +675,7 @@
     {
       "stage": "GROUP_STAGE",
       "group": "GROUP_L",
-      "status": "IN_PLAY",
+      "status": "FINISHED",
       "home": "Croatia",
       "away": "Ghana",
       "homeScore": 2,
