@@ -921,6 +921,7 @@
       </button>
       <div class="nav-dropdown" id="nav-dropdown">
         <button class="tab active" onclick="showView('groups',this)">Group Stage</button>
+        <button class="tab" onclick="showView('standings',this)">Standings</button>
         <button class="tab" onclick="showView('r32',this)">Round of 32</button>
         <button class="tab" onclick="showView('r16',this)">Round of 16</button>
         <button class="tab" onclick="showView('qf',this)">Quarter-Finals</button>
@@ -948,6 +949,16 @@
   </div>
   <div class="sync-status" id="sync-status">🔄 Live sync on — checking for results…</div>
   <div class="groups-grid" id="groups-container"></div>
+</div>
+
+<div id="view-standings" class="view">
+  <div class="section-title">Group Standings</div>
+  <div class="legend">
+    <div class="legend-item"><div class="legend-dot q"></div> Advance (Top 2)</div>
+    <div class="legend-item"><div class="legend-dot t"></div> Possible 3rd</div>
+    <div class="legend-item"><div class="legend-dot e"></div> Eliminated</div>
+  </div>
+  <div class="groups-grid" id="standings-container"></div>
 </div>
 
 <div id="view-r32" class="view">
@@ -1179,16 +1190,20 @@ const MATCH_TIMES = {
   'L_Croatia_Ghana': '2026-06-27T21:00:00Z',
 };
 
-// England & Scotland have no ISO country-flag emoji, and the subdivision-flag emoji
-// (🏴󠁧󠁢󠁥󠁮󠁧󠁿 / 🏴󠁧󠁢󠁳󠁣󠁴󠁿) render as a plain black flag on Windows. Inline SVG draws the
-// St George's Cross / Saltire directly, so it looks right everywhere and works offline.
+// England & Scotland have no ISO country-flag emoji; their subdivision-flag emoji
+// (🏴󠁧󠁢󠁥󠁮󠁧󠁿 / 🏴󠁧󠁢󠁳󠁣󠁴󠁿) render as proper flags in modern browsers but as a plain black
+// flag in some environments (e.g. Segoe UI Emoji on Windows). We prefer the emoji so
+// they look identical to every other flag, and resolveSubdivisionFlags() swaps in an
+// inline-SVG fallback (St George's Cross / Saltire) only where the emoji isn't supported.
+const ENG_EMOJI = '🏴󠁧󠁢󠁥󠁮󠁧󠁿';
+const SCO_EMOJI = '🏴󠁧󠁢󠁳󠁣󠁴󠁿';
 const ENG_FLAG = '<svg viewBox="0 0 50 30" style="width:1.25em;height:.78em;vertical-align:-1px;border-radius:2px;display:inline-block;"><rect width="50" height="30" fill="#fff"/><rect x="20" width="10" height="30" fill="#ce1124"/><rect y="10" width="50" height="10" fill="#ce1124"/></svg>';
 const SCO_FLAG = '<svg viewBox="0 0 50 30" style="width:1.25em;height:.78em;vertical-align:-1px;border-radius:2px;display:inline-block;"><rect width="50" height="30" fill="#0065bf"/><path d="M0,0 50,30 M50,0 0,30" stroke="#fff" stroke-width="6"/></svg>';
 
 const FLAGS = {
   'Mexico':'🇲🇽','South Africa':'🇿🇦','Korea Republic':'🇰🇷','Czechia':'🇨🇿',
   'Canada':'🇨🇦','Bosnia and Herzegovina':'🇧🇦','Qatar':'🇶🇦','Switzerland':'🇨🇭',
-  'Brazil':'🇧🇷','Morocco':'🇲🇦','Haiti':'🇭🇹','Scotland':SCO_FLAG,
+  'Brazil':'🇧🇷','Morocco':'🇲🇦','Haiti':'🇭🇹','Scotland':SCO_EMOJI,
   'United States':'🇺🇸','Paraguay':'🇵🇾','Australia':'🇦🇺','Türkiye':'🇹🇷',
   'Germany':'🇩🇪','Curaçao':'🇨🇼','Ivory Coast':'🇨🇮','Ecuador':'🇪🇨',
   'Netherlands':'🇳🇱','Japan':'🇯🇵','Sweden':'🇸🇪','Tunisia':'🇹🇳',
@@ -1197,8 +1212,25 @@ const FLAGS = {
   'France':'🇫🇷','Senegal':'🇸🇳','Iraq':'🇮🇶','Norway':'🇳🇴',
   'Argentina':'🇦🇷','Algeria':'🇩🇿','Austria':'🇦🇹','Jordan':'🇯🇴',
   'Portugal':'🇵🇹','DR Congo':'🇨🇩','Uzbekistan':'🇺🇿','Colombia':'🇨🇴',
-  'England':ENG_FLAG,'Croatia':'🇭🇷','Ghana':'🇬🇭','Panama':'🇵🇦',
+  'England':ENG_EMOJI,'Croatia':'🇭🇷','Ghana':'🇬🇭','Panama':'🇵🇦',
 };
+
+// Detect whether the England/Scotland flag emoji actually render (vs. falling back to a
+// plain black flag). If they don't, swap in the inline-SVG flags. Runs once at startup.
+function resolveSubdivisionFlags() {
+  try {
+    const canvas = document.createElement('canvas');
+    canvas.width = canvas.height = 16;
+    const ctx = canvas.getContext('2d');
+    ctx.font = '14px sans-serif';
+    const paint = (s) => { ctx.clearRect(0, 0, 16, 16); ctx.fillText(s, 0, 14); return canvas.toDataURL(); };
+    const black = paint('🏴');                       // bare black flag = the unsupported fallback
+    if (paint(ENG_EMOJI) === black) FLAGS.England = ENG_FLAG;  // emoji not supported -> SVG
+    if (paint(SCO_EMOJI) === black) FLAGS.Scotland = SCO_FLAG;
+  } catch (e) {
+    FLAGS.England = ENG_FLAG; FLAGS.Scotland = SCO_FLAG;        // canvas unavailable -> safe SVG
+  }
+}
 
 const GROUPS = [
   { id:'A', host:'Mexico', teams:['Mexico','South Africa','Korea Republic','Czechia'] },
@@ -1430,7 +1462,7 @@ async function fetchLiveResults(notify) {
 
   lastSyncInfo = { updated: data.updated, applied };
   saveState();
-  if (applied > 0) renderGroups();
+  if (applied > 0) { renderGroups(); renderStandings(); }
   renderR32(); renderR16(); renderQF(); renderSF(); renderFinal(); renderBronze();
   renderToday(); // refresh homepage scores even when group cards are untouched
   updateSyncStatus();
@@ -1559,6 +1591,39 @@ function renderGroups() {
     container.appendChild(card);
   });
   updateAllCountdowns();
+}
+
+// Standalone overview of all 12 group tables (no fixtures/inputs), for the Standings tab.
+function renderStandings() {
+  const container = document.getElementById('standings-container');
+  if (!container) return;
+  container.innerHTML = GROUPS.map(g => {
+    const standings = calcStandings(g);
+    const rows = standings.map((t, i) => {
+      const cls = i < 2 ? 'qualified' : (i === 2 ? 'third' : 'eliminated');
+      return `
+        <tr class="team-row ${cls}">
+          <td><span class="pos-badge pos-${i+1}">${i+1}</span>${FLAGS[t.name]||''} ${t.name}</td>
+          <td>${t.mp}</td><td>${t.w}</td><td>${t.d}</td><td>${t.l}</td>
+          <td>${t.gf}</td><td>${t.ga}</td>
+          <td>${t.gd >= 0 ? '+'+t.gd : t.gd}</td>
+          <td class="pts">${t.pts}</td>
+        </tr>`;
+    }).join('');
+    return `
+      <div class="group-card">
+        <div class="group-header"><span class="group-name">Group ${g.id}</span></div>
+        <div class="standings-wrapper">
+          <table class="standings">
+            <thead><tr>
+              <th style="text-align:left;padding-left:12px;">Team</th>
+              <th>MP</th><th>W</th><th>D</th><th>L</th><th>GF</th><th>GA</th><th>GD</th><th>Pts</th>
+            </tr></thead>
+            <tbody>${rows}</tbody>
+          </table>
+        </div>
+      </div>`;
+  }).join('');
 }
 
 function updateScore(gid, t1, t2, side, val) {
@@ -2211,7 +2276,8 @@ function showView(id, btn) {
   if (btn) document.getElementById('nav-current').textContent = btn.textContent;
   closeNavMenu();
 
-  // Re-render knockout views when switching
+  // Re-render data views when switching
+  if (id === 'standings') renderStandings();
   if (id === 'r32') renderR32();
   if (id === 'r16') renderR16();
   if (id === 'qf')  renderQF();
@@ -2418,8 +2484,10 @@ function renderToday() {
 setInterval(updateAllCountdowns, 1000);
 
 
+resolveSubdivisionFlags();   // prefer flag emoji; fall back to SVG only if unsupported
 loadState();
 renderGroups();
+renderStandings();
 renderToday();
 syncBracket();   // auto-fill R32 from finished groups + cascade any saved KO scores
 renderR32();
