@@ -1,5 +1,5 @@
 {
-  "updated": "2026-06-27T03:10:18.522Z",
+  "updated": "2026-06-27T03:15:18.369Z",
   "count": 66,
   "matches": [
     {
@@ -658,9 +658,9 @@
       "status": "IN_PLAY",
       "home": "Egypt",
       "away": "Iran",
-      "homeScore": 0,
+      "homeScore": 1,
       "awayScore": 0,
-      "winner": "DRAW"
+      "winner": "HOME_TEAM"
     }
   ]
 }
