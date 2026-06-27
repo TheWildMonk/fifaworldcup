@@ -1,5 +1,5 @@
 {
-  "updated": "2026-06-27T02:05:15.950Z",
+  "updated": "2026-06-27T02:10:16.281Z",
   "count": 64,
   "matches": [
     {
@@ -625,7 +625,7 @@
     {
       "stage": "GROUP_STAGE",
       "group": "GROUP_H",
-      "status": "IN_PLAY",
+      "status": "FINISHED",
       "home": "Uruguay",
       "away": "Spain",
       "homeScore": 0,
