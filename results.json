@@ -1,5 +1,5 @@
 {
-  "updated": "2026-06-27T00:55:16.750Z",
+  "updated": "2026-06-27T01:00:25.114Z",
   "count": 64,
   "matches": [
     {
@@ -625,7 +625,7 @@
     {
       "stage": "GROUP_STAGE",
       "group": "GROUP_H",
-      "status": "LIVE",
+      "status": "PAUSED",
       "home": "Uruguay",
       "away": "Spain",
       "homeScore": 0,
@@ -635,7 +635,7 @@
     {
       "stage": "GROUP_STAGE",
       "group": "GROUP_H",
-      "status": "LIVE",
+      "status": "PAUSED",
       "home": "Cape Verde Islands",
       "away": "Saudi Arabia",
       "homeScore": 0,
