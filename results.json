@@ -1,5 +1,5 @@
 {
-  "updated": "2026-06-27T05:05:15.722Z",
+  "updated": "2026-06-27T05:10:15.709Z",
   "count": 66,
   "matches": [
     {
@@ -655,7 +655,7 @@
     {
       "stage": "GROUP_STAGE",
       "group": "GROUP_G",
-      "status": "IN_PLAY",
+      "status": "FINISHED",
       "home": "Egypt",
       "away": "Iran",
       "homeScore": 1,
