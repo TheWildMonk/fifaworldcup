@@ -1,6 +1,6 @@
 {
-  "updated": "2026-06-27T00:05:15.622Z",
-  "count": 62,
+  "updated": "2026-06-27T00:10:16.403Z",
+  "count": 64,
   "matches": [
     {
       "stage": "GROUP_STAGE",
@@ -621,6 +621,26 @@
       "homeScore": 5,
       "awayScore": 0,
       "winner": "HOME_TEAM"
+    },
+    {
+      "stage": "GROUP_STAGE",
+      "group": "GROUP_H",
+      "status": "LIVE",
+      "home": "Uruguay",
+      "away": "Spain",
+      "homeScore": 0,
+      "awayScore": 0,
+      "winner": "DRAW"
+    },
+    {
+      "stage": "GROUP_STAGE",
+      "group": "GROUP_H",
+      "status": "LIVE",
+      "home": "Cape Verde Islands",
+      "away": "Saudi Arabia",
+      "homeScore": 0,
+      "awayScore": 0,
+      "winner": "DRAW"
     }
   ]
 }
