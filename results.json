@@ -1,5 +1,5 @@
 {
-  "updated": "2026-06-27T05:00:26.714Z",
+  "updated": "2026-06-27T05:05:15.722Z",
   "count": 66,
   "matches": [
     {
@@ -645,11 +645,11 @@
     {
       "stage": "GROUP_STAGE",
       "group": "GROUP_G",
-      "status": "IN_PLAY",
+      "status": "FINISHED",
       "home": "New Zealand",
       "away": "Belgium",
       "homeScore": 1,
-      "awayScore": 4,
+      "awayScore": 5,
       "winner": "AWAY_TEAM"
     },
     {
@@ -659,8 +659,8 @@
       "home": "Egypt",
       "away": "Iran",
       "homeScore": 1,
-      "awayScore": 1,
-      "winner": "DRAW"
+      "awayScore": 2,
+      "winner": "AWAY_TEAM"
     }
   ]
 }
