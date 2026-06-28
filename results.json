@@ -1,5 +1,5 @@
 {
-  "updated": "2026-06-28T21:00:24.045Z",
+  "updated": "2026-06-28T21:05:14.956Z",
   "count": 73,
   "matches": [
     {
@@ -725,7 +725,7 @@
     {
       "stage": "LAST_32",
       "group": null,
-      "status": "PAUSED",
+      "status": "FINISHED",
       "home": "South Africa",
       "away": "Canada",
       "homeScore": 0,
