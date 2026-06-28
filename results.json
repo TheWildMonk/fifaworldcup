@@ -1,5 +1,5 @@
 {
-  "updated": "2026-06-28T00:20:18.101Z",
+  "updated": "2026-06-28T00:25:16.572Z",
   "count": 70,
   "matches": [
     {
@@ -685,7 +685,7 @@
     {
       "stage": "GROUP_STAGE",
       "group": "GROUP_K",
-      "status": "LIVE",
+      "status": "PAUSED",
       "home": "Colombia",
       "away": "Portugal",
       "homeScore": 0,
