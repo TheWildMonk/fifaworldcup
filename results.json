@@ -1,5 +1,5 @@
 {
-  "updated": "2026-06-28T03:25:14.480Z",
+  "updated": "2026-06-28T03:30:23.149Z",
   "count": 72,
   "matches": [
     {
@@ -718,9 +718,9 @@
       "status": "IN_PLAY",
       "home": "Algeria",
       "away": "Austria",
-      "homeScore": 1,
+      "homeScore": 2,
       "awayScore": 2,
-      "winner": "AWAY_TEAM"
+      "winner": "DRAW"
     }
   ]
 }
