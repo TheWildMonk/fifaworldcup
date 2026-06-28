@@ -1,5 +1,5 @@
 {
-  "updated": "2026-06-28T04:00:24.549Z",
+  "updated": "2026-06-28T04:05:17.472Z",
   "count": 72,
   "matches": [
     {
@@ -705,7 +705,7 @@
     {
       "stage": "GROUP_STAGE",
       "group": "GROUP_J",
-      "status": "IN_PLAY",
+      "status": "FINISHED",
       "home": "Jordan",
       "away": "Argentina",
       "homeScore": 1,
@@ -715,12 +715,12 @@
     {
       "stage": "GROUP_STAGE",
       "group": "GROUP_J",
-      "status": "IN_PLAY",
+      "status": "FINISHED",
       "home": "Algeria",
       "away": "Austria",
       "homeScore": 3,
-      "awayScore": 2,
-      "winner": "HOME_TEAM"
+      "awayScore": 3,
+      "winner": "DRAW"
     }
   ]
 }
