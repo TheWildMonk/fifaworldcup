@@ -1944,7 +1944,13 @@ function renderR32() {
   const grid = document.createElement('div');
   grid.style.cssText = 'display:grid;grid-template-columns:1fr;gap:12px;';
 
-  R32_PAIRINGS.forEach(([sa, sb, labelA, labelB], mi) => {
+  // Display the matches in kickoff order. Match index (mi) is preserved as-is so the
+  // bracket feed, scores and venue lines stay correct — only the visual order changes.
+  const order = R32_PAIRINGS.map((_, mi) => mi)
+    .sort((a, b) => new Date(KO_VENUES_R32[a].utc) - new Date(KO_VENUES_R32[b].utc));
+
+  order.forEach(mi => {
+    const [sa, sb, labelA, labelB] = R32_PAIRINGS[mi];
     const tA = knockoutTeams.r32[sa] || null;
     const tB = knockoutTeams.r32[sb] || null;
     const curWinner = knockoutTeams.r16[mi] || null;
