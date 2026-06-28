@@ -1967,6 +1967,14 @@ function renderR32() {
   container.appendChild(grid);
 }
 
+// Placeholder for an undecided knockout slot, e.g. "Winner M73" / "Loser M101",
+// pointing at the earlier match that feeds it. `slot` indexes the source round's
+// venue map, whose `.m` is the official match number shown on that match's card.
+function srcLabel(srcVenues, slot, verb) {
+  const info = srcVenues[slot];
+  return info ? `${verb} M${info.m}` : 'TBD';
+}
+
 function renderR16() {
   const container = document.getElementById('r16-container');
   container.innerHTML = '';
@@ -1980,7 +1988,9 @@ function renderR16() {
 
     const card = document.createElement('div');
     card.className = 'ko-match';
-    card.innerHTML = koCardHTML('r16', mi, tA, tB, curWinner);
+    // Empty slots show which R32 winners feed this tie.
+    card.innerHTML = koCardHTML('r16', mi, tA, tB, curWinner,
+      srcLabel(KO_VENUES_R32, mi*2, 'Winner'), srcLabel(KO_VENUES_R32, mi*2+1, 'Winner'));
     grid.appendChild(card);
   }
   container.appendChild(grid);
@@ -1999,7 +2009,8 @@ function renderQF() {
 
     const card = document.createElement('div');
     card.className = 'ko-match';
-    card.innerHTML = koCardHTML('qf', mi, tA, tB, curWinner);
+    card.innerHTML = koCardHTML('qf', mi, tA, tB, curWinner,
+      srcLabel(KO_VENUES_R16, mi*2, 'Winner'), srcLabel(KO_VENUES_R16, mi*2+1, 'Winner'));
     grid.appendChild(card);
   }
   container.appendChild(grid);
@@ -2018,7 +2029,8 @@ function renderSF() {
 
     const card = document.createElement('div');
     card.className = 'ko-match';
-    card.innerHTML = koCardHTML('sf', mi, tA, tB, curWinner);
+    card.innerHTML = koCardHTML('sf', mi, tA, tB, curWinner,
+      srcLabel(KO_VENUES_QF, mi*2, 'Winner'), srcLabel(KO_VENUES_QF, mi*2+1, 'Winner'));
     grid.appendChild(card);
   }
   container.appendChild(grid);
@@ -2029,6 +2041,8 @@ function renderFinal() {
   const tA = knockoutTeams.final[0] || null;
   const tB = knockoutTeams.final[1] || null;
   const champ = knockoutTeams.champion;
+  const phA = srcLabel(KO_VENUES_SF, 0, 'Winner');   // winner of Semi-Final 1
+  const phB = srcLabel(KO_VENUES_SF, 1, 'Winner');   // winner of Semi-Final 2
 
   container.innerHTML = `
     <div style="display:flex;flex-direction:column;align-items:center;gap:24px;padding:20px 0;">
@@ -2038,12 +2052,12 @@ function renderFinal() {
       <div class="ko-match final-match" style="width:100%;max-width:280px;">
         <div class="ko-team ${champ === tA && tA ? 'winner' : ''}" style="padding:12px 14px;">
           <span class="flag" style="font-size:20px;">${tA ? (FLAGS[tA]||'⚽') : ''}</span>
-          <span class="ko-team-name" style="font-size:14px;font-weight:600;">${tA || '<span class="ko-tbd">TBD</span>'}</span>
+          <span class="ko-team-name" style="font-size:14px;font-weight:600;">${tA || '<span class="ko-tbd">'+phA+'</span>'}</span>
         </div>
         <div style="text-align:center;padding:6px;font-family:Bebas Neue;font-size:18px;color:var(--accent);letter-spacing:2px;border-top:1px solid var(--border);border-bottom:1px solid var(--border);">FINAL</div>
         <div class="ko-team ${champ === tB && tB ? 'winner' : ''}" style="padding:12px 14px;">
           <span class="flag" style="font-size:20px;">${tB ? (FLAGS[tB]||'⚽') : ''}</span>
-          <span class="ko-team-name" style="font-size:14px;font-weight:600;">${tB || '<span class="ko-tbd">TBD</span>'}</span>
+          <span class="ko-team-name" style="font-size:14px;font-weight:600;">${tB || '<span class="ko-tbd">'+phB+'</span>'}</span>
         </div>${koScoreRow('final', 0, tA, tB)}
       </div>
       ${champ ? `
@@ -2061,6 +2075,8 @@ function renderBronze() {
   const tA = knockoutTeams.bronze[0] || null;
   const tB = knockoutTeams.bronze[1] || null;
   const third = knockoutTeams.thirdPlace;
+  const phA = srcLabel(KO_VENUES_SF, 0, 'Loser');    // loser of Semi-Final 1
+  const phB = srcLabel(KO_VENUES_SF, 1, 'Loser');    // loser of Semi-Final 2
 
   container.innerHTML = `
     <div style="display:flex;flex-direction:column;align-items:center;gap:24px;padding:20px 0;">
@@ -2070,12 +2086,12 @@ function renderBronze() {
       <div class="ko-match final-match" style="width:100%;max-width:280px;">
         <div class="ko-team ${third === tA && tA ? 'winner' : ''}" style="padding:12px 14px;">
           <span class="flag" style="font-size:20px;">${tA ? (FLAGS[tA]||'⚽') : ''}</span>
-          <span class="ko-team-name" style="font-size:14px;font-weight:600;">${tA || '<span class="ko-tbd">TBD</span>'}</span>
+          <span class="ko-team-name" style="font-size:14px;font-weight:600;">${tA || '<span class="ko-tbd">'+phA+'</span>'}</span>
         </div>
         <div style="text-align:center;padding:6px;font-family:Bebas Neue;font-size:18px;color:var(--accent);letter-spacing:2px;border-top:1px solid var(--border);border-bottom:1px solid var(--border);">BRONZE FINAL</div>
         <div class="ko-team ${third === tB && tB ? 'winner' : ''}" style="padding:12px 14px;">
           <span class="flag" style="font-size:20px;">${tB ? (FLAGS[tB]||'⚽') : ''}</span>
-          <span class="ko-team-name" style="font-size:14px;font-weight:600;">${tB || '<span class="ko-tbd">TBD</span>'}</span>
+          <span class="ko-team-name" style="font-size:14px;font-weight:600;">${tB || '<span class="ko-tbd">'+phB+'</span>'}</span>
         </div>${koScoreRow('bronze', 0, tA, tB)}
       </div>
       ${third ? `
