@@ -1,5 +1,5 @@
 {
-  "updated": "2026-06-28T20:55:14.441Z",
+  "updated": "2026-06-28T21:00:24.045Z",
   "count": 73,
   "matches": [
     {
@@ -729,8 +729,8 @@
       "home": "South Africa",
       "away": "Canada",
       "homeScore": 0,
-      "awayScore": 0,
-      "winner": "DRAW"
+      "awayScore": 1,
+      "winner": "AWAY_TEAM"
     }
   ]
 }
