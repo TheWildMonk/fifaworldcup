@@ -1040,6 +1040,19 @@ const KO_VENUES_SF = {
 const FINAL_VENUE = { m:104, utc:'2026-07-19T19:00:00Z', venue:'MetLife Stadium, East Rutherford' };
 const BRONZE_VENUE = { m:103, utc:'2026-07-18T21:00:00Z', venue:'Hard Rock Stadium, Miami Gardens' };
 
+const KO_ROUND_NAME = { r32:'Round of 32', r16:'Round of 16', qf:'Quarter-Final', sf:'Semi-Final', final:'Final', bronze:'Bronze Final' };
+
+// Flat list of every knockout fixture (kickoff + venue), so "Today's Matches" and the
+// countdown ticker can treat them just like group fixtures. Each gets a unique key.
+const KO_FIXTURES = [
+  ...Object.entries(KO_VENUES_R32).map(([mi, v]) => ({ round:'r32', mi:+mi, iso:v.utc, venue:v.venue, m:v.m })),
+  ...Object.entries(KO_VENUES_R16).map(([mi, v]) => ({ round:'r16', mi:+mi, iso:v.utc, venue:v.venue, m:v.m })),
+  ...Object.entries(KO_VENUES_QF).map(([mi, v]) => ({ round:'qf',  mi:+mi, iso:v.utc, venue:v.venue, m:v.m })),
+  ...Object.entries(KO_VENUES_SF).map(([mi, v]) => ({ round:'sf',  mi:+mi, iso:v.utc, venue:v.venue, m:v.m })),
+  { round:'final',  mi:0, iso:FINAL_VENUE.utc,  venue:FINAL_VENUE.venue,  m:FINAL_VENUE.m },
+  { round:'bronze', mi:0, iso:BRONZE_VENUE.utc, venue:BRONZE_VENUE.venue, m:BRONZE_VENUE.m },
+].map(f => ({ ...f, key: `ko_${f.round}_${f.mi}` }));
+
 const VENUES = {
   'A_Mexico_South Africa': 'Estadio Azteca, Mexico City',
   'A_Korea Republic_Czechia': 'Estadio Akron, Guadalajara',
@@ -1975,6 +1988,18 @@ function srcLabel(srcVenues, slot, verb) {
   return info ? `${verb} M${info.m}` : 'TBD';
 }
 
+// The two "who-feeds-this-slot" placeholders for a knockout match (used before the
+// teams are decided), matching the labels shown on each round's bracket cards.
+function koPlaceholders(round, mi) {
+  if (round === 'r32')    { const p = R32_PAIRINGS[mi]; return [r32SlotLabel(p[2]), r32SlotLabel(p[3])]; }
+  if (round === 'r16')    return [srcLabel(KO_VENUES_R32, mi*2, 'Winner'), srcLabel(KO_VENUES_R32, mi*2+1, 'Winner')];
+  if (round === 'qf')     return [srcLabel(KO_VENUES_R16, mi*2, 'Winner'), srcLabel(KO_VENUES_R16, mi*2+1, 'Winner')];
+  if (round === 'sf')     return [srcLabel(KO_VENUES_QF, mi*2, 'Winner'), srcLabel(KO_VENUES_QF, mi*2+1, 'Winner')];
+  if (round === 'final')  return [srcLabel(KO_VENUES_SF, 0, 'Winner'), srcLabel(KO_VENUES_SF, 1, 'Winner')];
+  if (round === 'bronze') return [srcLabel(KO_VENUES_SF, 0, 'Loser'),  srcLabel(KO_VENUES_SF, 1, 'Loser')];
+  return ['TBD', 'TBD'];
+}
+
 function renderR16() {
   const container = document.getElementById('r16-container');
   container.innerHTML = '';
@@ -2396,6 +2421,17 @@ function updateAllCountdowns() {
     }
   }
 
+  // Tick the knockout fixtures shown in "Today's Matches" too.
+  for (const f of KO_FIXTURES) {
+    const elT = document.getElementById('cdtoday_' + f.key);
+    if (!elT) continue;
+    const cs = countdownState(new Date(f.iso).getTime() - now);
+    elT.textContent = cs.text;
+    elT.className = 'countdown ' + cs.cls;
+    const tc = document.getElementById('todaycard_' + f.key);
+    if (tc) tc.classList.toggle('today-live', cs.state === 'live');
+  }
+
   // Glow the group cards that currently have a live match.
   GROUPS.forEach(g => {
     const card = document.getElementById('group-card-' + g.id);
@@ -2428,12 +2464,37 @@ function renderToday() {
   const now = Date.now();
   const todayKey = bdDayKey(now);
 
-  // All group fixtures tagged with their Bangladesh-day.
-  const all = Object.entries(MATCH_TIMES).map(([key, iso]) => {
+  // Group fixtures — score resolved to the displayed (fixture) orientation.
+  const groupItems = Object.entries(MATCH_TIMES).map(([key, iso]) => {
     const target = new Date(iso).getTime();
     const [gid, t1, t2] = key.split('_'); // team names have no underscores
-    return { key, iso, gid, t1, t2, target, day: bdDayKey(target) };
+    const ga = TEAM_TO_GROUP[t1], gb = TEAM_TO_GROUP[t2];
+    const t1First = ga && gb ? ga.idx < gb.idx : true;
+    const s = t1First ? getScore(gid, t1, t2) : getScore(gid, t2, t1);
+    return {
+      key, iso, target, day: bdDayKey(target), tag: `Group ${gid}`,
+      t1, t2, flag1: FLAGS[t1] || '', flag2: FLAGS[t2] || '',
+      leftScore: t1First ? s.h : s.a, rightScore: t1First ? s.a : s.h,
+      venue: VENUES[key] || '',
+    };
   });
+
+  // Knockout fixtures — teams (or "Winner M__" placeholders) and score from the bracket.
+  const koItems = KO_FIXTURES.map(f => {
+    const target = new Date(f.iso).getTime();
+    const [tA, tB] = koTeams(f.round, f.mi);
+    const [phA, phB] = koPlaceholders(f.round, f.mi);
+    const sc = koScores[`${f.round}_${f.mi}`] || {};
+    return {
+      key: f.key, iso: f.iso, target, day: bdDayKey(target),
+      tag: `${KO_ROUND_NAME[f.round]} · M${f.m}`,
+      t1: tA || phA, t2: tB || phB,
+      flag1: tA ? (FLAGS[tA] || '⚽') : '', flag2: tB ? (FLAGS[tB] || '⚽') : '',
+      leftScore: sc.a, rightScore: sc.b, venue: f.venue,
+    };
+  });
+
+  const all = [...groupItems, ...koItems];
 
   const isFinished = it => (now - it.target) >= MATCH_DURATION;
   const todayItems = all.filter(it => it.day === todayKey);
@@ -2466,32 +2527,22 @@ function renderToday() {
 
   const cards = items.map(it => {
     const cs = countdownState(it.target - now);
-    // Scores are stored under the group's canonical team-list order (getMatchPairs),
-    // but MATCH_TIMES keys use fixture/kickoff order — which is reversed for some
-    // matches. Resolve to canonical order to read the score, then orient it back to
-    // the displayed (fixture) order.
-    const ga = TEAM_TO_GROUP[it.t1], gb = TEAM_TO_GROUP[it.t2];
-    const t1First = ga && gb ? ga.idx < gb.idx : true;
-    const s = t1First ? getScore(it.gid, it.t1, it.t2) : getScore(it.gid, it.t2, it.t1);
-    const leftScore  = t1First ? s.h : s.a;
-    const rightScore = t1First ? s.a : s.h;
-    const hasScore = leftScore != null && rightScore != null;
+    const hasScore = it.leftScore != null && it.rightScore != null;
     const scoreHTML = hasScore
-      ? `${leftScore} : ${rightScore}`
+      ? `${it.leftScore} : ${it.rightScore}`
       : '<span style="opacity:0.7">vs</span>';
-    const venue = VENUES[it.key] || '';
     return `
       <div class="today-card ${cs.state === 'live' ? 'today-live' : ''}" id="todaycard_${it.key}">
         <div class="today-card-top">
-          <span class="today-group">Group ${it.gid}</span>
+          <span class="today-group">${it.tag}</span>
           <span class="countdown ${cs.cls}" id="cdtoday_${it.key}">${cs.text}</span>
         </div>
         <div class="today-teams">
-          <span class="tt-team"><span class="flag">${FLAGS[it.t1] || ''}</span><span class="name">${it.t1}</span></span>
+          <span class="tt-team"><span class="flag">${it.flag1}</span><span class="name">${it.t1}</span></span>
           <span class="tt-score ${hasScore ? '' : 'pending'}">${scoreHTML}</span>
-          <span class="tt-team right"><span class="name">${it.t2}</span><span class="flag">${FLAGS[it.t2] || ''}</span></span>
+          <span class="tt-team right"><span class="name">${it.t2}</span><span class="flag">${it.flag2}</span></span>
         </div>
-        <div class="today-time">🇧🇩 ${formatBD(it.iso)}${venue ? ` · 📍 ${venue}` : ''}</div>
+        <div class="today-time">🇧🇩 ${formatBD(it.iso)}${it.venue ? ` · 📍 ${it.venue}` : ''}</div>
       </div>`;
   }).join('');
 
