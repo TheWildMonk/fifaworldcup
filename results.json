@@ -1,5 +1,5 @@
 {
-  "updated": "2026-06-28T02:50:20.156Z",
+  "updated": "2026-06-28T02:55:15.526Z",
   "count": 72,
   "matches": [
     {
@@ -715,7 +715,7 @@
     {
       "stage": "GROUP_STAGE",
       "group": "GROUP_J",
-      "status": "LIVE",
+      "status": "PAUSED",
       "home": "Algeria",
       "away": "Austria",
       "homeScore": 1,
