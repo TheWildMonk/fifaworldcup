@@ -1,6 +1,6 @@
 {
-  "updated": "2026-06-28T19:05:17.619Z",
-  "count": 72,
+  "updated": "2026-06-28T19:10:18.644Z",
+  "count": 73,
   "matches": [
     {
       "stage": "GROUP_STAGE",
@@ -720,6 +720,16 @@
       "away": "Austria",
       "homeScore": 3,
       "awayScore": 3,
+      "winner": "DRAW"
+    },
+    {
+      "stage": "LAST_32",
+      "group": null,
+      "status": "IN_PLAY",
+      "home": "South Africa",
+      "away": "Canada",
+      "homeScore": 0,
+      "awayScore": 0,
       "winner": "DRAW"
     }
   ]
