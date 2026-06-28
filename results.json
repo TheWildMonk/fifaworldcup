@@ -1,5 +1,5 @@
 {
-  "updated": "2026-06-28T00:45:16.594Z",
+  "updated": "2026-06-28T00:50:19.326Z",
   "count": 70,
   "matches": [
     {
@@ -695,7 +695,7 @@
     {
       "stage": "GROUP_STAGE",
       "group": "GROUP_K",
-      "status": "LIVE",
+      "status": "IN_PLAY",
       "home": "DR Congo",
       "away": "Uzbekistan",
       "homeScore": 0,
