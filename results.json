@@ -1,6 +1,6 @@
 {
-  "updated": "2026-06-29T17:05:16.618Z",
-  "count": 73,
+  "updated": "2026-06-29T17:10:20.735Z",
+  "count": 74,
   "matches": [
     {
       "stage": "GROUP_STAGE",
@@ -731,6 +731,16 @@
       "homeScore": 0,
       "awayScore": 1,
       "winner": "AWAY_TEAM"
+    },
+    {
+      "stage": "LAST_32",
+      "group": null,
+      "status": "IN_PLAY",
+      "home": "Brazil",
+      "away": "Japan",
+      "homeScore": 0,
+      "awayScore": 0,
+      "winner": "DRAW"
     }
   ]
 }
