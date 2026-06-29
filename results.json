@@ -1,5 +1,5 @@
 {
-  "updated": "2026-06-29T18:20:19.779Z",
+  "updated": "2026-06-29T18:25:20.414Z",
   "count": 74,
   "matches": [
     {
@@ -738,9 +738,9 @@
       "status": "IN_PLAY",
       "home": "Brazil",
       "away": "Japan",
-      "homeScore": 0,
+      "homeScore": 1,
       "awayScore": 1,
-      "winner": "AWAY_TEAM"
+      "winner": "DRAW"
     }
   ]
 }
