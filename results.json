@@ -1,6 +1,6 @@
 {
-  "updated": "2026-06-29T20:35:14.563Z",
-  "count": 74,
+  "updated": "2026-06-29T20:40:17.464Z",
+  "count": 75,
   "matches": [
     {
       "stage": "GROUP_STAGE",
@@ -741,6 +741,16 @@
       "homeScore": 2,
       "awayScore": 1,
       "winner": "HOME_TEAM"
+    },
+    {
+      "stage": "LAST_32",
+      "group": null,
+      "status": "IN_PLAY",
+      "home": "Germany",
+      "away": "Paraguay",
+      "homeScore": 0,
+      "awayScore": 0,
+      "winner": "DRAW"
     }
   ]
 }
