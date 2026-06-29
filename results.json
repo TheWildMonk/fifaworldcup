@@ -1,5 +1,5 @@
 {
-  "updated": "2026-06-29T17:50:16.812Z",
+  "updated": "2026-06-29T17:55:17.030Z",
   "count": 74,
   "matches": [
     {
@@ -735,7 +735,7 @@
     {
       "stage": "LAST_32",
       "group": null,
-      "status": "IN_PLAY",
+      "status": "PAUSED",
       "home": "Brazil",
       "away": "Japan",
       "homeScore": 0,
