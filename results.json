@@ -1,5 +1,5 @@
 {
-  "updated": "2026-06-29T21:40:16.476Z",
+  "updated": "2026-06-29T21:45:20.036Z",
   "count": 75,
   "matches": [
     {
@@ -745,7 +745,7 @@
     {
       "stage": "LAST_32",
       "group": null,
-      "status": "PAUSED",
+      "status": "IN_PLAY",
       "home": "Germany",
       "away": "Paraguay",
       "homeScore": 0,
