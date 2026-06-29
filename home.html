@@ -1834,10 +1834,26 @@ const KO_AUTO_ROUNDS = new Set(['r32', 'r16', 'qf', 'sf', 'final', 'bronze']);
 // Number of matches per round, used for team lookup from the live feed.
 const KO_MATCH_COUNT = { r32: 16, r16: 8, qf: 4, sf: 2, final: 1, bronze: 1 };
 
-// The two teams in match `mi` of an auto round (paired from consecutive winners).
+// Official 2026 bracket topology: which two earlier-round matches feed each tie.
+// Winners are stored source-indexed (knockoutTeams.r16[i] = winner of R32 match i,
+// qf[j] = winner of R16 match j, sf[k] = winner of QF match k), so these arrays map
+// a match to the source indices it pairs:
+//   r16[match] -> two R32 match indices   (R16 89←74,77 · 90←73,75 · 91←76,78 · …)
+//   qf[match]  -> two R16 match indices    (QF 97←89,90 · 98←93,94 · 99←91,92 · 100←95,96)
+//   sf[match]  -> two QF match indices      (SF 101←97,98 · 102←99,100)
+const KO_FEED = {
+  r16: [[1, 4], [0, 2], [3, 5], [6, 7], [10, 11], [8, 9], [13, 15], [12, 14]],
+  qf:  [[0, 1], [4, 5], [2, 3], [6, 7]],
+  sf:  [[0, 1], [2, 3]],
+};
+
+// The two teams in match `mi` of a knockout round, following the bracket topology.
 function koTeams(round, mi) {
   const arr = knockoutTeams[round];
-  return [arr[mi * 2] || null, arr[mi * 2 + 1] || null];
+  if (round === 'final' || round === 'bronze') return [arr[0] || null, arr[1] || null];
+  if (round === 'r32') return [arr[mi * 2] || null, arr[mi * 2 + 1] || null]; // R32 slots are consecutive
+  const feed = KO_FEED[round][mi];
+  return [arr[feed[0]] || null, arr[feed[1]] || null];
 }
 
 // Locate the auto-round match whose two slots hold this pair of teams (order-agnostic).
@@ -1992,9 +2008,9 @@ function srcLabel(srcVenues, slot, verb) {
 // teams are decided), matching the labels shown on each round's bracket cards.
 function koPlaceholders(round, mi) {
   if (round === 'r32')    { const p = R32_PAIRINGS[mi]; return [r32SlotLabel(p[2]), r32SlotLabel(p[3])]; }
-  if (round === 'r16')    return [srcLabel(KO_VENUES_R32, mi*2, 'Winner'), srcLabel(KO_VENUES_R32, mi*2+1, 'Winner')];
-  if (round === 'qf')     return [srcLabel(KO_VENUES_R16, mi*2, 'Winner'), srcLabel(KO_VENUES_R16, mi*2+1, 'Winner')];
-  if (round === 'sf')     return [srcLabel(KO_VENUES_QF, mi*2, 'Winner'), srcLabel(KO_VENUES_QF, mi*2+1, 'Winner')];
+  if (round === 'r16')    { const f = KO_FEED.r16[mi]; return [srcLabel(KO_VENUES_R32, f[0], 'Winner'), srcLabel(KO_VENUES_R32, f[1], 'Winner')]; }
+  if (round === 'qf')     { const f = KO_FEED.qf[mi];  return [srcLabel(KO_VENUES_R16, f[0], 'Winner'), srcLabel(KO_VENUES_R16, f[1], 'Winner')]; }
+  if (round === 'sf')     { const f = KO_FEED.sf[mi];  return [srcLabel(KO_VENUES_QF, f[0], 'Winner'), srcLabel(KO_VENUES_QF, f[1], 'Winner')]; }
   if (round === 'final')  return [srcLabel(KO_VENUES_SF, 0, 'Winner'), srcLabel(KO_VENUES_SF, 1, 'Winner')];
   if (round === 'bronze') return [srcLabel(KO_VENUES_SF, 0, 'Loser'),  srcLabel(KO_VENUES_SF, 1, 'Loser')];
   return ['TBD', 'TBD'];
@@ -2006,18 +2022,22 @@ function renderR16() {
   const grid = document.createElement('div');
   grid.style.cssText = 'display:grid;grid-template-columns:1fr;gap:12px;';
 
-  for (let mi = 0; mi < 8; mi++) {
-    const tA = knockoutTeams.r16[mi*2] || null;
-    const tB = knockoutTeams.r16[mi*2+1] || null;
+  // Display in kickoff order. Match index (mi) is preserved so the bracket feed,
+  // scores and venue lines stay correct — only the visual order changes.
+  const order = [...Array(8).keys()]
+    .sort((a, b) => new Date(KO_VENUES_R16[a].utc) - new Date(KO_VENUES_R16[b].utc));
+
+  order.forEach(mi => {
+    const [tA, tB] = koTeams('r16', mi);
+    const [phA, phB] = koPlaceholders('r16', mi);
     const curWinner = knockoutTeams.qf[mi] || null;
 
     const card = document.createElement('div');
     card.className = 'ko-match';
     // Empty slots show which R32 winners feed this tie.
-    card.innerHTML = koCardHTML('r16', mi, tA, tB, curWinner,
-      srcLabel(KO_VENUES_R32, mi*2, 'Winner'), srcLabel(KO_VENUES_R32, mi*2+1, 'Winner'));
+    card.innerHTML = koCardHTML('r16', mi, tA, tB, curWinner, phA, phB);
     grid.appendChild(card);
-  }
+  });
   container.appendChild(grid);
 }
 
@@ -2028,14 +2048,13 @@ function renderQF() {
   grid.style.cssText = 'display:grid;grid-template-columns:1fr;gap:12px;';
 
   for (let mi = 0; mi < 4; mi++) {
-    const tA = knockoutTeams.qf[mi*2] || null;
-    const tB = knockoutTeams.qf[mi*2+1] || null;
+    const [tA, tB] = koTeams('qf', mi);
+    const [phA, phB] = koPlaceholders('qf', mi);
     const curWinner = knockoutTeams.sf[mi] || null;
 
     const card = document.createElement('div');
     card.className = 'ko-match';
-    card.innerHTML = koCardHTML('qf', mi, tA, tB, curWinner,
-      srcLabel(KO_VENUES_R16, mi*2, 'Winner'), srcLabel(KO_VENUES_R16, mi*2+1, 'Winner'));
+    card.innerHTML = koCardHTML('qf', mi, tA, tB, curWinner, phA, phB);
     grid.appendChild(card);
   }
   container.appendChild(grid);
@@ -2048,14 +2067,13 @@ function renderSF() {
   grid.style.cssText = 'display:grid;grid-template-columns:1fr;gap:12px;';
 
   for (let mi = 0; mi < 2; mi++) {
-    const tA = knockoutTeams.sf[mi*2] || null;
-    const tB = knockoutTeams.sf[mi*2+1] || null;
+    const [tA, tB] = koTeams('sf', mi);
+    const [phA, phB] = koPlaceholders('sf', mi);
     const curWinner = knockoutTeams.final[mi] || null;
 
     const card = document.createElement('div');
     card.className = 'ko-match';
-    card.innerHTML = koCardHTML('sf', mi, tA, tB, curWinner,
-      srcLabel(KO_VENUES_QF, mi*2, 'Winner'), srcLabel(KO_VENUES_QF, mi*2+1, 'Winner'));
+    card.innerHTML = koCardHTML('sf', mi, tA, tB, curWinner, phA, phB);
     grid.appendChild(card);
   }
   container.appendChild(grid);
