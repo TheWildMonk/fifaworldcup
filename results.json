@@ -1,5 +1,5 @@
 {
-  "updated": "2026-06-30T22:00:28.587Z",
+  "updated": "2026-06-30T22:05:14.657Z",
   "count": 78,
   "matches": [
     {
@@ -778,9 +778,9 @@
       "status": "PAUSED",
       "home": "France",
       "away": "Sweden",
-      "homeScore": 0,
+      "homeScore": 1,
       "awayScore": 0,
-      "winner": "DRAW"
+      "winner": "HOME_TEAM"
     }
   ]
 }
