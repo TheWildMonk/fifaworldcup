@@ -1,6 +1,6 @@
 {
-  "updated": "2026-06-30T01:05:15.495Z",
-  "count": 75,
+  "updated": "2026-06-30T01:10:18.959Z",
+  "count": 76,
   "matches": [
     {
       "stage": "GROUP_STAGE",
@@ -751,6 +751,16 @@
       "homeScore": 4,
       "awayScore": 5,
       "winner": null
+    },
+    {
+      "stage": "LAST_32",
+      "group": null,
+      "status": "IN_PLAY",
+      "home": "Netherlands",
+      "away": "Morocco",
+      "homeScore": 0,
+      "awayScore": 0,
+      "winner": "DRAW"
     }
   ]
 }
