@@ -1,6 +1,6 @@
 {
-  "updated": "2026-06-30T17:05:16.115Z",
-  "count": 76,
+  "updated": "2026-06-30T17:10:19.223Z",
+  "count": 77,
   "matches": [
     {
       "stage": "GROUP_STAGE",
@@ -761,6 +761,16 @@
       "homeScore": 3,
       "awayScore": 4,
       "winner": "AWAY_TEAM"
+    },
+    {
+      "stage": "LAST_32",
+      "group": null,
+      "status": "IN_PLAY",
+      "home": "Ivory Coast",
+      "away": "Norway",
+      "homeScore": 0,
+      "awayScore": 0,
+      "winner": "DRAW"
     }
   ]
 }
