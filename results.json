@@ -1,5 +1,5 @@
 {
-  "updated": "2026-06-30T06:10:20.793Z",
+  "updated": "2026-06-30T06:20:17.539Z",
   "count": 76,
   "matches": [
     {
@@ -750,7 +750,7 @@
       "away": "Paraguay",
       "homeScore": 4,
       "awayScore": 5,
-      "winner": null
+      "winner": "AWAY_TEAM"
     },
     {
       "stage": "LAST_32",
@@ -758,9 +758,9 @@
       "status": "FINISHED",
       "home": "Netherlands",
       "away": "Morocco",
-      "homeScore": 4,
+      "homeScore": 3,
       "awayScore": 4,
-      "winner": null
+      "winner": "AWAY_TEAM"
     }
   ]
 }
