@@ -1,5 +1,5 @@
 {
-  "updated": "2026-06-30T03:20:20.123Z",
+  "updated": "2026-06-30T03:25:15.916Z",
   "count": 76,
   "matches": [
     {
@@ -755,7 +755,7 @@
     {
       "stage": "LAST_32",
       "group": null,
-      "status": "IN_PLAY",
+      "status": "PAUSED",
       "home": "Netherlands",
       "away": "Morocco",
       "homeScore": 1,
