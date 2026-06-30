@@ -1,5 +1,5 @@
 {
-  "updated": "2026-06-30T00:25:14.465Z",
+  "updated": "2026-06-30T00:30:23.091Z",
   "count": 75,
   "matches": [
     {
@@ -748,8 +748,8 @@
       "status": "FINISHED",
       "home": "Germany",
       "away": "Paraguay",
-      "homeScore": 5,
-      "awayScore": 6,
+      "homeScore": 4,
+      "awayScore": 5,
       "winner": null
     }
   ]
