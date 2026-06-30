@@ -1,5 +1,5 @@
 {
-  "updated": "2026-06-30T19:00:29.077Z",
+  "updated": "2026-06-30T19:05:16.353Z",
   "count": 77,
   "matches": [
     {
@@ -765,7 +765,7 @@
     {
       "stage": "LAST_32",
       "group": null,
-      "status": "IN_PLAY",
+      "status": "FINISHED",
       "home": "Ivory Coast",
       "away": "Norway",
       "homeScore": 1,
