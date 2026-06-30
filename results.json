@@ -1,5 +1,5 @@
 {
-  "updated": "2026-06-30T21:05:19.052Z",
+  "updated": "2026-06-30T21:10:18.160Z",
   "count": 78,
   "matches": [
     {
@@ -775,7 +775,7 @@
     {
       "stage": "LAST_32",
       "group": null,
-      "status": "LIVE",
+      "status": "IN_PLAY",
       "home": "France",
       "away": "Sweden",
       "homeScore": 0,
