@@ -1,5 +1,5 @@
 {
-  "updated": "2026-06-30T18:50:18.897Z",
+  "updated": "2026-06-30T18:55:17.506Z",
   "count": 77,
   "matches": [
     {
@@ -769,8 +769,8 @@
       "home": "Ivory Coast",
       "away": "Norway",
       "homeScore": 1,
-      "awayScore": 1,
-      "winner": "DRAW"
+      "awayScore": 2,
+      "winner": "AWAY_TEAM"
     }
   ]
 }
