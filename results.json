@@ -1,5 +1,5 @@
 {
-  "updated": "2026-06-30T03:55:13.100Z",
+  "updated": "2026-06-30T04:00:25.120Z",
   "count": 76,
   "matches": [
     {
@@ -758,8 +758,8 @@
       "status": "FINISHED",
       "home": "Netherlands",
       "away": "Morocco",
-      "homeScore": 4,
-      "awayScore": 3,
+      "homeScore": 3,
+      "awayScore": 4,
       "winner": null
     }
   ]
