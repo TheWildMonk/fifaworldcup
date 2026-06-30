@@ -1403,6 +1403,35 @@ const TEAM_ALIASES = {
 };
 function normTeam(name) { return TEAM_ALIASES[name] || name; }
 
+// FIFA's table that assigns the eight best third-placed teams to specific Round-of-32
+// matches can't be reproduced locally, so advanceThirds() can only guess the opponent
+// for each group winner. This corrects those guesses from reality: for every actual
+// LAST_32 fixture in the feed that pairs a known winner/runner-up with a third-placed
+// team, it drops the real opponent into that match's third slot (removing any earlier
+// guess of the same team), keeping the bracket and score-sync aligned with reality.
+function placeThirdsFromFeed(matches) {
+  const r32 = knockoutTeams.r32;
+  const thirdSlots = THIRD_SLOT_RULES.map(r => r.slot);
+  let changed = false;
+  for (const m of matches) {
+    if (m.stage !== 'LAST_32') continue;
+    const home = normTeam(m.home), away = normTeam(m.away);
+    for (let mi = 0; mi < R32_PAIRINGS.length; mi++) {
+      const [sa, sb, labelA, labelB] = R32_PAIRINGS[mi];
+      const aThird = labelA.startsWith('3:'), bThird = labelB.startsWith('3:');
+      if (!aThird && !bThird) continue;            // both sides fixed -> nothing to learn
+      const knownSlot = aThird ? sb : sa, thirdSlot = aThird ? sa : sb;
+      const known = r32[knownSlot];
+      if (!known || (known !== home && known !== away)) continue;
+      const third = known === home ? away : home;  // the actual third-placed opponent
+      thirdSlots.forEach(s => { if (s !== thirdSlot && r32[s] === third) { r32[s] = null; changed = true; } });
+      if (r32[thirdSlot] !== third) { r32[thirdSlot] = third; changed = true; }
+      break;
+    }
+  }
+  return changed;
+}
+
 async function fetchLiveResults(notify) {
   let data;
   try {
@@ -1443,6 +1472,7 @@ async function fetchLiveResults(notify) {
   // to match against, then apply any knockout scores from the feed.
   fillR32FromGroups();
   if (GROUPS.every(g => calcStandings(g).every(t => t.mp === 3))) advanceThirds(true);
+  placeThirdsFromFeed(data.matches);   // correct third-place opponents from the real R32 fixtures
 
   // Knockout results from the feed are applied round by round; because we resolve the
   // earlier rounds first and re-loop, late-round teams exist by the time their match
