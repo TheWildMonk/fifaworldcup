@@ -1403,16 +1403,14 @@ const TEAM_ALIASES = {
 };
 function normTeam(name) { return TEAM_ALIASES[name] || name; }
 
-// FIFA's table that assigns the eight best third-placed teams to specific Round-of-32
-// matches can't be reproduced locally, so advanceThirds() can only guess the opponent
-// for each group winner. This corrects those guesses from reality: for every actual
-// LAST_32 fixture in the feed that pairs a known winner/runner-up with a third-placed
-// team, it drops the real opponent into that match's third slot (removing any earlier
-// guess of the same team), keeping the bracket and score-sync aligned with reality.
-function placeThirdsFromFeed(matches) {
+// Read the feed's real Round-of-32 fixtures to learn which group's third-placed team
+// occupies a given third slot. For every actual LAST_32 fixture pairing a known
+// winner/runner-up with a third-placed team, record `slot -> that team's group`.
+// `qualGroups` is the set of best-eight third groups, used to ignore any stray pairing.
+function feedThirdConstraints(matches, qualGroups) {
   const r32 = knockoutTeams.r32;
-  const thirdSlots = THIRD_SLOT_RULES.map(r => r.slot);
-  let changed = false;
+  const qual = new Set(qualGroups);
+  const fixed = {};
   for (const m of matches) {
     if (m.stage !== 'LAST_32') continue;
     const home = normTeam(m.home), away = normTeam(m.away);
@@ -1424,11 +1422,39 @@ function placeThirdsFromFeed(matches) {
       const known = r32[knownSlot];
       if (!known || (known !== home && known !== away)) continue;
       const third = known === home ? away : home;  // the actual third-placed opponent
-      thirdSlots.forEach(s => { if (s !== thirdSlot && r32[s] === third) { r32[s] = null; changed = true; } });
-      if (r32[thirdSlot] !== third) { r32[thirdSlot] = third; changed = true; }
+      const g = TEAM_TO_GROUP[third];
+      if (g && qual.has(g.id) && fixed[thirdSlot] === undefined) fixed[thirdSlot] = g.id;
       break;
     }
   }
+  return fixed;
+}
+
+// FIFA's table that assigns the eight best third-placed teams to specific Round-of-32
+// matches can't be reproduced locally from group results alone, so a purely local
+// solve (advanceThirds) is only a best guess. Here we pin every third slot whose real
+// fixture is already in the feed, then solve the *whole* bracket's third slots around
+// those pins in one pass. That keeps every winner's opponent populated — including the
+// teams whose own R32 match hasn't been played yet — instead of leaving a slot blank
+// when an earlier guess turns out to belong elsewhere.
+function placeThirdsFromFeed(matches) {
+  const thirds = rankedThirds();
+  if (!thirds) return false;                       // groups not all finished yet
+  const qualifiers = thirds.slice(0, 8);
+  const qualGroups = qualifiers.map(q => q.group);
+
+  const fixed = feedThirdConstraints(matches, qualGroups);
+  const assignment = assignThirds(qualGroups, THIRD_SLOT_RULES, fixed);
+  if (!assignment) return false;                   // inconsistent feed -> keep current state
+
+  const byGroup = Object.fromEntries(qualifiers.map(q => [q.group, q.name]));
+  const r32 = [...knockoutTeams.r32];
+  let changed = false;
+  for (const r of THIRD_SLOT_RULES) {
+    const team = byGroup[assignment[r.slot]] || null;
+    if (r32[r.slot] !== team) { r32[r.slot] = team; changed = true; }
+  }
+  knockoutTeams.r32 = r32;
   return changed;
 }
 
@@ -1469,10 +1495,11 @@ async function fetchLiveResults(notify) {
   });
 
   // Fill R32 from finished groups (+ best thirds) so live knockout results have slots
-  // to match against, then apply any knockout scores from the feed.
+  // to match against, then apply any knockout scores from the feed. placeThirdsFromFeed
+  // resolves the eight best-third slots in one constrained solve (no-op until all groups
+  // finish), pinning any slot already confirmed by a real R32 fixture in the feed.
   fillR32FromGroups();
-  if (GROUPS.every(g => calcStandings(g).every(t => t.mp === 3))) advanceThirds(true);
-  placeThirdsFromFeed(data.matches);   // correct third-place opponents from the real R32 fixtures
+  placeThirdsFromFeed(data.matches);
 
   // Knockout results from the feed are applied round by round; because we resolve the
   // earlier rounds first and re-loop, late-round teams exist by the time their match
@@ -1764,22 +1791,29 @@ function advanceGroup(gid) {
   renderR32();
 }
 
-// Rank the twelve third-placed teams and slot the best eight into the bracket using
-// FIFA's allowed-group rule. Best thirds can't be ranked until every group finishes.
-function advanceThirds(silent = false) {
+// Rank the twelve third-placed teams (points, goal difference, goals for, then group
+// letter as a stable tiebreak). Returns null until every group has finished, since the
+// best thirds can't be ranked before then.
+function rankedThirds() {
   const thirds = [];
   for (const g of GROUPS) {
     const s = calcStandings(g);
-    if (!s.every(t => t.mp === 3)) {   // group "complete" = all teams played 3 matches
-      if (!silent) showToast('⏳ All 12 groups must finish before the best thirds are decided.');
-      return false;
-    }
+    if (!s.every(t => t.mp === 3)) return null;   // group "complete" = all teams played 3 matches
     const third = s[2];
     thirds.push({ group: g.id, name: third.name, pts: third.pts, gd: third.gd, gf: third.gf });
   }
-
-  // Rank thirds: points, goal difference, goals for, then group letter (stable).
   thirds.sort((a, b) => b.pts - a.pts || b.gd - a.gd || b.gf - a.gf || a.group.localeCompare(b.group));
+  return thirds;
+}
+
+// Slot the best eight third-placed teams into the bracket using FIFA's allowed-group
+// rule. Best thirds can't be ranked until every group finishes.
+function advanceThirds(silent = false) {
+  const thirds = rankedThirds();
+  if (!thirds) {
+    if (!silent) showToast('⏳ All 12 groups must finish before the best thirds are decided.');
+    return false;
+  }
   const qualifiers = thirds.slice(0, 8);
 
   const assignment = assignThirds(qualifiers.map(q => q.group));
@@ -1802,13 +1836,20 @@ function advanceThirds(silent = false) {
 // Decide which third-slot each qualifying group fills: an injective map respecting
 // every slot's allowed-group rule (a system of distinct representatives). FIFA's
 // allowed sets guarantee a solution exists for any combination that can occur.
-function assignThirds(qualGroups) {
+// `fixed` pre-pins specific slots to a group (e.g. confirmed by a real R32 fixture);
+// the rest are solved around those constraints. Returns null if no valid fit exists.
+function assignThirds(qualGroups, rules = THIRD_SLOT_RULES, fixed = {}) {
   const groups = [...qualGroups].sort();   // deterministic
   const result = {};
   const used = {};
+  for (const [slot, g] of Object.entries(fixed)) {
+    if (used[g] || !groups.includes(g)) return null;   // duplicate / non-qualifying pin
+    result[slot] = g; used[g] = true;
+  }
+  const openRules = rules.filter(r => !(String(r.slot) in result));
   function backtrack(i) {
-    if (i === THIRD_SLOT_RULES.length) return true;
-    const rule = THIRD_SLOT_RULES[i];
+    if (i === openRules.length) return true;
+    const rule = openRules[i];
     for (const g of groups) {
       if (used[g] || !rule.groups.includes(g)) continue;
       used[g] = true; result[rule.slot] = g;
