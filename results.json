@@ -1,6 +1,6 @@
 {
-  "updated": "2026-07-01T16:05:14.859Z",
-  "count": 79,
+  "updated": "2026-07-01T16:10:21.600Z",
+  "count": 80,
   "matches": [
     {
       "stage": "GROUP_STAGE",
@@ -791,6 +791,16 @@
       "homeScore": 2,
       "awayScore": 0,
       "winner": "HOME_TEAM"
+    },
+    {
+      "stage": "LAST_32",
+      "group": null,
+      "status": "LIVE",
+      "home": "England",
+      "away": "DR Congo",
+      "homeScore": 0,
+      "awayScore": 0,
+      "winner": "DRAW"
     }
   ]
 }
