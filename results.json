@@ -1,5 +1,5 @@
 {
-  "updated": "2026-07-01T18:00:26.577Z",
+  "updated": "2026-07-01T18:05:17.131Z",
   "count": 80,
   "matches": [
     {
@@ -795,7 +795,7 @@
     {
       "stage": "LAST_32",
       "group": null,
-      "status": "IN_PLAY",
+      "status": "FINISHED",
       "home": "England",
       "away": "DR Congo",
       "homeScore": 2,
