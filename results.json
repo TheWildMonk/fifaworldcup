@@ -1,5 +1,5 @@
 {
-  "updated": "2026-07-01T02:25:16.058Z",
+  "updated": "2026-07-01T02:30:21.984Z",
   "count": 79,
   "matches": [
     {
@@ -788,9 +788,9 @@
       "status": "LIVE",
       "home": "Mexico",
       "away": "Ecuador",
-      "homeScore": 0,
+      "homeScore": 1,
       "awayScore": 0,
-      "winner": "DRAW"
+      "winner": "HOME_TEAM"
     }
   ]
 }
