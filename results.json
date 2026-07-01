@@ -1,6 +1,6 @@
 {
-  "updated": "2026-07-01T01:00:29.222Z",
-  "count": 78,
+  "updated": "2026-07-01T01:05:14.631Z",
+  "count": 77,
   "matches": [
     {
       "stage": "GROUP_STAGE",
@@ -760,16 +760,6 @@
       "away": "Morocco",
       "homeScore": 3,
       "awayScore": 4,
-      "winner": "AWAY_TEAM"
-    },
-    {
-      "stage": "LAST_32",
-      "group": null,
-      "status": "FINISHED",
-      "home": "Ivory Coast",
-      "away": "Norway",
-      "homeScore": 1,
-      "awayScore": 2,
       "winner": "AWAY_TEAM"
     },
     {
