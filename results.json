@@ -1,5 +1,5 @@
 {
-  "updated": "2026-07-01T22:50:19.210Z",
+  "updated": "2026-07-01T22:55:14.127Z",
   "count": 81,
   "matches": [
     {
@@ -805,7 +805,7 @@
     {
       "stage": "LAST_32",
       "group": null,
-      "status": "PAUSED",
+      "status": "FINISHED",
       "home": "Belgium",
       "away": "Senegal",
       "homeScore": 3,
