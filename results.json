@@ -1,6 +1,6 @@
 {
-  "updated": "2026-07-01T20:05:24.949Z",
-  "count": 80,
+  "updated": "2026-07-01T20:10:20.601Z",
+  "count": 81,
   "matches": [
     {
       "stage": "GROUP_STAGE",
@@ -801,6 +801,16 @@
       "homeScore": 2,
       "awayScore": 1,
       "winner": "HOME_TEAM"
+    },
+    {
+      "stage": "LAST_32",
+      "group": null,
+      "status": "IN_PLAY",
+      "home": "Belgium",
+      "away": "Senegal",
+      "homeScore": 0,
+      "awayScore": 0,
+      "winner": "DRAW"
     }
   ]
 }
