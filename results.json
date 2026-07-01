@@ -1,5 +1,5 @@
 {
-  "updated": "2026-07-01T17:50:19.135Z",
+  "updated": "2026-07-01T17:55:13.345Z",
   "count": 80,
   "matches": [
     {
@@ -798,9 +798,9 @@
       "status": "IN_PLAY",
       "home": "England",
       "away": "DR Congo",
-      "homeScore": 1,
+      "homeScore": 2,
       "awayScore": 1,
-      "winner": "DRAW"
+      "winner": "HOME_TEAM"
     }
   ]
 }
