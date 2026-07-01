@@ -1,6 +1,6 @@
 {
-  "updated": "2026-07-01T01:05:14.631Z",
-  "count": 77,
+  "updated": "2026-07-01T01:10:19.904Z",
+  "count": 79,
   "matches": [
     {
       "stage": "GROUP_STAGE",
@@ -766,11 +766,31 @@
       "stage": "LAST_32",
       "group": null,
       "status": "FINISHED",
+      "home": "Ivory Coast",
+      "away": "Norway",
+      "homeScore": 1,
+      "awayScore": 2,
+      "winner": "AWAY_TEAM"
+    },
+    {
+      "stage": "LAST_32",
+      "group": null,
+      "status": "FINISHED",
       "home": "France",
       "away": "Sweden",
       "homeScore": 3,
       "awayScore": 0,
       "winner": "HOME_TEAM"
+    },
+    {
+      "stage": "LAST_32",
+      "group": null,
+      "status": "IN_PLAY",
+      "home": "Mexico",
+      "away": "Ecuador",
+      "homeScore": 0,
+      "awayScore": 0,
+      "winner": "DRAW"
     }
   ]
 }
