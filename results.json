@@ -1,5 +1,5 @@
 {
-  "updated": "2026-07-01T02:05:14.899Z",
+  "updated": "2026-07-01T02:10:19.207Z",
   "count": 79,
   "matches": [
     {
@@ -785,7 +785,7 @@
     {
       "stage": "LAST_32",
       "group": null,
-      "status": "IN_PLAY",
+      "status": "LIVE",
       "home": "Mexico",
       "away": "Ecuador",
       "homeScore": 0,
