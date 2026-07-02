@@ -1,5 +1,5 @@
 {
-  "updated": "2026-07-02T01:50:18.537Z",
+  "updated": "2026-07-02T01:55:14.632Z",
   "count": 82,
   "matches": [
     {
@@ -818,7 +818,7 @@
       "status": "IN_PLAY",
       "home": "United States",
       "away": "Bosnia and Herzegovina",
-      "homeScore": 1,
+      "homeScore": 2,
       "awayScore": 0,
       "winner": "HOME_TEAM"
     }
