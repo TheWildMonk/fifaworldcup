@@ -1,6 +1,6 @@
 {
-  "updated": "2026-07-02T00:00:25.068Z",
-  "count": 81,
+  "updated": "2026-07-02T00:05:14.885Z",
+  "count": 82,
   "matches": [
     {
       "stage": "GROUP_STAGE",
@@ -811,6 +811,16 @@
       "homeScore": 3,
       "awayScore": 2,
       "winner": "HOME_TEAM"
+    },
+    {
+      "stage": "LAST_32",
+      "group": null,
+      "status": "LIVE",
+      "home": "United States",
+      "away": "Bosnia and Herzegovina",
+      "homeScore": 0,
+      "awayScore": 0,
+      "winner": "DRAW"
     }
   ]
 }
