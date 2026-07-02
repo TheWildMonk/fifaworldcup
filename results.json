@@ -1,5 +1,5 @@
 {
-  "updated": "2026-07-02T00:05:14.885Z",
+  "updated": "2026-07-02T00:10:20.996Z",
   "count": 82,
   "matches": [
     {
@@ -815,7 +815,7 @@
     {
       "stage": "LAST_32",
       "group": null,
-      "status": "LIVE",
+      "status": "IN_PLAY",
       "home": "United States",
       "away": "Bosnia and Herzegovina",
       "homeScore": 0,
