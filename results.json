@@ -1,5 +1,5 @@
 {
-  "updated": "2026-07-02T21:00:33.608Z",
+  "updated": "2026-07-02T21:05:16.988Z",
   "count": 83,
   "matches": [
     {
@@ -825,7 +825,7 @@
     {
       "stage": "LAST_32",
       "group": null,
-      "status": "IN_PLAY",
+      "status": "FINISHED",
       "home": "Spain",
       "away": "Austria",
       "homeScore": 3,
