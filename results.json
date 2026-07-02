@@ -1,5 +1,5 @@
 {
-  "updated": "2026-07-02T20:30:27.416Z",
+  "updated": "2026-07-02T20:35:14.882Z",
   "count": 83,
   "matches": [
     {
@@ -828,7 +828,7 @@
       "status": "IN_PLAY",
       "home": "Spain",
       "away": "Austria",
-      "homeScore": 1,
+      "homeScore": 2,
       "awayScore": 0,
       "winner": "HOME_TEAM"
     }
