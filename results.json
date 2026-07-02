@@ -1,6 +1,6 @@
 {
-  "updated": "2026-07-02T23:05:15.052Z",
-  "count": 83,
+  "updated": "2026-07-02T23:10:20.299Z",
+  "count": 84,
   "matches": [
     {
       "stage": "GROUP_STAGE",
@@ -831,6 +831,16 @@
       "homeScore": 3,
       "awayScore": 0,
       "winner": "HOME_TEAM"
+    },
+    {
+      "stage": "LAST_32",
+      "group": null,
+      "status": "IN_PLAY",
+      "home": "Portugal",
+      "away": "Croatia",
+      "homeScore": 0,
+      "awayScore": 0,
+      "winner": "DRAW"
     }
   ]
 }
