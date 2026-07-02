@@ -1,5 +1,5 @@
 {
-  "updated": "2026-07-02T19:50:22.489Z",
+  "updated": "2026-07-02T19:55:14.901Z",
   "count": 83,
   "matches": [
     {
@@ -825,7 +825,7 @@
     {
       "stage": "LAST_32",
       "group": null,
-      "status": "TIMED",
+      "status": "PAUSED",
       "home": "Spain",
       "away": "Austria",
       "homeScore": 1,
