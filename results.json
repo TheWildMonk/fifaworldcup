@@ -1,5 +1,5 @@
 {
-  "updated": "2026-07-03T23:10:23.250Z",
+  "updated": "2026-07-03T23:15:17.246Z",
   "count": 87,
   "matches": [
     {
@@ -865,7 +865,7 @@
     {
       "stage": "LAST_32",
       "group": null,
-      "status": "PAUSED",
+      "status": "IN_PLAY",
       "home": "Argentina",
       "away": "Cape Verde",
       "homeScore": 1,
