@@ -1,5 +1,5 @@
 {
-  "updated": "2026-07-03T00:05:13.692Z",
+  "updated": "2026-07-03T00:10:24.669Z",
   "count": 84,
   "matches": [
     {
@@ -835,7 +835,7 @@
     {
       "stage": "LAST_32",
       "group": null,
-      "status": "PAUSED",
+      "status": "LIVE",
       "home": "Portugal",
       "away": "Croatia",
       "homeScore": 0,
