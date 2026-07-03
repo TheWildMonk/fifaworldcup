@@ -1,5 +1,5 @@
 {
-  "updated": "2026-07-03T00:15:18.079Z",
+  "updated": "2026-07-03T00:20:22.914Z",
   "count": 84,
   "matches": [
     {
@@ -839,8 +839,8 @@
       "home": "Portugal",
       "away": "Croatia",
       "homeScore": 0,
-      "awayScore": 0,
-      "winner": "DRAW"
+      "awayScore": 1,
+      "winner": "AWAY_TEAM"
     }
   ]
 }
