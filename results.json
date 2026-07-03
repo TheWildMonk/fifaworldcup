@@ -1,6 +1,6 @@
 {
-  "updated": "2026-07-03T22:05:14.655Z",
-  "count": 86,
+  "updated": "2026-07-03T22:10:22.401Z",
+  "count": 87,
   "matches": [
     {
       "stage": "GROUP_STAGE",
@@ -861,6 +861,16 @@
       "homeScore": 3,
       "awayScore": 5,
       "winner": null
+    },
+    {
+      "stage": "LAST_32",
+      "group": null,
+      "status": "IN_PLAY",
+      "home": "Argentina",
+      "away": "Cape Verde",
+      "homeScore": 0,
+      "awayScore": 0,
+      "winner": "DRAW"
     }
   ]
 }
