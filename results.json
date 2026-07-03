@@ -1,5 +1,5 @@
 {
-  "updated": "2026-07-03T18:05:15.653Z",
+  "updated": "2026-07-03T18:10:23.559Z",
   "count": 86,
   "matches": [
     {
@@ -855,7 +855,7 @@
     {
       "stage": "LAST_32",
       "group": null,
-      "status": "LIVE",
+      "status": "IN_PLAY",
       "home": "Australia",
       "away": "Egypt",
       "homeScore": 0,
