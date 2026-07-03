@@ -1,5 +1,5 @@
 {
-  "updated": "2026-07-03T23:20:19.617Z",
+  "updated": "2026-07-03T23:25:15.048Z",
   "count": 87,
   "matches": [
     {
@@ -869,8 +869,8 @@
       "home": "Argentina",
       "away": "Cape Verde",
       "homeScore": 1,
-      "awayScore": 0,
-      "winner": "HOME_TEAM"
+      "awayScore": 1,
+      "winner": "DRAW"
     }
   ]
 }
