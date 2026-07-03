@@ -1,5 +1,5 @@
 {
-  "updated": "2026-07-03T20:40:23.935Z",
+  "updated": "2026-07-03T20:45:18.972Z",
   "count": 86,
   "matches": [
     {
@@ -860,7 +860,7 @@
       "away": "Egypt",
       "homeScore": 1,
       "awayScore": 1,
-      "winner": "DRAW"
+      "winner": null
     }
   ]
 }
