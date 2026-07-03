@@ -1,5 +1,5 @@
 {
-  "updated": "2026-07-03T03:50:22.687Z",
+  "updated": "2026-07-03T03:55:18.437Z",
   "count": 85,
   "matches": [
     {
@@ -845,7 +845,7 @@
     {
       "stage": "LAST_32",
       "group": null,
-      "status": "IN_PLAY",
+      "status": "PAUSED",
       "home": "Switzerland",
       "away": "Algeria",
       "homeScore": 1,
