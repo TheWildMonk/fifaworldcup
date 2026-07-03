@@ -1,5 +1,5 @@
 {
-  "updated": "2026-07-03T04:10:21.314Z",
+  "updated": "2026-07-03T04:15:15.915Z",
   "count": 85,
   "matches": [
     {
@@ -845,10 +845,10 @@
     {
       "stage": "LAST_32",
       "group": null,
-      "status": "LIVE",
+      "status": "IN_PLAY",
       "home": "Switzerland",
       "away": "Algeria",
-      "homeScore": 1,
+      "homeScore": 2,
       "awayScore": 0,
       "winner": "HOME_TEAM"
     }
