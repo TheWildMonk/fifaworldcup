@@ -1,5 +1,5 @@
 {
-  "updated": "2026-07-04T19:05:16.660Z",
+  "updated": "2026-07-04T19:10:30.019Z",
   "count": 89,
   "matches": [
     {
@@ -885,11 +885,11 @@
     {
       "stage": "LAST_16",
       "group": null,
-      "status": "IN_PLAY",
+      "status": "FINISHED",
       "home": "Canada",
       "away": "Morocco",
       "homeScore": 0,
-      "awayScore": 2,
+      "awayScore": 3,
       "winner": "AWAY_TEAM"
     }
   ]
