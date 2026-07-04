@@ -1,6 +1,6 @@
 {
-  "updated": "2026-07-04T21:05:17.822Z",
-  "count": 89,
+  "updated": "2026-07-04T21:10:37.688Z",
+  "count": 90,
   "matches": [
     {
       "stage": "GROUP_STAGE",
@@ -891,6 +891,16 @@
       "homeScore": 0,
       "awayScore": 3,
       "winner": "AWAY_TEAM"
+    },
+    {
+      "stage": "LAST_16",
+      "group": null,
+      "status": "LIVE",
+      "home": "Paraguay",
+      "away": "France",
+      "homeScore": 0,
+      "awayScore": 0,
+      "winner": "DRAW"
     }
   ]
 }
