@@ -1,5 +1,5 @@
 {
-  "updated": "2026-07-04T03:35:13.301Z",
+  "updated": "2026-07-04T03:40:18.754Z",
   "count": 88,
   "matches": [
     {
@@ -875,7 +875,7 @@
     {
       "stage": "LAST_32",
       "group": null,
-      "status": "IN_PLAY",
+      "status": "FINISHED",
       "home": "Colombia",
       "away": "Ghana",
       "homeScore": 2,
