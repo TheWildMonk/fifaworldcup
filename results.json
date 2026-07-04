@@ -1,6 +1,6 @@
 {
-  "updated": "2026-07-04T17:05:16.443Z",
-  "count": 88,
+  "updated": "2026-07-04T17:10:27.149Z",
+  "count": 89,
   "matches": [
     {
       "stage": "GROUP_STAGE",
@@ -881,6 +881,16 @@
       "homeScore": 1,
       "awayScore": 0,
       "winner": "HOME_TEAM"
+    },
+    {
+      "stage": "LAST_16",
+      "group": null,
+      "status": "IN_PLAY",
+      "home": "Canada",
+      "away": "Morocco",
+      "homeScore": 0,
+      "awayScore": 0,
+      "winner": "DRAW"
     }
   ]
 }
