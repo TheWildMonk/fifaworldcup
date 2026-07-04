@@ -1,5 +1,5 @@
 {
-  "updated": "2026-07-04T05:50:19.749Z",
+  "updated": "2026-07-04T05:55:15.746Z",
   "count": 88,
   "matches": [
     {
@@ -878,7 +878,7 @@
       "status": "FINISHED",
       "home": "Colombia",
       "away": "Ghana",
-      "homeScore": 1,
+      "homeScore": 2,
       "awayScore": 0,
       "winner": "HOME_TEAM"
     }
