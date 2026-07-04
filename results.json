@@ -1,5 +1,5 @@
 {
-  "updated": "2026-07-04T22:10:31.652Z",
+  "updated": "2026-07-04T22:15:16.548Z",
   "count": 90,
   "matches": [
     {
@@ -895,7 +895,7 @@
     {
       "stage": "LAST_16",
       "group": null,
-      "status": "PAUSED",
+      "status": "LIVE",
       "home": "Paraguay",
       "away": "France",
       "homeScore": 0,
