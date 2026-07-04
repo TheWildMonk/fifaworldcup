@@ -1,5 +1,5 @@
 {
-  "updated": "2026-07-04T18:50:26.791Z",
+  "updated": "2026-07-04T18:55:15.119Z",
   "count": 89,
   "matches": [
     {
@@ -889,7 +889,7 @@
       "home": "Canada",
       "away": "Morocco",
       "homeScore": 0,
-      "awayScore": 1,
+      "awayScore": 2,
       "winner": "AWAY_TEAM"
     }
   ]
