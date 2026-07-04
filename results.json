@@ -1,6 +1,6 @@
 {
-  "updated": "2026-07-04T01:35:16.328Z",
-  "count": 87,
+  "updated": "2026-07-04T01:40:18.868Z",
+  "count": 88,
   "matches": [
     {
       "stage": "GROUP_STAGE",
@@ -871,6 +871,16 @@
       "homeScore": 3,
       "awayScore": 2,
       "winner": "HOME_TEAM"
+    },
+    {
+      "stage": "LAST_32",
+      "group": null,
+      "status": "IN_PLAY",
+      "home": "Colombia",
+      "away": "Ghana",
+      "homeScore": 0,
+      "awayScore": 0,
+      "winner": "DRAW"
     }
   ]
 }
