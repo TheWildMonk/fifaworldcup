@@ -1,5 +1,5 @@
 {
-  "updated": "2026-07-05T21:10:31.023Z",
+  "updated": "2026-07-05T21:15:20.084Z",
   "count": 91,
   "matches": [
     {
@@ -905,7 +905,7 @@
     {
       "stage": "LAST_16",
       "group": null,
-      "status": "PAUSED",
+      "status": "LIVE",
       "home": "Brazil",
       "away": "Norway",
       "homeScore": 0,
