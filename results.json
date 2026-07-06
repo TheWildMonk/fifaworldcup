@@ -1,5 +1,5 @@
 {
-  "updated": "2026-07-06T02:10:31.187Z",
+  "updated": "2026-07-06T02:15:17.246Z",
   "count": 92,
   "matches": [
     {
@@ -915,7 +915,7 @@
     {
       "stage": "LAST_16",
       "group": null,
-      "status": "PAUSED",
+      "status": "IN_PLAY",
       "home": "Mexico",
       "away": "England",
       "homeScore": 1,
