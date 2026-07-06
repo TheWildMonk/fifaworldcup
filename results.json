@@ -1,6 +1,6 @@
 {
-  "updated": "2026-07-06T19:00:43.547Z",
-  "count": 92,
+  "updated": "2026-07-06T19:05:16.509Z",
+  "count": 93,
   "matches": [
     {
       "stage": "GROUP_STAGE",
@@ -921,6 +921,16 @@
       "homeScore": 2,
       "awayScore": 3,
       "winner": "AWAY_TEAM"
+    },
+    {
+      "stage": "LAST_16",
+      "group": null,
+      "status": "LIVE",
+      "home": "Portugal",
+      "away": "Spain",
+      "homeScore": 0,
+      "awayScore": 0,
+      "winner": "DRAW"
     }
   ]
 }
