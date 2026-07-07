@@ -1,5 +1,5 @@
 {
-  "updated": "2026-07-07T22:45:15.896Z",
+  "updated": "2026-07-07T22:50:36.092Z",
   "count": 96,
   "matches": [
     {
@@ -955,11 +955,11 @@
     {
       "stage": "LAST_16",
       "group": null,
-      "status": "PAUSED",
+      "status": "FINISHED",
       "home": "Switzerland",
       "away": "Colombia",
-      "homeScore": 0,
-      "awayScore": 0,
+      "homeScore": 1,
+      "awayScore": 1,
       "winner": null
     }
   ]
