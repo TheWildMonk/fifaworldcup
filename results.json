@@ -1,5 +1,5 @@
 {
-  "updated": "2026-07-07T18:05:16.540Z",
+  "updated": "2026-07-07T18:10:37.690Z",
   "count": 95,
   "matches": [
     {
@@ -945,7 +945,7 @@
     {
       "stage": "LAST_16",
       "group": null,
-      "status": "IN_PLAY",
+      "status": "FINISHED",
       "home": "Argentina",
       "away": "Egypt",
       "homeScore": 3,
