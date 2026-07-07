@@ -1,5 +1,5 @@
 {
-  "updated": "2026-07-07T01:10:34.504Z",
+  "updated": "2026-07-07T01:15:17.751Z",
   "count": 94,
   "matches": [
     {
@@ -935,7 +935,7 @@
     {
       "stage": "LAST_16",
       "group": null,
-      "status": "PAUSED",
+      "status": "IN_PLAY",
       "home": "United States",
       "away": "Belgium",
       "homeScore": 1,
