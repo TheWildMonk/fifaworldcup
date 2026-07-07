@@ -1,6 +1,6 @@
 {
-  "updated": "2026-07-07T20:05:16.286Z",
-  "count": 95,
+  "updated": "2026-07-07T20:10:36.062Z",
+  "count": 96,
   "matches": [
     {
       "stage": "GROUP_STAGE",
@@ -951,6 +951,16 @@
       "homeScore": 3,
       "awayScore": 2,
       "winner": "HOME_TEAM"
+    },
+    {
+      "stage": "LAST_16",
+      "group": null,
+      "status": "IN_PLAY",
+      "home": "Switzerland",
+      "away": "Colombia",
+      "homeScore": 0,
+      "awayScore": 0,
+      "winner": "DRAW"
     }
   ]
 }
