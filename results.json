@@ -1,6 +1,6 @@
 {
-  "updated": "2026-07-07T16:05:16.231Z",
-  "count": 94,
+  "updated": "2026-07-07T16:11:14.808Z",
+  "count": 95,
   "matches": [
     {
       "stage": "GROUP_STAGE",
@@ -941,6 +941,16 @@
       "homeScore": 1,
       "awayScore": 4,
       "winner": "AWAY_TEAM"
+    },
+    {
+      "stage": "LAST_16",
+      "group": null,
+      "status": "LIVE",
+      "home": "Argentina",
+      "away": "Egypt",
+      "homeScore": 0,
+      "awayScore": 0,
+      "winner": "DRAW"
     }
   ]
 }
