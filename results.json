@@ -1,6 +1,6 @@
 {
-  "updated": "2026-07-07T00:05:13.622Z",
-  "count": 93,
+  "updated": "2026-07-07T00:10:35.182Z",
+  "count": 94,
   "matches": [
     {
       "stage": "GROUP_STAGE",
@@ -931,6 +931,16 @@
       "homeScore": 0,
       "awayScore": 1,
       "winner": "AWAY_TEAM"
+    },
+    {
+      "stage": "LAST_16",
+      "group": null,
+      "status": "IN_PLAY",
+      "home": "United States",
+      "away": "Belgium",
+      "homeScore": 0,
+      "awayScore": 0,
+      "winner": "DRAW"
     }
   ]
 }
