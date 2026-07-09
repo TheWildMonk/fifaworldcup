@@ -1,5 +1,5 @@
 {
-  "updated": "2026-07-09T21:10:21.456Z",
+  "updated": "2026-07-09T21:15:16.897Z",
   "count": 97,
   "matches": [
     {
@@ -965,7 +965,7 @@
     {
       "stage": "QUARTER_FINALS",
       "group": null,
-      "status": "PAUSED",
+      "status": "IN_PLAY",
       "home": "France",
       "away": "Morocco",
       "homeScore": 0,
