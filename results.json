@@ -1,6 +1,6 @@
 {
-  "updated": "2026-07-10T19:05:17.400Z",
-  "count": 97,
+  "updated": "2026-07-10T19:10:25.272Z",
+  "count": 98,
   "matches": [
     {
       "stage": "GROUP_STAGE",
@@ -971,6 +971,16 @@
       "homeScore": 2,
       "awayScore": 0,
       "winner": "HOME_TEAM"
+    },
+    {
+      "stage": "QUARTER_FINALS",
+      "group": null,
+      "status": "IN_PLAY",
+      "home": "Spain",
+      "away": "Belgium",
+      "homeScore": 0,
+      "awayScore": 0,
+      "winner": "DRAW"
     }
   ]
 }
