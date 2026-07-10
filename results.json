@@ -1,5 +1,5 @@
 {
-  "updated": "2026-07-10T20:10:23.352Z",
+  "updated": "2026-07-10T20:15:17.373Z",
   "count": 98,
   "matches": [
     {
@@ -975,7 +975,7 @@
     {
       "stage": "QUARTER_FINALS",
       "group": null,
-      "status": "PAUSED",
+      "status": "IN_PLAY",
       "home": "Spain",
       "away": "Belgium",
       "homeScore": 1,
