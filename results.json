@@ -1,5 +1,5 @@
 {
-  "updated": "2026-07-10T20:50:23.796Z",
+  "updated": "2026-07-10T20:55:17.671Z",
   "count": 98,
   "matches": [
     {
@@ -978,9 +978,9 @@
       "status": "IN_PLAY",
       "home": "Spain",
       "away": "Belgium",
-      "homeScore": 1,
+      "homeScore": 2,
       "awayScore": 1,
-      "winner": "DRAW"
+      "winner": "HOME_TEAM"
     }
   ]
 }
