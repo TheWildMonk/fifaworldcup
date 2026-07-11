@@ -1,5 +1,5 @@
 {
-  "updated": "2026-07-11T23:10:28.996Z",
+  "updated": "2026-07-11T23:15:18.335Z",
   "count": 99,
   "matches": [
     {
@@ -985,7 +985,7 @@
     {
       "stage": "QUARTER_FINALS",
       "group": null,
-      "status": "PAUSED",
+      "status": "IN_PLAY",
       "home": "Norway",
       "away": "England",
       "homeScore": 1,
