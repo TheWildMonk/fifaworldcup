@@ -1,5 +1,5 @@
 {
-  "updated": "2026-07-12T02:10:26.682Z",
+  "updated": "2026-07-12T02:15:16.715Z",
   "count": 100,
   "matches": [
     {
@@ -995,7 +995,7 @@
     {
       "stage": "QUARTER_FINALS",
       "group": null,
-      "status": "PAUSED",
+      "status": "IN_PLAY",
       "home": "Argentina",
       "away": "Switzerland",
       "homeScore": 1,
