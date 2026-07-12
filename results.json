@@ -1,5 +1,5 @@
 {
-  "updated": "2026-07-12T03:35:18.193Z",
+  "updated": "2026-07-12T03:40:26.463Z",
   "count": 100,
   "matches": [
     {
@@ -998,9 +998,9 @@
       "status": "IN_PLAY",
       "home": "Argentina",
       "away": "Switzerland",
-      "homeScore": 1,
+      "homeScore": 2,
       "awayScore": 1,
-      "winner": "DRAW"
+      "winner": "HOME_TEAM"
     }
   ]
 }
