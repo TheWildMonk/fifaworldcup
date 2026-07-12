@@ -1,6 +1,6 @@
 {
-  "updated": "2026-07-12T01:05:15.040Z",
-  "count": 99,
+  "updated": "2026-07-12T01:08:39.792Z",
+  "count": 100,
   "matches": [
     {
       "stage": "GROUP_STAGE",
@@ -991,6 +991,16 @@
       "homeScore": 1,
       "awayScore": 2,
       "winner": "AWAY_TEAM"
+    },
+    {
+      "stage": "QUARTER_FINALS",
+      "group": null,
+      "status": "IN_PLAY",
+      "home": "Argentina",
+      "away": "Switzerland",
+      "homeScore": 0,
+      "awayScore": 0,
+      "winner": "DRAW"
     }
   ]
 }
