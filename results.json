@@ -1,6 +1,6 @@
 {
-  "updated": "2026-07-14T19:00:35.322Z",
-  "count": 100,
+  "updated": "2026-07-14T19:05:15.925Z",
+  "count": 101,
   "matches": [
     {
       "stage": "GROUP_STAGE",
@@ -1001,6 +1001,16 @@
       "homeScore": 3,
       "awayScore": 1,
       "winner": "HOME_TEAM"
+    },
+    {
+      "stage": "SEMI_FINALS",
+      "group": null,
+      "status": "LIVE",
+      "home": "France",
+      "away": "Spain",
+      "homeScore": 0,
+      "awayScore": 0,
+      "winner": "DRAW"
     }
   ]
 }
