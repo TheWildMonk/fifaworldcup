@@ -1,5 +1,5 @@
 {
-  "updated": "2026-07-14T20:10:29.513Z",
+  "updated": "2026-07-14T20:15:17.733Z",
   "count": 101,
   "matches": [
     {
@@ -1005,7 +1005,7 @@
     {
       "stage": "SEMI_FINALS",
       "group": null,
-      "status": "PAUSED",
+      "status": "IN_PLAY",
       "home": "France",
       "away": "Spain",
       "homeScore": 0,
