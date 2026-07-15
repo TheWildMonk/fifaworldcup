@@ -1,5 +1,5 @@
 {
-  "updated": "2026-07-15T20:55:14.402Z",
+  "updated": "2026-07-15T21:00:35.920Z",
   "count": 102,
   "matches": [
     {
@@ -1019,8 +1019,8 @@
       "home": "England",
       "away": "Argentina",
       "homeScore": 1,
-      "awayScore": 1,
-      "winner": "DRAW"
+      "awayScore": 2,
+      "winner": "AWAY_TEAM"
     }
   ]
 }
