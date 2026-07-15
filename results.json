@@ -1,6 +1,6 @@
 {
-  "updated": "2026-07-15T19:05:15.780Z",
-  "count": 101,
+  "updated": "2026-07-15T19:10:27.893Z",
+  "count": 102,
   "matches": [
     {
       "stage": "GROUP_STAGE",
@@ -1011,6 +1011,16 @@
       "homeScore": 0,
       "awayScore": 2,
       "winner": "AWAY_TEAM"
+    },
+    {
+      "stage": "SEMI_FINALS",
+      "group": null,
+      "status": "IN_PLAY",
+      "home": "England",
+      "away": "Argentina",
+      "homeScore": 0,
+      "awayScore": 0,
+      "winner": "DRAW"
     }
   ]
 }
