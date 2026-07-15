@@ -1,5 +1,5 @@
 {
-  "updated": "2026-07-15T21:05:17.124Z",
+  "updated": "2026-07-15T21:10:31.117Z",
   "count": 102,
   "matches": [
     {
@@ -1015,7 +1015,7 @@
     {
       "stage": "SEMI_FINALS",
       "group": null,
-      "status": "IN_PLAY",
+      "status": "FINISHED",
       "home": "England",
       "away": "Argentina",
       "homeScore": 1,
