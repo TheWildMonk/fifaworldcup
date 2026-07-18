@@ -1,5 +1,5 @@
 {
-  "updated": "2026-07-18T23:00:23.799Z",
+  "updated": "2026-07-18T23:05:14.005Z",
   "count": 103,
   "matches": [
     {
@@ -1028,7 +1028,7 @@
       "status": "IN_PLAY",
       "home": "France",
       "away": "England",
-      "homeScore": 3,
+      "homeScore": 4,
       "awayScore": 5,
       "winner": "AWAY_TEAM"
     }
