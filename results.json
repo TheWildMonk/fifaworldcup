@@ -1,5 +1,5 @@
 {
-  "updated": "2026-07-18T22:10:16.832Z",
+  "updated": "2026-07-18T22:15:19.131Z",
   "count": 103,
   "matches": [
     {
@@ -1025,7 +1025,7 @@
     {
       "stage": "THIRD_PLACE",
       "group": null,
-      "status": "PAUSED",
+      "status": "IN_PLAY",
       "home": "France",
       "away": "England",
       "homeScore": 0,
