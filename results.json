@@ -1,5 +1,5 @@
 {
-  "updated": "2026-07-18T23:05:14.005Z",
+  "updated": "2026-07-18T23:10:18.939Z",
   "count": 103,
   "matches": [
     {
@@ -1025,11 +1025,11 @@
     {
       "stage": "THIRD_PLACE",
       "group": null,
-      "status": "IN_PLAY",
+      "status": "FINISHED",
       "home": "France",
       "away": "England",
       "homeScore": 4,
-      "awayScore": 5,
+      "awayScore": 6,
       "winner": "AWAY_TEAM"
     }
   ]
