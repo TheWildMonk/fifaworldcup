@@ -1,5 +1,5 @@
 {
-  "updated": "2026-07-19T19:55:13.494Z",
+  "updated": "2026-07-19T20:00:23.297Z",
   "count": 104,
   "matches": [
     {
@@ -1035,7 +1035,7 @@
     {
       "stage": "FINAL",
       "group": null,
-      "status": "LIVE",
+      "status": "PAUSED",
       "home": "Spain",
       "away": "Argentina",
       "homeScore": 0,
