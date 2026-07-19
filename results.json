@@ -1,6 +1,6 @@
 {
-  "updated": "2026-07-19T19:05:15.873Z",
-  "count": 103,
+  "updated": "2026-07-19T19:10:17.390Z",
+  "count": 104,
   "matches": [
     {
       "stage": "GROUP_STAGE",
@@ -1031,6 +1031,16 @@
       "homeScore": 4,
       "awayScore": 6,
       "winner": "AWAY_TEAM"
+    },
+    {
+      "stage": "FINAL",
+      "group": null,
+      "status": "IN_PLAY",
+      "home": "Spain",
+      "away": "Argentina",
+      "homeScore": 0,
+      "awayScore": 0,
+      "winner": "DRAW"
     }
   ]
 }
